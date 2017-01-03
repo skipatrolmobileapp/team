@@ -12,27 +12,27 @@
                 </ons-list-item>
             </ons-list>
             <div class="inset">
-                To which patrol do you belong?
+                Where do you ski/patrol?
             </div>
             <div class="inset hey">
                 {{message}}
             </div>
             <div class="inset">
-                <input id="patrolName" type="text" class="text-input" ng-model="patrolName" ng-change="search(patrolName)" placeholder="Patrol Name..." style="width: 100%">
+                <input  focus-me="true" id="patrolName" type="text" class="text-input" ng-model="patrolName" ng-change="search(patrolName)" placeholder="Resort Name..." style="width: 100%">
             </div>
             <ons-list>
                 <ons-list-item class="navigable" modifier="tappable" ng-repeat="patrol in patrols" ng-click="tap($index)">
                     <a href="#">{{patrol.patrolName}}</a>
                 </ons-list-item>
             </ons-list>
-            <div>
-                &nbsp;
-            </div>
             <div class="inset">
-                Can't find your patrol here?
+                Can't find your resort here?
                 <span class="navigable" modifier="tappable" ng-click="email()">
           Email us.
         </span> We'll set you up.
+            </div>
+            <div>
+                &nbsp;
             </div>
         </div>
         <div class="centered">

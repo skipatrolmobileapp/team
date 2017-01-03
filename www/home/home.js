@@ -160,6 +160,7 @@ module.controller('NameController', function ($scope, AccessLogService) {
     AccessLogService.log('info', 'Name');
     $scope.firstName = localStorage.getItem('OnsFirstName');
     $scope.lastName = localStorage.getItem('OnsLastName');
+    $scope.message = 'Enter your first name and last name in the fields below. Then tap "Next."';
     $scope.next = function () {
         if ((!$scope.firstName) || (!$scope.lastName)) {
             $scope.message = 'Name is required for registration.';
@@ -189,6 +190,7 @@ module.controller('PickPatrolController', function ($scope, $http, AccessLogServ
     AccessLogService.log('info', 'PickPatrol');
     $scope.patrols = [];
     $scope.patrolName = localStorage.getItem('DspPatrolName');
+    $scope.message = 'Start typing the name of your resort in the field below. Select. Then tap "Next."';
     $scope.search = function (patrolName) {
         var n = 0,
             i = 0;
