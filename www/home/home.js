@@ -8,7 +8,7 @@
 
 /*
 Ski Patrol Mobile App
-Copyright © 2014-2016, Gary Meyer.
+Copyright © 2014-2017, Gary Meyer.
 All rights reserved.
 */
 
@@ -276,6 +276,7 @@ module.controller('RegistrationController', function ($rootScope, $scope, $http,
     AccessLogService.log('info', 'Registration');
     localStorage.removeItem('DspPassword');
     $scope.email = localStorage.getItem('DspEmail');
+    $scope.message = 'Enter your email address (use the one from your roster if you are on a patrol). Then tap "Register."';
     $scope.register = function () {
         var name = localStorage.getItem('OnsFirstName') + ' ' + localStorage.getItem('OnsLastName'),
             patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
