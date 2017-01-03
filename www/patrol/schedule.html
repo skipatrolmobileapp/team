@@ -1,0 +1,61 @@
+<ons-page ng-controller="ScheduleController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-calendar" fixed-width="true">
+                    </ons-icon>
+                    Event
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset copy centered hey" ng-show="message">
+            {{message}}
+        </div>
+        <div class="inset">
+            <div class="copy centered">
+                {{quickTeaser}}
+            </div>
+        </div>
+        <div class="inset" ng-show="times">
+            <div class="copy centered">
+                {{times}}
+            </div>
+        </div>
+        <div class="inset" ng-show="description">
+            <div class="copy centered">
+                {{description}}
+            </div>
+        </div>
+        <div class="inset" ng-show="location">
+            <div class="copy centered">
+                {{location}}
+            </div>
+        </div>
+        <div class="inset" ng-show="address">
+            <div class="copy centered">
+                {{address}}
+            </div>
+        </div>
+        <!-- TODO: Implement or remove
+        <ons-list>
+            <ons-list-item ng-repeat="attendee in attendees">
+                <ons-icon icon="fa-pencil-square-o" fixed-width="true">
+                </ons-icon>
+                {{attendee.name}}
+            </ons-list-item>
+        </ons-list>
+        -->
+        <!--
+        <div class="inset">
+          <ons-button modifier="large outline tappable" ng-click="close()">
+            <ons-icon icon="fa-chevron-left" fixed-width="true">
+            </ons-icon>
+            Back
+          </ons-button>
+        </div>
+        -->
+</ons-page>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!-- Ski Patrol Mobile App -->
+<!-- Copyright © 2014-2017, Gary Meyer. -->
+<!-- All rights reserved. -->
+
+<head>
+    <title>
+        Ski Patrol
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js">
+    </script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Play' type='text/css'>
+    <link rel="stylesheet" href="css/medic52-onsen-css-components.css">
+    <link rel="stylesheet" href="css/medic52-app.css">
+    <script>
+        var settingAppName = 'Medic52 Team',
+            settingPickPatrolScreen = 'home/pickpatrol.html',
+            settingTease = true,
+            settingSnowConditionsImage = 'img/blackmountain.png',
+            settingLoggingAppId = 'M52TM260';
+    </script>
+    <script src="components/moment/moment.js">
+    </script>
+    <script src="components/angular-touch/angular-touch.js">
+    </script>
+    <!-- version 1.6.0, compatiable with Cordova -->
+    <script src="components/jsSHA/sha1.js">
+    </script>
+    <script src="app.js">
+    </script>
+    <script src="home/home.js">
+    </script>
+    <script src="logistics/latlong.js">
+    </script>
+    <script src="logistics/logistics.js">
+    </script>
+    <script src="patrol/patrol.js">
+    </script>
+    <script src="more/more.js">
+    </script>
+    <script src="admin/admin.js">
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js">
+    </script>
+</head>
+
+<body>
+    <ons-toolbar class="navigation_bar toolbar" style="margin-top: 0px;">
+        <div class="center">
+            <!-- SPMA <span class="navigation-bar__line-height navigation-bar__title" style="color: #ffffff;"> -->
+            <span class="navigation-bar__line-height navigation-bar__title">
+                <!-- 
+                <ons-icon icon="fa-plus" fixed-width="true">
+                </ons-icon>
+                Ski Patrol
+                -->
+                <b>Ski Patrol</b>
+            </span>
+        </div>
+    </ons-toolbar>
+    <ons-modal var="spinnerModal">
+        <div>
+            {{$root.spinnerUpdate}}
+        </div>
+        <div class="inset">
+            &nbsp;
+        </div>
+        <ons-icon icon="ion-load-a" spin="true">
+        </ons-icon>
+    </ons-modal>
+    <ons-tabbar hide-tabs="{{$root.hideTabs}}">
+        <ons-tab icon="fa-home" page="home/homenav.html" active="true">
+        </ons-tab>
+        <ons-tab icon="ion-images" page="logistics/logisticsnav.html">
+        </ons-tab>
+        <ons-tab icon="ion-ios-people" page="patrol/patrolnav.html">
+        </ons-tab>
+        <ons-tab icon="fa-ellipsis-h" page="more/morenav.html">
+        </ons-tab>
+    </ons-tabbar>
+    <p>
+        Welcome.
+    </p>
+</div>
+    
+</body>
+
+</html>

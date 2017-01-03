@@ -1,0 +1,41 @@
+<ons-page ng-controller="PhoneController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-phone" fixed-width="true">
+                    </ons-icon>
+                    {{name}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <br/>
+        <div class="centered inset copy" ng-show="location">
+            {{location}}
+        </div>
+        <div class="inset" ng-hide="{{hide}}">
+            <ons-list>
+                <ons-list-item class="navigable" modifier="tappable" ng-click="call()">
+                    <ons-icon icon="fa-phone" fixed-width="true">
+                    </ons-icon>
+                    {{number}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="centered inset copy">
+            {{notes}}
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

@@ -1,0 +1,49 @@
+<ons-page ng-controller="LeaderBoardController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-trophy" fixed-width="true">
+                    </ons-icon>
+                    Logistics Leader Board
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-header>
+                <ons-row>
+                    <ons-col width="75%">
+                        Patroller
+                    </ons-col>
+                    <ons-col align="right">
+                        Scan Count
+                    </ons-col>
+                </ons-row>
+            </ons-list-header>
+            <ons-list-item ng-repeat="leader in leaders">
+                <ons-row>
+                    <ons-col class="copy" width="75%">
+                        {{leader.name}}
+                    </ons-col>
+                    <ons-col class="copy" align="right">
+                        {{leader.scanCount}}
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+        <div>&nbsp;</div>
+        <div class="centered copy hey">{{message}}</div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

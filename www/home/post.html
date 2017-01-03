@@ -1,0 +1,68 @@
+<ons-page ng-controller="PostController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-comment-o" fixed-width="true">
+                    </ons-icon>
+                    <span ng-show="{{'poster'}}">Edit </span>Post
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div>&nbsp;</div>
+        <ons-list>
+            <ons-list-header>
+                {{postedBy}} - {{displayDate}}
+            </ons-list-header>
+        </ons-list>
+        <div>&nbsp;</div>
+        <img id="photo" width="100%" alt="Photo" ng-show="null !== image" src="{{image}}"/>
+        <div class="inset" ng-hide="{{'poster'}}">
+            {{body}}
+        </div>
+        <div ng-show="{{'poster'}}">
+            <textarea class="textarea" ng-model="body" rows="3" style="width: 100%;" placeholder="Say it..."></textarea>
+            <div>
+                &nbsp;
+            </div>
+            <ons-button modifier="large tappable" ng-click="update()">
+                <ons-icon icon="fa-check-circle" fixed-width="true">
+                </ons-icon>
+                Update
+            </ons-button>
+            <br/>
+            <ons-button modifier="large outline tappable" ng-click="remove()">
+                <ons-icon icon="fa-minus-circle" fixed-width="true">
+                </ons-icon>
+                Remove
+            </ons-button>
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    -->
+</ons-page>

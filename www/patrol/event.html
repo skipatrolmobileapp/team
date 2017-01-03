@@ -1,0 +1,144 @@
+<ons-page ng-controller="EventController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-calendar" fixed-width="true">
+                    </ons-icon>
+                    Event
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset copy centered hey" ng-show="{{'message'}}">
+            {{message}}
+        </div>
+        <div class="inset copy centered">
+            {{quickTeaser}}
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-header>
+                    Date and Time
+                </ons-list-header>
+                <ons-list-item class="hotspot">
+                    <ons-row ng-click="getDate()">
+                        <ons-col class="left">
+                            Date: {{date}}
+                        </ons-col>
+                        <ons-col class="right">
+                            <ons-icon icon="fa-pencil-square-o" fixed-width="true">
+                            </ons-icon>
+                        </ons-col>
+                    </ons-row>
+                    <ons-row ng-click="toggleAllDay()">
+                        <ons-col class="left">
+                            All day event?
+                        </ons-col>
+                        <ons-col class="right">
+                            <ons-icon icon="fa-check-square-o" fixed-width="true" ng-show="{{'allDay'}}">
+                            </ons-icon>
+                            <ons-icon icon="fa-square-o" fixed-width="true" ng-hide="{{'allDay'}}">
+                            </ons-icon>
+                        </ons-col>
+                    </ons-row>
+                    <ons-row ng-click="getStartTime()" ng-hide="{{'allDay'}}">
+                        <ons-col class="left">
+                            Start time: {{startTime}}
+                        </ons-col>
+                        <ons-col class="right">
+                            <ons-icon icon="fa-pencil-square-o" fixed-width="true">
+                            </ons-icon>
+                        </ons-col>
+                    </ons-row>
+                    <ons-row ng-click="getEndTime()" ng-hide="{{'allDay'}}">
+                        <ons-col class="left">
+                            End time: {{endTime}}
+                        </ons-col>
+                        <ons-col class="right">
+                            <ons-icon icon="fa-pencil-square-o" fixed-width="true">
+                            </ons-icon>
+                        </ons-col>
+                    </ons-row>
+                </ons-list-item>
+                <ons-list-header>
+                    Activity
+                </ons-list-header>
+                <ons-list-item modifier="tappable" ng-repeat="listItem in activities">
+                    <label class="radio-button radio-button--list-item">
+                        <input type="radio" name="a" ng-model="activity.activity" value="{{listItem}}">
+                        <div class="radio-button__checkmark radio-button--list-item__checkmark">
+                        </div>
+                        {{listItem}}
+                    </label>
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <textarea id="description" class="textarea" rows="3" class="text-input" ng-model="description" placeholder="Description..." style="width: 100%"></textarea>
+        <div>
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-header>
+                    Location
+                </ons-list-header>
+            </ons-list>
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <input id="location" type="text" class="text-input" ng-model="location" placeholder="Name..." style="width: 100%">
+        <div>
+            &nbsp;
+        </div>
+        <textarea id="address" class="textarea" rows="2" class="text-input" ng-model="address" placeholder="Address..." style="width: 100%"></textarea>
+        <div>
+            &nbsp;
+        </div>
+        <ons-button modifier="large tappable" ng-click="update()">
+            <ons-icon icon="fa-check-circle" fixed-width="true">
+            </ons-icon>
+            Update
+        </ons-button>
+        <br/>
+        <ons-button modifier="large outline tappable" ng-click="delete()">
+            <ons-icon icon="fa-minus-circle" fixed-width="true">
+            </ons-icon>
+            Delete
+        </ons-button>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    <div>&nbsp;</div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    -->
+</ons-page>

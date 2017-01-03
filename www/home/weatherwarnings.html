@@ -1,0 +1,42 @@
+<ons-page ng-controller="WeatherWarningsController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-exclamation-triangle" fixed-width="true">
+                    </ons-icon>
+                    Weather Warnings
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div ng-repeat="item in items">
+            <div class="centered inset copy hey">
+                {{item.title}}
+            </div>
+            <div class="inset copy">
+                {{item.full}}
+            </div>
+        </div>
+        <div class="centered fineprint">
+            Weather warnings provided by
+        </div>
+        <div class="centered inset">
+            <img width="150" height="40" src="img/opensnow-blue.png" alt="OpenSnow" />
+        </div>
+        <div class="centered fineprint">
+            {{reportDate}}
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

@@ -1,0 +1,40 @@
+<ons-page ng-controller="PatrolContentController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-file-o" fixed-width="true">
+                    </ons-icon>
+                    {{title}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <br/>
+        <div class="inset copy" ng-bind-html="body">
+        </div>
+        <div ng-show="attachmentAddress">
+            <div ng-click="openAttachment()">
+                <br/>
+                <ons-list>
+                    <ons-list-item class="centered navigable" modifier="tappable">
+                        <ons-icon icon="fa-paperclip" fixed-width="true">
+                        </ons-icon>
+                        {{attachmentName}}
+                    </ons-list-item>
+                </ons-list>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

@@ -1,0 +1,116 @@
+<ons-page ng-controller="SignUpController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-calendar" fixed-width="true">
+                    </ons-icon>
+                    Sign In
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset copy centered hey" ng-show="{{'message'}}">
+            {{message}}
+        </div>
+        <div class="inset copy centered">
+            {{quickTeaser}}
+        </div>
+        <div class="inset centered hotspot" ng-click="showDutyList()">
+            {{duty.duty}}
+            <ons-icon icon="fa-edit" fixed-width="true" ng-show="'duty.duty'">
+            </ons-icon>
+        </div>
+        <div ng-show="{{'duties.length > 0'}}">
+            <ons-list>
+                <ons-list-item modifier="tappable" ng-repeat="listItem in duties">
+                    <label class="radio-button radio-button--list-item">
+                        <input type="radio" name="a" ng-model="duty.duty" value="{{listItem}}" ng-click="dutyPicked()">
+                        <div class="radio-button__checkmark radio-button--list-item__checkmark">
+                        </div>
+                        {{listItem}}
+                    </label>
+                </ons-list-item>
+            </ons-list>
+            <div>
+                &nbsp;
+            </div>
+        </div>
+        <input id="name" type="text" class="text-input" ng-model="name" ng-focus="listNames()" ng-change="searchName(name)" placeholder="Name..." style="width: 100%">
+        <div>
+            &nbsp;
+        </div>
+        <ons-list>
+            <ons-list-item modifier="tappable" ng-repeat="patroller in patrollers">
+                <label class="radio-button radio-button--list-item">
+                    <input type="radio" name="b" ng-model="patroller.patroller" value="{{patroller.name}}" ng-click="namePicked(patroller)">
+                    <div class="radio-button__checkmark radio-button--list-item__checkmark">
+                    </div>
+                    {{patroller.name}}
+                </label>
+            </ons-list-item>
+        </ons-list>
+        <div>
+            <input id="equipment" type="text" class="text-input" ng-model="equipment" ng-focus="clearNames()" placeholder="Radio # or other equipment..." style="width: 100%">
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div>
+            <input id="comments" type="text" class="text-input" ng-model="comments" ng-focus="clearNames()" placeholder="Comments..." style="width: 100%">
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div>
+            <input id="credits" type="number" class="text-input" ng-model="credits" ng-focus="clearNames()" placeholder="Credits..." style="width: 100%">
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <ons-button modifier="large tappable" ng-click="add()">
+            <ons-icon icon="fa-plus-circle" fixed-width="true">
+            </ons-icon>
+            Add
+        </ons-button>
+        <br/>
+        <ons-button modifier="large outline tappable" ng-click="cancel()">
+            <ons-icon icon="fa-check-circle" fixed-width="true">
+            </ons-icon>
+            Finish
+        </ons-button>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="back()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    <div>&nbsp;</div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    -->
+</ons-page>

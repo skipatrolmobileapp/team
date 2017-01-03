@@ -1,0 +1,123 @@
+<ons-navigator var="patrolNavigator">
+    <ons-page ng-controller="PatrolController" modifier="full_bg">
+        <div class="inset">
+            <div class="inset">
+                &nbsp;
+            </div>
+            <div ng-show="{{'aGuest'}}">
+                <!--
+                <ons-list>
+                    <ons-list-item class="centered">
+                        <ons-icon icon="fa-phone" fixed-width="true">
+                        </ons-icon>
+                        Patrol
+                    </ons-list-item>
+                </ons-list>
+                -->
+                <img alt="Ad Not Available" width="100%" ng-src="{{adImageAddress}}" ng-show="{{'enableAd'}}" ng-click="adClick()"></a>
+                <ons-list>
+                    <ons-list-header>
+                        Key Phone Numbers
+                    </ons-list-header>
+                    <ons-list-item class="navigable" modifier="tappable" ng-repeat="item in items" ng-click="call($index)">
+                        <ons-icon icon="fa-phone" fixed-width="true">
+                        </ons-icon>
+                        {{item.name}}
+                    </ons-list-item>
+                </ons-list>
+            </div>
+            <!--
+            <div ng-show="{{'enablePatrolInfo'}}">
+                <ons-list>
+                    <ons-list-item class="centered">
+                        <ons-icon icon="ion-ios-people" fixed-width="true">
+                        </ons-icon>
+                        Patrol
+                    </ons-list-item>
+                </ons-list>
+            </div>
+            -->
+            <ons-list ng-show="{{'enablePatrolInfo'}}">
+                <ons-list-header>
+                    Patrol Directory
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="patrolNavigator.pushPage('patrol/call.html')">
+                    <ons-icon icon="fa-phone" fixed-width="true">
+                    </ons-icon>
+                    Key Phone Numbers
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="patrolNavigator.pushPage('patrol/search.html')">
+                    <ons-icon icon="fa-search" fixed-width="true">
+                    </ons-icon>
+                    Directory Search
+                </ons-list-item>
+                <ons-list-header ng-show="categories.length">
+                    Reference
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="category in categories" ng-click="viewCategory($index)" ng-show="categories">
+                    <ons-icon icon="fa-file-o" fixed-width="true">
+                    </ons-icon>
+                    {{category.category}}
+                </ons-list-item>
+                <ons-list-header ng-show="{{'enableSignIn'}}">
+                    Sign In
+                </ons-list-header>
+                <ons-list-item ng-show="{{'enableSignIn'}}" class="navigable" modifier="chevron tappable" onclick="patrolNavigator.pushPage('patrol/calendar.html')">
+                    <ons-icon icon="fa-calendar" fixed-width="true">
+                    </ons-icon>
+                    Patrol Calendar
+                </ons-list-item>
+                <ons-list-item ng-show="{{'enableSignIn'}}" class="navigable" modifier="chevron tappable" onclick="patrolNavigator.pushPage('patrol/leaders.html')">
+                    <ons-icon icon="ion-android-star" fixed-width="true">
+                    </ons-icon>
+                    Patrol Leader Assignments
+                </ons-list-item>
+                <ons-list-item ng-show="{{'enableSignIn'}}" class="navigable" modifier="chevron tappable" onclick="patrolNavigator.pushPage('patrol/sheets.html')">
+                    <ons-icon icon="fa-calendar" fixed-width="true">
+                    </ons-icon>
+                    Sign In Sheets
+                </ons-list-item>
+                <ons-list-header ng-show="events.length>0">
+                    Upcoming Schedule
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="event in events" ng-click="showEvent($index)">
+                    <ons-icon icon="fa-calendar" fixed-width="true" ng-show="event.attendeeCount>0">
+                    </ons-icon>
+                    <ons-icon icon="fa-calendar-o" fixed-width="true" ng-hide="event.attendeeCount>0">
+                    </ons-icon>
+                    {{event.quickTeaser}}
+                </ons-list-item>
+                <ons-list-header ng-show="{{enableNspOnline}}">
+                    Shift Schedule
+                </ons-list-header>
+                <ons-list-item ng-show="{{enableNspLink}}" class="navigable" modifier="chevron tappable" ng-click="linkNspOnline()">
+                    <ons-icon icon="fa-link" fixed-width="true">
+                    </ons-icon>
+                    Link your NSP Online account
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset" ng-hide="{{'enablePatrolInfo'}}">
+            <div class="centered">When reporting an incident, use "SAILS."</div>
+            <div class="inset">
+                <table class="inset">
+                    <tr>
+                        <td>Sex</td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                    </tr>
+                    <tr>
+                        <td>Injury or Illness</td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                    </tr>
+                    <tr>
+                        <td>Skier or Snowboarder</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </ons-page>
+</ons-navigator>

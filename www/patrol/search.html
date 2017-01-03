@@ -1,0 +1,36 @@
+<ons-page ng-controller="SearchController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered prominent">
+                    <ons-icon icon="fa-search" fixed-width="true">
+                    </ons-icon>
+                    Directory Search
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset copy centered">
+            Type the name you'd like to find.
+        </div>
+        <div class="inset">
+            <input id="name" type="text" class="text-input" ng-model="name" ng-change="search(name)" placeholder="Name..." style="width: 100%">
+        </div>
+        <ons-list>
+            <ons-list-item class="navigable" modifier="tappable chevron" ng-repeat="patroller in patrollers" ng-click="view($index)">
+                {{patroller.name}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

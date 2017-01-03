@@ -1,0 +1,42 @@
+<ons-page ng-controller="NicknameController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-android-chat" fixed-width="true">
+                    </ons-icon>
+                    {{name}} {{compassHeading}} {{timestamp}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <br/>
+        <div class="centered inset copy" ng-hide="{{'hideAlsoCalled'}}">
+            {{alsoCalled}}
+        </div>
+        <div class="centered inset copy">
+            {{notes}}
+        </div>
+        <div class="centered inset copy" ng-hide="{{'hideQrCodeTease'}}">
+            <ons-icon icon="ion-qr-scanner" fixed-width="true">
+            </ons-icon>
+            This nickname has a QR code.
+        </div>
+        <div>&nbsp;</div>
+        <div id="directions" class="centered copy"><i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div>&nbsp;</div>
+        <div id="elevationChange" class="centered copy"></div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

@@ -1,0 +1,135 @@
+<ons-page ng-controller="AvyForecastController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div ng-swipe-right="close()">
+        <div class="inset">
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-alert" fixed-width="true">
+                    </ons-icon>
+                    Avalanche Forecast
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div ng-show="message" class="inset copy centered hey">
+          {{message}}
+        </div>
+        <div class="centered">
+            <b>{{today}}</b>
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered copy">
+            <b>Above Treeline</b>
+        </div>
+        <div class="centered">
+            <img id="todayHigh" width="190" height="53" src="img/1.png" alt="Danger" style="margin: 10px">
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered copy">
+            <b>Near Treeline</b>
+        </div>
+        <div class="centered">
+            <img id="todayMiddle" width="190" height="53" src="img/1.png" alt="Danger" style="margin: 10px">
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered copy">
+            <b>Below Treeline</b>
+        </div>
+        <div class="centered">
+            <img id="todayLow" width="190" height="53" src="img/1.png" alt="Danger" style="margin: 10px">
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered">
+            <b>{{tomorrow}}</b>
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered copy">
+            <b>Above Treeline</b>
+        </div>
+        <div class="centered">
+            <img id="tomorrowHigh" width="190" height="53" src="img/1.png" alt="Danger" style="margin: 10px">
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered copy">
+            <b>Near Treeline</b>
+        </div>
+        <div class="centered">
+            <img id="tomorrowMiddle" width="190" height="53" src="img/1.png" alt="Danger" style="margin: 10px">
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered copy">
+            <b>Below Treeline</b>
+        </div>
+        <div class="centered">
+            <img id="tomorrowLow" width="190" height="53" src="img/1.png" alt="Danger" style="margin: 10px">
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered">
+            <b>Summary</b>
+        </div>
+        <div class="inset copy" ng-bind-html="summary">
+        </div>
+        <div ng-show="discussion">
+            <div class="centered">
+                <b>Discussion</b>
+            </div>
+            <div class="inset copy" ng-bind-html="discussion">
+            </div>
+        </div>
+        <div ng-show="specialStatement">
+            <div class="centered">
+                <b>Special Statement</b>
+            </div>
+            <div class="inset copy">
+                {{specialStatement}}
+            </div>
+        </div>
+        <div class="inset copy">
+            For more information, download the avalanche information center's app.
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered fineprint">
+            Avalanche forecast provided by
+        </div>
+        <div class="centered inset">
+            <img width="144" height="40" src="img/caic.png" alt="Colorado Avalanche Information Center" style="background-color: #ffffff; margin: 5px;"/>
+        </div>
+        <div class="centered fineprint">
+            {{reportDate}}
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

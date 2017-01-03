@@ -1,0 +1,87 @@
+/*
+Ski Patrol Mobile App
+Copyright © 2014-2016, Gary Meyer.
+All rights reserved.
+*/
+.toolbar {
+    font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+    color: #ffffff;
+    background-color: #b80000;
+}
+.inset {
+    padding: 12px;
+}
+.hey {
+    color: #779eff;
+}
+.copy {
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: 17px;
+}
+.fineprint {
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: 12px;
+}
+.left {
+    text-align: left;
+}
+.centered {
+    text-align: center;
+}
+.right {
+    text-align: right;
+}
+.hotspot {
+    color: #779eff;
+}
+.navigable {
+    background-color: #111111;
+    color: #779eff;
+}
+.inlinelink {
+    color: #779eff;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+    text-decoration: none;
+    color: #779eff;
+}
+.page--intro_bg__background {
+    background: url('../img/mountain.jpg');
+}
+.page--full_bg__background {
+    background: url('../img/mountain.jpg');
+}
+.framed {
+    border: 2px solid DimGray;
+    padding: 0px;
+}
+.biggish {
+    font-size: 40px;
+}
+.huge {
+    font-size: 80px;
+}
+select {
+    -webkit-appearance: none;
+    width: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+    font-size: 16px;
+    color: #000000;
+    background-color: #dddddd;
+    padding: 10px;
+    border: 0;
+}
+
+.list-item-note {
+  position: absolute;
+  right: 36px;
+  top: 0px;
+  font-size: 14px;
+}
+
+.list-item-note > .notification {
+  margin-top: 12px;
+}

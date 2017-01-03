@@ -1,0 +1,28 @@
+{
+    "plugins": [
+        "mobi.monaca.plugins.Monaca@3.1.0",
+        "mobi.monaca.plugins.datepicker@1.0.1",
+        "mobi.monaca.plugins.BarcodeScanner@1.0.3"
+    ],
+    "framework_version": "3.5",
+    "xcode_version": "7",
+    "cordova_version": "6.2",
+    "external_plugins": [],
+    "title-ja": "",
+    "title-en": "Ski Patrol",
+    "description-ja": "",
+    "description-en": "2.2.4",
+    "category": "User Template",
+    "platform": [
+        "android",
+        "ios"
+    ],
+    "name": "generated-1444336695-55e45572fd173438081e39d5",
+    "plugin_settings": {
+        "cordova-plugin-crosswalk-webview": {
+            "variables": [
+                "XWALK_VERSION=18.48.477.13"
+            ]
+        }
+    }
+}

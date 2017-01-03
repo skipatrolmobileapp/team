@@ -1,0 +1,42 @@
+<ons-page ng-controller="TravelCamsController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-video-camera" fixed-width="true">
+                    </ons-icon>
+                    Travel Cams
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div ng-repeat="liveCam in liveCams">
+            <div class="centered inset copy">
+                <b>
+          {{liveCam.name}}
+        </b>
+            </div>
+            <div class="centered">
+                <img ng-src="{{liveCam.address}}" width="100%" alt="Camera Image Unavailable" ng-click="view($index)" />
+            </div>
+        </div>
+        <br/>
+        <div class="centered fineprint" ng-show="logoAddress">
+            Live cams provided by
+        </div>
+        <div class="centered inset" ng-show="logoAddress">
+            <img ng-src="{{logoAddress}}" alt="Resort" style="max-height: 40px;"/>
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

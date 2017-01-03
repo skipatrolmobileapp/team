@@ -1,0 +1,60 @@
+<ons-page ng-controller="QrCodeController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-qr-scanner" fixed-width="true">
+                    </ons-icon>
+                    Scan QR Code
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div>&nbsp;</div>
+        <div>
+            <ons-button modifier="large tappable" ng-click="scan()">
+                <ons-icon icon="ion-qr-scanner" fixed-width="true">
+                </ons-icon>
+                Scan Now
+            </ons-button>
+        </div>
+        <div>&nbsp;</div>
+        <div class="biggish centered">{{scanned}}</div>
+        <div>&nbsp;</div>
+        <ons-list>
+            <ons-list-header>
+                <ons-row>
+                    <ons-col width="65%">
+                        Location
+                    </ons-col>
+                    <ons-col align="centered">
+                        Scanned
+                    </ons-col>
+                </ons-row>
+            </ons-list-header>
+            <ons-list-item ng-repeat="qrcodescan in qrcodescans">
+                <ons-row>
+                    <ons-col class="copy" width="65%">
+                        {{qrcodescan.location}}
+                    </ons-col>
+                    <ons-col class="copy" align="right">
+                        {{qrcodescan.scanned}}
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+        <div>&nbsp;</div>
+        <div class="centered copy hey">{{message}}</div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

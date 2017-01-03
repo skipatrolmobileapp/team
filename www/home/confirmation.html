@@ -1,0 +1,31 @@
+<ons-page ng-controller="ConfirmationController" modifier="intro_bg" ng-device-backbutton="exit()">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="back()" ng-swipe-left="next()">
+        <div style="min-height: 300px">
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-sign-in" fixed-width="true">
+                    </ons-icon>
+                    Step 5 of 5
+                </ons-list-item>
+            </ons-list>
+            <div class="inset centered">
+                You have been sent an account confirmation email. Check your email and click on the link to enter a password and confirm your account.
+            </div>
+            <div class="inset centered">
+                Once you've confirmed your account, restart the app and log in.
+                <br/>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="restart()">
+        <ons-icon icon="fa-refresh" fixed-width="true">
+        </ons-icon>
+        Restart
+      </ons-button>
+    </div>
+</ons-page>

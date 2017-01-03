@@ -1,0 +1,55 @@
+<ons-page ng-controller="LoginController" modifier="full_bg" ng-device-backbutton="exit()">
+  <div class="inset">
+    &nbsp;
+  </div>
+  <div class="inset">
+    <div>
+      <ons-list>
+        <ons-list-item class="centered">
+          <ons-icon icon="fa-sign-in" fixed-width="true">
+          </ons-icon>
+          Login
+        </ons-list-item>
+      </ons-list>
+    </div>
+    <div class="inset copy centered hey">
+      {{message}}
+    </div>
+    <div class="inset copy centered">
+      To login, enter your info below.
+    </div>
+    <br/>
+    <ons-list><ons-list-item>
+    <br/>
+    <input my-focus id="email" type="email" class="text-input" ng-model="email" placeholder="Email" style="width: 100%">
+    <br/>
+    <input my-focus id="password" type="password" class="text-input" ng-model="password" placeholder="Password" style="width: 100%">
+    <div>&nbsp;</div>
+    </ons-list-item></ons-list>
+    <br/>
+    <div>
+      <ons-button modifier="large tappable" ng-click="login()">
+        <ons-icon icon="fa-sign-in" fixed-width="true">
+        </ons-icon>
+        Login
+      </ons-button>
+    </div>
+    <br/>
+    <div>
+      <ons-button modifier="large outline tappable" ng-click="resetPassword()">
+        <ons-icon icon="ion-help-buoy" fixed-width="true">
+        </ons-icon>
+        Lost Password
+      </ons-button>
+    </div>
+    <br/>
+    <div>
+      <ons-button modifier="large outline tappable" ng-click="register()">
+        <ons-icon icon="fa-chevron-circle-right" fixed-width="true">
+        </ons-icon>
+        Register
+      </ons-button>
+    </div>
+    <br/>
+  </div>
+</ons-page>

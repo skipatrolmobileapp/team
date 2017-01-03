@@ -1,0 +1,37 @@
+<ons-page ng-controller="SheetsController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-calendar" fixed-width="true">
+                    </ons-icon>
+                    Sign In Sheets
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-header>
+                Events
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="event in events" ng-click="pickEvent($index)">
+                <ons-icon icon="fa-calendar" fixed-width="true" ng-show="event.attendeeCount>0">
+                </ons-icon>
+                <ons-icon icon="fa-calendar-o" fixed-width="true" ng-hide="event.attendeeCount>0">
+                </ons-icon>
+                {{event.quickTeaser}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

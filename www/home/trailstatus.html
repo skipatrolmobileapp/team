@@ -1,0 +1,53 @@
+<ons-page ng-controller="TrailStatusController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-images" fixed-width="true">
+                    </ons-icon>
+                    {{area}} Trail Status
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div>
+            <ons-row class="inset" ng-repeat="trail in trails">
+                <ons-col width="10%" class="centered" style="vertical-align: middle;">
+                    <img width="15" height="15" ng-src="{{trail.difficultyIconPath}}" alt="{{trail.difficulty}}" />
+                </ons-col>
+                <ons-col width="70%" style="vertical-align: middle;">
+                    <div class="copy">
+                        {{trail.name}}
+                    </div>
+                </ons-col>
+                <ons-col width="10%" class="centered" style="vertical-align: middle;">
+                    <ons-icon icon="{{trail.statusIcon}}" style="color: {{trail.statusIconColor}}" fixed-width="true">
+                    </ons-icon>
+                </ons-col>
+                <ons-col width="10%" style="vertical-align: middle;">
+                    <img ng-show="trail.grooming" height="15" width="25" src="img/grooming.png" alt="Grooming">
+                </ons-col>
+            </ons-row>
+        </div>
+        <div class="centered fineprint">
+            Trail status provided by
+        </div>
+        <div class="centered inset" ng-show="logoAddress">
+            <img ng-src="{{logoAddress}}" alt="Resort" style="max-height: 40px;"/>
+        </div>
+        <div class="centered inset" ng-hide="logoAddress">
+            {{patrolName}}
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

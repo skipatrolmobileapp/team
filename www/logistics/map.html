@@ -1,0 +1,34 @@
+<ons-page ng-controller="MapController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-map" fixed-width="true">
+                    </ons-icon>
+                    {{name}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="centered">
+            <img ng-src="{{thumbnailAddress}}" width="100%" alt="Map" ng-click="view()" />
+        </div>
+        <div>
+            &nbsp;
+        </div>
+        <div class="centered copy">
+            Tap on map to see larger size
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

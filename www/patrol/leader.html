@@ -1,0 +1,72 @@
+<ons-page ng-controller="LeaderController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-android-star" fixed-width="true">
+                    </ons-icon>
+                    Patrol Leader Assignment
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset copy centered hey" ng-show="{{'message'}}">
+            {{message}}
+        </div>
+        <div class="inset copy centered">
+            {{quickTeaser}}
+        </div>
+        <input id="name" type="text" class="text-input" ng-model="name" ng-focus="listNames()" ng-change="searchName(name)" placeholder="Name..." style="width: 100%">
+        <div>
+            &nbsp;
+        </div>
+        <ons-list>
+            <ons-list-item modifier="tappable" ng-repeat="patroller in patrollers">
+                <label class="radio-button radio-button--list-item">
+                    <input type="radio" name="b" ng-model="patroller.patroller" value="{{patroller.name}}" ng-click="namePicked(patroller)">
+                    <div class="radio-button__checkmark radio-button--list-item__checkmark">
+                    </div>
+                    {{patroller.name}}
+                </label>
+            </ons-list-item>
+        </ons-list>
+        <ons-button modifier="large tappable" ng-click="update()">
+            <ons-icon icon="fa-check-circle" fixed-width="true">
+            </ons-icon>
+            Assign
+        </ons-button>
+        <br/>
+        <ons-button modifier="large outline tappable" ng-click="remove()">
+            <ons-icon icon="fa-minus-circle" fixed-width="true">
+            </ons-icon>
+            Unassign
+        </ons-button>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="back()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    <div>&nbsp;</div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    -->
+</ons-page>

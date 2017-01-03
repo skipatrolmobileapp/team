@@ -1,0 +1,107 @@
+<ons-page ng-controller="LiveController" modifier="full_bg">
+    <div class="inset">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <!--
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-home" fixed-width="true">
+                    </ons-icon>
+                    Home
+                </ons-list-item>
+            </ons-list>
+        </div>
+        -->
+        <img alt="Ad Not Available" width="100%" ng-src="{{adImageAddress}}" ng-show="enableAd" ng-click="adClick()"></a>
+        <ons-list>
+            <ons-list-header ng-show="enablePosting">
+                Updates
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/posts.html')" ng-show="enablePosting">
+                <ons-icon icon="fa-comment-o" fixed-width="true">
+                </ons-icon>
+                {{postsTeaser}}
+            </ons-list-item>
+            <ons-list-header ng-hide="hideSnowConditions">
+                Snow Conditions
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/snowconditions.html')" ng-hide="hideSnowConditions">
+                <ons-icon icon="ion-social-buffer-outline" fixed-width="true">
+                </ons-icon>
+                {{snowConditions}}
+            </ons-list-item>
+            <ons-list-header ng-show="warningsTeaser">
+                Weather Warnings
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/weatherwarnings.html')" ng-show="warningsTeaser">
+                <ons-icon icon="fa-exclamation-triangle" fixed-width="true">
+                </ons-icon>
+                {{warningsTeaser}}
+            </ons-list-item>
+            <ons-list-header ng-show="currentWeather || openWeather">
+                Current Weather
+            </ons-list-header>
+            <!--
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/currentweather.html')" ng-show="currentWeather">
+                <ons-icon icon="ion-thermometer" fixed-width="true">
+                </ons-icon>
+                {{currentWeather}}
+            </ons-list-item>
+            -->
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/openweather.html')" ng-show="openWeather">
+                <ons-icon icon="ion-thermometer" fixed-width="true">
+                </ons-icon>
+                {{openWeather}}
+            </ons-list-item>
+            <ons-list-header ng-hide="hideWeather">
+                Weather Forecast
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/weatherforecast.html')" ng-hide="hideWeather">
+                <div ng-repeat="day in days">
+                    <ons-icon icon="ion-ios-snowy" fixed-width="true">
+                    </ons-icon>
+                    {{day.forecast}}
+                </div>
+            </ons-list-item>
+            <ons-list-header ng-hide="hideAvy">
+                Avalanche Forecast
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/avyforecast.html')" ng-hide="{{'hideAvy'}}">
+                <ons-icon icon="ion-alert" fixed-width="true">
+                </ons-icon>
+                {{avyForecast}}
+            </ons-list-item>
+            <ons-list-header ng-hide="hideMtnXml">
+                Lift Status
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/liftstatus.html')" ng-hide="{{'hideMtnXml'}}">
+                <ons-icon icon="ion-arrow-up-a" fixed-width="true">
+                </ons-icon>
+                {{liftsRunning}}
+            </ons-list-item>
+            <ons-list-header ng-hide="hideMtnXml">
+                Trail Status
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="area in areas" ng-click="showTrails($index)" ng-hide="{{'hideMtnXml'}}">
+                <ons-icon icon="ion-image" fixed-width="true">
+                </ons-icon>
+                {{area.name}} - {{area.trailsOpen}}
+            </ons-list-item>
+            <ons-list-header ng-show="liveCams">
+                Live Cams
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/livecams.html')" ng-show="liveCams">
+                <ons-icon icon="fa-video-camera" fixed-width="true">
+                </ons-icon>
+                {{liveCams}}
+            </ons-list-item>
+            <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/travelcams.html')"  ng-show="travelCams">
+                <ons-icon icon="fa-video-camera" fixed-width="true">
+                </ons-icon>
+                {{travelCams}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+</ons-page>

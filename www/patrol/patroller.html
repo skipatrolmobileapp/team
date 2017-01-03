@@ -1,0 +1,108 @@
+<ons-page ng-controller="PatrollerController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered prominent">
+                    <ons-icon icon="fa-user" fixed-width="true">
+                    </ons-icon>
+                    {{name}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-item ng-show="cellPhone" class="navigable" modifier="tappable" ng-click="textCellPhone()">
+                <ons-icon icon="ion-android-textsms" fixed-width="true">
+                </ons-icon>
+                {{cellPhone}} (Cell)
+            </ons-list-item>
+            <ons-list-item ng-show="cellPhone" class="navigable" modifier="tappable" ng-click="callCellPhone()">
+                <!-- <a ng-href="tel:{{cellPhone}}"> -->
+                <ons-icon icon="fa-phone" fixed-width="true">
+                </ons-icon>
+                {{cellPhone}} (Cell)<!-- </a> -->
+            </ons-list-item>
+            <ons-list-item ng-show="homePhone" class="navigable" modifier="tappable" ng-click="callHomePhone()">
+                <!-- <a ng-href="tel:{{homePhone}}"> -->
+                <ons-icon icon="fa-phone" fixed-width="true">
+                </ons-icon>
+                {{homePhone}} (Home)<!-- </a> -->
+            </ons-list-item>
+            <ons-list-item ng-show="alternatePhone" class="navigable" modifier="tappable" ng-click="callAlternatePhone()">
+                <!-- <a ng-href="tel:{{alternatePhone}}"> -->
+                <ons-icon icon="fa-phone" fixed-width="true">
+                </ons-icon>
+                {{alternatePhone}} (Alt)<!-- </a> -->
+            </ons-list-item>
+            <ons-list-item ng-show="email" class="navigable" modifier="tappable" ng-click="sendEmail()">
+                <!-- <a ng-href="mailto:{{email}}"> -->
+                <ons-icon icon="fa-envelope" fixed-width="true">
+                </ons-icon>
+                {{email}}<!-- </a> -->
+            </ons-list-item>
+            <ons-list-item ng-show="additionalEmail" class="navigable" modifier="tappable" ng-click="sendAdditionalEmail()">
+                <!-- <a ng-href="mailto:{{additionalEmail}}"> -->
+                <ons-icon icon="fa-envelope" fixed-width="true">
+                </ons-icon>
+                {{additionalEmail}} (Alt)<!-- </a> -->
+            </ons-list-item>
+        </ons-list>
+        <div>&nbsp;</div>
+        <div class="centered copy" ng-hide="showSchedule">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <ons-list ng-show="schedules && schedules.length > 0">
+            <ons-list-header>
+                <ons-row>
+                    <ons-col>
+                        Date
+                    </ons-col>
+                    <ons-col>
+                        Activity
+                    </ons-col>
+                    <ons-col align="right">
+                        Credits
+                    </ons-col>
+                </ons-row>
+            </ons-list-header>
+            <ons-list-item ng-repeat="schedule in schedules">
+                <ons-row>
+                    <ons-col class="copy">
+                        {{schedule.displayDate}}
+                    </ons-col>
+                    <ons-col class="copy">
+                        {{schedule.summary}}
+                    </ons-col>
+                    <ons-col class="copy" align="right">
+                        {{schedule.credits}}
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+        <div ng-show="showSecretary">
+            <div class="inset centered copy">
+                Inquiries about days? Contact:
+            </div>
+            <div ng-click="sendSecretaryEmail()">
+                <ons-list>
+                    <ons-list-item class="centered navigable" modifier="tappable">
+                        <ons-icon icon="fa-envelope" fixed-width="true">
+                        </ons-icon>
+                        {{secretaryName}}
+                    </ons-list-item>
+                </ons-list>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

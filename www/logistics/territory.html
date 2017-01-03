@@ -1,0 +1,57 @@
+<ons-page ng-controller="TerritoryController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-photo" fixed-width="true">
+                    </ons-icon>
+                    {{territory}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-item ng-hide="hideTrailChecks" class="navigable" modifier="tappable chevron" onclick="logisticsNavigator.pushPage('logistics/trailchecks.html')">
+                <ons-icon icon="ion-android-done" fixed-width="true">
+                </ons-icon>
+                {{trailCheckLabel}}
+            </ons-list-item>
+            <ons-list-item ng-hide="hideAeds" class="navigable" modifier="tappable chevron" onclick="logisticsNavigator.pushPage('logistics/aeds.html')">
+                <ons-icon icon="ion-ios-pulse-strong" fixed-width="true">
+                </ons-icon>
+                AEDs
+            </ons-list-item>
+            <ons-list-item ng-hide="hidePhones" class="navigable" modifier="tappable chevron" onclick="logisticsNavigator.pushPage('logistics/phones.html')">
+                <ons-icon icon="ion-ios-telephone" fixed-width="true">
+                </ons-icon>
+                Phones
+            </ons-list-item>
+            <ons-list-item ng-hide="hideNicknames" class="navigable" modifier="tappable chevron" onclick="logisticsNavigator.pushPage('logistics/nicknames.html')">
+                <ons-icon icon="ion-android-chat" fixed-width="true">
+                </ons-icon>
+                Nicknames
+            </ons-list-item>
+            <ons-list-item ng-hide="hideToboggans" class="navigable" modifier="tappable chevron" onclick="logisticsNavigator.pushPage('logistics/toboggans.html')">
+                <ons-icon icon="ion-android-locate" fixed-width="true">
+                </ons-icon>
+                Toboggans
+            </ons-list-item>
+            <ons-list-item ng-hide="hideSweeps" class="navigable" modifier="tappable chevron" onclick="logisticsNavigator.pushPage('logistics/sweeps.html')">
+                <ons-icon icon="ion-android-done-all" fixed-width="true">
+                </ons-icon>
+                {{sweepLabel}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

@@ -1,0 +1,96 @@
+<ons-page ng-controller="WeatherForecastController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div ng-swipe-right="close()">
+        <div class="inset">
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-ios-snowy" fixed-width="true">
+                    </ons-icon>
+                    Weather Forecast
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div ng-repeat="day in days">
+            <div class="centered">
+                <b>
+          {{day.dayName}}
+        </b>
+            </div>
+            <br/>
+            <ons-row>
+                <ons-col>
+                    <div class="centered fineprint">
+                        Daytime
+                    </div>
+                    <div class="inset centered">
+                        <img height="58" width="55" ng-src="{{day.dayIcon}}" alt="Icon" />
+                    </div>
+                    <div class="inset centered copy">
+                        {{day.dayWeather}}
+                    </div>
+                    <div class="centered copy" style="font-size:200%;">
+                        {{day.dayTemp}}
+                    </div>
+                    <div class="inset centered copy">
+                        {{day.daySnow}}
+                    </div>
+                    <div class="centered fineprint">
+                        {{day.dayWind}}
+                    </div>
+                    <div class="centered fineprint ">
+                        {{day.dayWindSpeed}}
+                    </div>
+                    <br/>
+                </ons-col>
+                <ons-col>
+                    <div class="centered fineprint">
+                        Overnight
+                    </div>
+                    <div class="inset centered">
+                        <img height="58" width="55" ng-src="{{day.nightIcon}}" alt="Icon" />
+                    </div>
+                    <div class="inset centered copy">
+                        {{day.nightWeather}}
+                    </div>
+                    <div class="centered copy" style="font-size:200%;">
+                        {{day.nightTemp}}
+                    </div>
+                    <div class="inset centered copy">
+                        {{day.nightSnow}}
+                    </div>
+                    <div class="centered fineprint">
+                        {{day.nightWind}}
+                    </div>
+                    <div class="centered fineprint">
+                        {{day.nightWindSpeed}}
+                    </div>
+                    <br/>
+                </ons-col>
+            </ons-row>
+            <br/>
+        </div>
+        <div class="centered fineprint">
+            Weather forecast provided by
+        </div>
+        <div class="centered inset">
+            <img width="150" height="40" src="img/opensnow-blue.png" alt="OpenSnow" />
+        </div>
+        <div class="centered fineprint">
+            {{reportDate}}
+        </div>
+        <div>
+            &nbsp;
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

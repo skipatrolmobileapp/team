@@ -1,0 +1,69 @@
+<ons-navigator var="logisticsNavigator">
+    <ons-page ng-controller="LogisticsController" modifier="full_bg">
+        <div class="inset" ng-swipe-right="close()">
+            <div class="inset">
+                &nbsp;
+            </div>
+            <!--
+            <div>
+                <ons-list>
+                    <ons-list-item class="centered">
+                        <ons-icon icon="ion-images" fixed-width="true">
+                        </ons-icon>
+                        Mountain
+                    </ons-list-item>
+                </ons-list>
+            </div>
+            -->
+            <img alt="Ad Not Available" width="100%" ng-src="{{adImageAddress}}" ng-show="{{'enableAd'}}" ng-click="adClick()"></a>
+            <ons-list>
+                <div ng-show="showLocationFinder">
+                    <ons-list-header>
+                        Location Finder
+                    </ons-list-header>
+                    <ons-list-item class="navigable" modifier="chevron tappable" onclick="logisticsNavigator.pushPage('logistics/mark.html')">
+                        <ons-icon icon="fa-map-marker" fixed-width="true">
+                        </ons-icon>
+                        Mark Location
+                    </ons-list-item>
+                    <ons-list-item class="navigable" modifier="chevron tappable" onclick="logisticsNavigator.pushPage('logistics/marked.html')">
+                        <ons-icon icon="fa-compass" fixed-width="true">
+                        </ons-icon>
+                        Recent Marked Locations
+                    </ons-list-item>
+                </div>
+                <div ng-show="haveQrCodes">
+                    <ons-list-header ng-show="showQr">
+                        Logistics
+                    </ons-list-header>
+                    <ons-list-item ng-show="showQr" class="navigable" modifier="chevron tappable" onclick="logisticsNavigator.pushPage('logistics/qrcode.html')">
+                        <ons-icon icon="ion-qr-scanner" fixed-width="true">
+                        </ons-icon>
+                        Scan QR Code
+                    </ons-list-item>
+                    <ons-list-item ng-show="showQr" class="navigable" modifier="chevron tappable" onclick="logisticsNavigator.pushPage('logistics/leaderboard.html')">
+                        <ons-icon icon="fa-trophy" fixed-width="true">
+                        </ons-icon>
+                        Logistics Leader Board
+                    </ons-list-item>
+                </div>
+                <ons-list-header ng-show="showMaps">
+                    Maps
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="map in maps" ng-click="viewMap($index)">
+                    <ons-icon icon="ion-map" fixed-width="true">
+                    </ons-icon>
+                    {{map.name}}
+                </ons-list-item>
+                <ons-list-header>
+                    {{territoryLabel}}
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="territory in territories" ng-click="viewTerritory($index)">
+                    <ons-icon icon="fa-photo" fixed-width="true">
+                    </ons-icon>
+                    {{territory.name}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+    </ons-page>
+</ons-navigator>

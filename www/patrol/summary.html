@@ -1,0 +1,56 @@
+<ons-page ng-controller="SummaryController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-stats-bars" fixed-width="true">
+                    </ons-icon>
+                    Activity Summary
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-header>
+                <ons-row>
+                    <ons-col width="30%">
+                        Month
+                    </ons-col>
+                    <ons-col width="55%">
+                        Activity
+                    </ons-col>
+                    <ons-col>
+                        Count
+                    </ons-col>
+                </ons-row>
+            </ons-list-header>
+            <ons-list-item ng-repeat="metric in metrics">
+                <ons-row>
+                    <ons-col class="copy" width="30%">
+                        {{metric.month}}
+                    </ons-col>
+                    <ons-col class="copy" width="55%">
+                        {{metric.activity}}
+                    </ons-col>
+                    <ons-col class="copy" align="right">
+                        {{metric.categoryCount}}
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+        <div class="inset copy centered hey">
+            {{note}}
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

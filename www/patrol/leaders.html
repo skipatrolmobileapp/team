@@ -1,0 +1,37 @@
+<ons-page ng-controller="LeadersController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-android-star" fixed-width="true">
+                    </ons-icon>
+                    Patrol Leader Assignments
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-header>
+                Events
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="event in events" ng-click="pickEvent($index)">
+                <ons-icon icon="ion-android-star" ng-show="event.patrolLeaderId" fixed-width="true">
+                </ons-icon>
+                <ons-icon icon="ion-android-star-outline" ng-hide="event.patrolLeaderId" fixed-width="true">
+                </ons-icon>
+                {{event.quickTeaser}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

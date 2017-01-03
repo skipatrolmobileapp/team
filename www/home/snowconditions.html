@@ -1,0 +1,63 @@
+<ons-page ng-controller="SnowConditionsController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-social-buffer-outline" fixed-width="true">
+                    </ons-icon>
+                    Snow Conditions
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="centered inset copy">
+            {{snowConditions}}
+        </div>
+        <div class="centered inset copy">
+            {{lastSnowDate}}
+        </div>
+        <div class="copy">
+            <ons-row class="centered">
+                <ons-col width="40%">
+                    <!-- SPMA <img width="100%" src="img/whitemountain.png" alt="Mountain"> -->
+                    <!-- Medic52 <img width="100%" src="img/blackmountain.png" alt="Mountain"> -->
+                    <img width="100%" src="{{snowConditionsImage}}" alt="Mountain">
+                </ons-col>
+                <ons-col width="60%">
+                    <div>
+                        &nbsp;
+                    </div>
+                    <div>
+                        {{upperSnowDepth}}
+                    </div>
+                    <div>
+                        &nbsp;
+                    </div>
+                    <div>
+                        {{lowerSnowDepth}}
+                    </div>
+                </ons-col>
+            </ons-row>
+        </div>
+        <div class="centered fineprint">
+            Snow report provided by
+        </div>
+        <div class="centered inset">
+            <img width="150" height="34" src="img/w2logo.gif" alt="MyWeather2" />
+        </div>
+        <div class="centered fineprint">
+            {{reportDate}}
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

@@ -1,0 +1,92 @@
+<ons-page ng-controller="DiagnosticsController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-wrench" fixed-width="true">
+                    </ons-icon>
+                    Diagnostics
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <br/>
+        <div class="copy">
+            <ons-row>
+                <ons-col>
+                    Platform
+                </ons-col>
+                <ons-col>
+                    {{platform}}
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    Version
+                </ons-col>
+                <ons-col>
+                    {{version}}
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    Model
+                </ons-col>
+                <ons-col>
+                    {{model}}
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    User ID
+                </ons-col>
+                <ons-col>
+                    {{userId}}
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    Email
+                </ons-col>
+                <ons-col>
+                    {{email}}
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    Session Token
+                </ons-col>
+                <ons-col>
+                    {{sessionToken}}
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    Patrol Prefix
+                </ons-col>
+                <ons-col>
+                    {{patrolPrefix}}
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    Patrol Name
+                </ons-col>
+                <ons-col>
+                    {{patrolName}}
+                </ons-col>
+            </ons-row>
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

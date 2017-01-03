@@ -1,0 +1,77 @@
+<ons-page ng-controller="ContentController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <i class="ion-medkit">
+          </i> Triage
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <br/>
+        <div>
+            <ons-carousel style="height: 300px; width: 100%" swipeable auto-scroll overscrollable>
+                <ons-carousel-item>
+                    <div class="centered">
+                        <img src="img/swipe.png" alt="Swipe" width="215px" />
+                        <div class="inset copy">
+                            Refresh your knowledge.
+                        </div>
+                    </div>
+                </ons-carousel-item>
+                <ons-carousel-item>
+                    <div class="inset copy centered">
+                        <b>
+              ID-ME
+            </b>
+                    </div>
+                    <div class="inset copy">
+                        I - Immediate (Red)
+                        <br/> D - Delayed (Yellow)
+                        <br/> M - Minimal (Green)
+                        <br/> E - Expectant (Black)
+                    </div>
+                </ons-carousel-item>
+                <ons-carousel-item>
+                    <div class="inset copy centered">
+                        <b>
+              MASS
+            </b>
+                    </div>
+                    <div class="inset copy">
+                        M - Move
+                        <br/> A - Assess
+                        <br/> S - Sort
+                        <br/> S - Send
+                    </div>
+                </ons-carousel-item>
+                <ons-carousel-item>
+                    <div class="inset copy centered">
+                        <b>
+              START
+            </b>
+                    </div>
+                    <div class="inset copy">
+                        Walking wounded first, Minimal.
+                        <br/> R - Respirations - None, open airway, Immediate. Above 30, Immediate; Less than 30, check perfusion.
+                        <br/> P - Perfusion - Cap refill greater than 2 seconds, Immediate; Less than 2 seconds, check mental status.
+                        <br/> M - Mental Status - Can not follow simple commands, Immediate; Otherwise, Delayed.
+                        <br/> Tip: "30-2-Can-Do"
+                    </div>
+                </ons-carousel-item>
+            </ons-carousel>
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+        <ons-button modifier="large outline tappable" ng-click="close()">
+            <ons-icon icon="fa-chevron-left" fixed-width="true">
+            </ons-icon>
+            Back
+        </ons-button>
+    </div>
+    -->
+</ons-page>

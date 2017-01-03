@@ -1,0 +1,48 @@
+<ons-page ng-controller="CurrentWeatherController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-thermometer" fixed-width="true">
+                    </ons-icon>
+                    Current Weather
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="centered inset copy">
+            Recently reported
+        </div>
+        <div class="centered inset huge copy">
+            <b>
+        {{currentTemperature}}
+      </b>
+        </div>
+        <div class="centered inset copy">
+            {{windDirection}}
+        </div>
+        <div class="centered inset copy">
+            {{windSpeed}}
+        </div>
+        <div class="centered fineprint">
+            Current weather provided by
+        </div>
+        <div class="centered inset">
+            <img width="150" height="40" src="img/opensnow-blue.png" alt="OpenSnow" />
+        </div>
+        <div class="centered fineprint">
+            {{reportDate}}
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

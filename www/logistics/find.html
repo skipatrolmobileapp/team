@@ -1,0 +1,30 @@
+<ons-page ng-controller="FindController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-compass" fixed-width="true">
+                    </ons-icon>
+                    Find Marked Location
+                </ons-list-item>
+            </ons-list>
+        </div>
+    </div>
+    <div ng-show="message" class="inset copy centered hey">
+      {{message}}
+    </div>
+    <div id="map" style="height: 275px; width: 100%;">
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

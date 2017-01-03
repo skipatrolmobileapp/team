@@ -1,0 +1,71 @@
+<ons-page ng-controller="PostsController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-comment-o" fixed-width="true">
+                    </ons-icon>
+                    Updates
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset copy centered hey" ng-show="{{'message'}}">
+            {{message}}
+        </div>
+        <div>&nbsp;</div>
+        <div class="centered hotspot" ng-click="togglePoster()">
+            Something to say?
+            <ons-icon icon="fa-pencil" fixed-width="true">
+            </ons-icon>
+        </div>
+        <div class="inset centered" ng-show="{{'poster'}}">
+            <div>&nbsp;</div>
+            <ons-button id="uploadButton" modifier="tappable outline" ng-show="{{'poster'}}" ng-click="capturePhoto()">
+                <ons-icon icon="fa-camera" fixed-width="true">
+                </ons-icon>
+                Upload Photo
+            </ons-button>
+            <div>&nbsp;</div>
+            <img id="photo" width="100%" alt="Photo" />
+        </div>
+        <textarea class="textarea" ng-model="body" rows="3" style="width: 100%;" placeholder="Say it..." ng-show="{{'poster'}}"></textarea>
+        <div>&nbsp;</div>
+        <ons-button modifier="large tappable" ng-show="{{'poster'}}" ng-click="post()">
+            <ons-icon icon="fa-check-circle" fixed-width="true">
+            </ons-icon>
+            Post It
+        </ons-button>
+        <div>&nbsp;</div>
+        <div ng-repeat="post in posts">
+            <div ng-click="showPost($index)">
+                <ons-list>
+                    <ons-list-header>
+                        {{post.postedBy}} - {{post.displayDate}}
+                    </ons-list-header>
+                </ons-lhttps://ide.monaca.mobi/project/566ec159fd17344f62176c8f#ist>
+                <img id="photo" width="100%" alt="Photo" ng-show="null !== post.imageReference" src="{{post.imageReference}}" />
+                <div class="inset hotspot">
+                    {{post.body}}
+                </div>
+            </div>
+        </div>
+        </div>
+        <!--
+        <div class="inset">
+            <ons-button modifier="large outline tappable" ng-click="close()">
+                <ons-icon icon="fa-chevron-left" fixed-width="true">
+                </ons-icon>
+                Back
+            </ons-button>
+        </div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        -->
+    </div>
+</ons-page>

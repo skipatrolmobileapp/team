@@ -1,0 +1,28 @@
+<ons-page ng-controller="TrailCheckController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-android-done" fixed-width="true">
+                    </ons-icon>
+                    {{name}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <br/>
+        <div class="inset copy" ng-bind-html="description">
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

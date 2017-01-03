@@ -1,0 +1,32 @@
+{
+    "manifest_version": 2,
+    "name": "Ski Patrol",
+    "description": "Mobile App for Ski Patrollers",
+    "version": "2.2.3",
+    "app": {
+        "background": {
+            "scripts": [
+                "background.js"
+            ]
+        }
+    },
+    "icons": {
+        "128": "icon.png"
+    },
+    "permissions": [
+        "clipboardWrite",
+        "clipboardRead",
+        "unlimitedStorage",
+        "fullscreen",
+        "https://api-skipatrol.rhcloud.com/",
+        "http://res.cloudinary.com/"
+    ],
+    "short_name": "Ski Patrol",
+    "offline_enabled": false,
+    "optional_permissions": [],
+    "externally_connectable": {
+        "ids": [],
+        "matches": [],
+        "accepts_tls_channel_id": false
+    }
+}

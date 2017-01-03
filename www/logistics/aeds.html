@@ -1,0 +1,30 @@
+<ons-page ng-controller="AedsController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-ios-pulse-strong" fixed-width="true">
+                    </ons-icon>
+                    {{territory}} AEDs
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-item class="navigable" modifier="tappable chevron" ng-repeat="aed in aeds" ng-click="view($index)">
+                {{aed.location}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

@@ -1,0 +1,47 @@
+<ons-page ng-controller="LiftStatusController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-arrow-up-a" fixed-width="true">
+                    </ons-icon>
+                    Lift Status
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div>
+            <ons-row class="inset" ng-repeat="lift in lifts">
+                <ons-col width="90%">
+                    <div class="copy">
+                        {{lift.name}}
+                    </div>
+                </ons-col>
+                <ons-col width="10%" class="centered">
+                    <ons-icon icon="{{lift.statusIcon}}" style="color: {{lift.statusIconColor}}" fixed-width="true">
+                    </ons-icon>
+                </ons-col>
+            </ons-row>
+        </div>
+        <div class="centered fineprint">
+            Lift status provided by
+        </div>
+        <div class="centered inset" ng-show="logoAddress">
+            <img ng-src="{{logoAddress}}" alt="Resort" style="max-height: 40px;"/>
+        </div>
+        <div class="centered inset" ng-hide="logoAddress">
+            {{patrolName}}
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

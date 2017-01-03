@@ -1,0 +1,40 @@
+<ons-page ng-controller="HelpController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-info" fixed-width="true">
+                    </ons-icon>
+                    Info
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset centered">
+            <img src="img/gary.jpg" class="framed" alt="Gary Meyer" />
+        </div>
+        <div class="inset copy">
+            If you have a question, need help, found a defect, or have an idea to offer, feel free to contact me. - Gary
+        </div>
+        <div ng-click="email()">
+            <ons-list>
+                <ons-list-item class="centered navigable" modifier="tappable">
+                    <ons-icon icon="fa-envelope" fixed-width="true">
+                    </ons-icon>
+                    gary@medic52.com
+                </ons-list-item>
+            </ons-list>
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>

@@ -1,0 +1,44 @@
+<ons-page ng-controller="SheetController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-calendar" fixed-width="true">
+                    </ons-icon>
+                    Sign In Sheet
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset copy centered hey" ng-show="message">
+            {{message}}
+        </div>
+        <div class="inset">
+            <div class="copy centered">
+                {{quickTeaser}}
+            </div>
+        </div>
+        <ons-list>
+            <ons-list-item class="navigable" modifier="tappable chevron" onclick="patrolNavigator.pushPage('patrol/signup.html')">
+                <ons-icon icon="ion-plus-round" fixed-width="true">
+                </ons-icon>
+                Add patroller(s)...
+            </ons-list-item>
+            <ons-list-item class="navigable" modifier="tappable chevron" ng-repeat="attendee in attendees" ng-click="edit($index)">
+                <ons-icon icon="fa-pencil-square-o" fixed-width="true">
+                </ons-icon>
+                {{attendee.name}}
+            </ons-list-item>
+        </ons-list>
+        <!--
+        <div class="inset">
+            <ons-button modifier="large outline tappable" ng-click="back()">
+                <ons-icon icon="fa-chevron-left" fixed-width="true">
+                </ons-icon>
+                Back
+            </ons-button>
+        </div>
+        -->
+</ons-page>

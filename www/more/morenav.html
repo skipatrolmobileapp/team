@@ -1,0 +1,92 @@
+<ons-navigator var="moreNavigator">
+    <ons-page ng-controller="MoreController" modifier="full_bg">
+        <div class="inset">
+            <div class="inset">
+                &nbsp;
+            </div>
+            <!--
+            <div>
+                <ons-list>
+                    <ons-list-item class="centered">
+                        <ons-icon icon="fa-ellipsis-h" fixed-width="true">
+                        </ons-icon>
+                        More
+                    </ons-list-item>
+                </ons-list>
+            </div>
+            -->
+            <img alt="Upgrade" width="100%" ng-src="{{adImageAddress}}" ng-show="{{'enableAd'}}" ng-click="adClick()"></a>
+            <ons-list>
+                <ons-list-header>
+                    First Aid
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="moreNavigator.pushPage('more/assessment.html')">
+                    <i class="ion-medkit"></i> Assessment
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="moreNavigator.pushPage('more/triage.html')">
+                    <i class="ion-medkit"></i> Triage
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="moreNavigator.pushPage('more/cpradults.html')">
+                    <i class="ion-heart"></i> CPR - Adults
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="moreNavigator.pushPage('more/cprchildren.html')">
+                    <i class="ion-heart"></i> CPR - Children
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="moreNavigator.pushPage('more/cprinfants.html')">
+                    <i class="ion-heart"></i> CPR - Infants
+                </ons-list-item>
+                <ons-list-header>
+                    Safety
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="moreNavigator.pushPage('more/responsibilitycode.html')">
+                    <i class="ion-ios-list"></i> Skier Responsibility Code
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="moreNavigator.pushPage('more/smartstyle.html')">
+                    <i class="ion-ios-list"></i> Smart Style
+                </ons-list-item>
+                <ons-list-header>
+                    Skills
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="moreNavigator.pushPage('more/knots.html')">
+                    <i class="ion-shuffle"></i> Knots
+                </ons-list-item>
+                <ons-list-header>
+                    Account
+                </ons-list-header>
+                <ons-list-item ng-hide="demoMode" class="navigable" modifier="tappable chevron" onclick="moreNavigator.pushPage('more/profile.html')">
+                    <ons-icon icon="fa-list-alt" fixed-width="true">
+                    </ons-icon>
+                    Update Profile
+                </ons-list-item>
+                <ons-list-item ng-hide="demoMode" class="navigable" modifier="tappable chevron" onclick="moreNavigator.pushPage('more/password.html')">
+                    <ons-icon icon="fa-key" fixed-width="true">
+                    </ons-icon>
+                    Change Password
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="tappable chevron"  ng-click="viewTerms()">
+                    <ons-icon icon="fa-file-text-o" fixed-width="true">
+                    </ons-icon>
+                    {{termsDocName}}
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="tappable chevron" ng-click="viewPrivacy()">
+                    <ons-icon icon="ion-locked" fixed-width="true">
+                    </ons-icon>
+                    Privacy Policy
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="tappable chevron" onclick="moreNavigator.pushPage('more/help.html')">
+                    <ons-icon icon="fa-info" fixed-width="true">
+                    </ons-icon>
+                    Info
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="tappable chevron" onclick="moreNavigator.pushPage('more/logout.html')">
+                    <ons-icon icon="fa-sign-out" fixed-width="true">
+                    </ons-icon>
+                    Logout
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset">
+            &nbsp
+        </div>
+    </ons-page>
+</ons-navigator>

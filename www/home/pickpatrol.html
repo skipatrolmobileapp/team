@@ -1,0 +1,52 @@
+<ons-page ng-controller="PickPatrolController" modifier="intro_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="back()" ng-swipe-left="next()">
+        <div style="min-height: 300px">
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-sign-in" fixed-width="true">
+                    </ons-icon>
+                    Step 2 of 5
+                </ons-list-item>
+            </ons-list>
+            <div class="inset">
+                To which patrol do you belong?
+            </div>
+            <div class="inset hey">
+                {{message}}
+            </div>
+            <div class="inset">
+                <input id="patrolName" type="text" class="text-input" ng-model="patrolName" ng-change="search(patrolName)" placeholder="Patrol Name..." style="width: 100%">
+            </div>
+            <ons-list>
+                <ons-list-item class="navigable" modifier="tappable" ng-repeat="patrol in patrols" ng-click="tap($index)">
+                    <a href="#">{{patrol.patrolName}}</a>
+                </ons-list-item>
+            </ons-list>
+            <div>
+                &nbsp;
+            </div>
+            <div class="inset">
+                Can't find your patrol here?
+                <span class="navigable" modifier="tappable" ng-click="email()">
+          Email us.
+        </span> We'll set you up.
+            </div>
+        </div>
+        <div class="centered">
+            <ons-button modifier="outline tappable" ng-click="back()" style="width:35%">
+                <ons-icon icon="fa-chevron-circle-left" fixed-width="true">
+                </ons-icon>
+                Back
+            </ons-button>
+            <ons-button modifier="tappable" ng-click="next()" style="width:55%">
+                <ons-icon icon="fa-chevron-circle-right" fixed-width="true">
+                </ons-icon>
+                Next
+            </ons-button>
+        </div>
+        <br/>
+    </div>
+</ons-page>

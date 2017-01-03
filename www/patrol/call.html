@@ -1,0 +1,34 @@
+<ons-page ng-controller="CallController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-phone" fixed-width="true">
+                    </ons-icon>
+                    Key Phone Numbers
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="navigable" modifier="tappable" ng-repeat="item in items" ng-click="call($index)">
+                    <ons-icon icon="fa-phone" fixed-width="true">
+                    </ons-icon>
+                    {{item.name}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+    </div>
+    <!--
+    <div class="inset">
+      <ons-button modifier="large outline tappable" ng-click="close()">
+        <ons-icon icon="fa-chevron-left" fixed-width="true">
+        </ons-icon>
+        Back
+      </ons-button>
+    </div>
+    -->
+</ons-page>
