@@ -18,7 +18,7 @@ Global initialization indicator.
 var haveInitializedApp = false;
 
 /*
-Get the user going on a new registration.
+Start the app. Direct the user to register, login, or just show the live home screen.
 */
 module.controller('HomeController', function ($rootScope, $scope, $http, AccessLogService) {
     var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
@@ -1628,19 +1628,6 @@ module.controller('TrailStatusController', function ($scope, AccessLogService) {
             }
         }
     }
-    /*
-    GM, 12/27/2016 - I'm just going to let the screen scraper on the server do the sort.
-    It's resorting Jiminy Peak incorrectly for some reason.
-    trails.sort(function (a, b) {
-        var sortVal = 0;
-        if (a.name < b.name) {
-            sortVal = -1;
-        } else if (a.name > b.name) {
-            sortVal = 1;
-        }
-        return sortVal;
-    });
-    */
     $scope.trails = trails;
     // $scope.logoAddress = DSP_BASE_URL + '/rest' + angular.fromJson(localStorage.getItem('DspPatrol')).logoPath + '?app_name=' + DSP_APP_NAME;
     $scope.logoAddress = angular.fromJson(localStorage.getItem('DspPatrol')).logoWebAddress;
@@ -1654,7 +1641,7 @@ module.controller('TrailStatusController', function ($scope, AccessLogService) {
 });
 
 /*
-Live Mountain Cams.
+Live mountain cams.
 */
 module.controller('LiveCamsController', function ($scope, AccessLogService) {
     var liveCam = angular.fromJson(localStorage.getItem('DspLiveCam')),
