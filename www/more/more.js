@@ -8,7 +8,7 @@
 
 /*
 Ski Patrol Mobile App
-Copyright © 2014-2016, Gary Meyer.
+Copyright © 2014-2017, Gary Meyer.
 All rights reserved.
 */
 
@@ -33,6 +33,11 @@ module.controller('MoreController', function ($scope, $http, AccessLogService) {
                 $scope.enableAd = true;
             }
         }
+    }
+    if ('Guest' === role) {
+        $scope.showPatrollerStuff = false;
+    } else {
+        $scope.showPatrollerStuff = true;
     }
     if ('Medic52 Team' === settingAppName) {
         $scope.termsDocName = 'Acceptable Use Policy';

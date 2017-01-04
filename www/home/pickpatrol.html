@@ -18,7 +18,7 @@
                 {{message}}
             </div>
             <div class="inset">
-                <input my-focus focus-me="true" id="patrolName" type="text" class="text-input" ng-model="patrolName" ng-change="search(patrolName)" placeholder="Resort Name..." style="width: 100%">
+                <input my-focus id="patrolName" type="text" class="text-input" ng-model="patrolName" ng-change="search(patrolName)" placeholder="Resort Name..." style="width: 100%">
             </div>
             <ons-list>
                 <ons-list-item class="navigable" modifier="tappable" ng-repeat="patrol in patrols" ng-click="tap($index)">
