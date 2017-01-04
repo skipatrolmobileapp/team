@@ -571,6 +571,8 @@ module.controller('LiveController', function ($scope, $http, AccessLogService) {
     var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
         role = localStorage.getItem('DspRole'),
         patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
+        settings = angular.fromJson(localStorage.getItem('DspSetting')),
+        settingRequest = dspRequest('GET', '/db/Setting?order=name', null),
         territories = angular.fromJson(localStorage.getItem('DspTerritory')),
         territoryRequest = dspRequest('GET', '/db/Territory?order=code', null),
         ads = angular.fromJson(localStorage.getItem('DspAd')),
@@ -605,6 +607,14 @@ module.controller('LiveController', function ($scope, $http, AccessLogService) {
         });
     $scope.enableAd = false;
     if ('Basic' === role || 'Power' === role || 'Leader' === role) {
+        $http(settingRequest).
+            success(function (data, status, headers, config) {
+                settings = data.record;
+                localStorage.setItem('DspSetting', angular.toJson(settings));
+            }).
+            error(function (data, status, headers, config) {
+                AccessLogService.log('error', 'GetSettingErr', niceMessage(data, status));
+            });
         if (posts && posts.length > 0) {
             for (i = 0; i < posts.length; i += 1) {
                 posts[i].displayDate = moment(posts[i].postedOn).format('ddd, MMM D h:mmA');
@@ -1036,12 +1046,17 @@ module.controller('PostsController', function ($rootScope, $scope, $http, PostPh
             uniqueFilename = aMoment.format('YYYYMMDDHHmmss'),
             imageData = localStorage.getItem('OnsPhoto'),
             ts = aMoment.format('X'),
-            apiSecret = 'NHNtH1Hn7wIK6MmqyBIUpxCWyQA',
-            rawSignature = 'public_id=' + uniqueFilename + '&timestamp=' + ts + apiSecret,
+            settings = angular.fromJson(localStorage.getItem('DspSetting')),
+            names = settings.map(function(setting) {
+                return setting['name'];
+            }),
+            cloudinaryApiKey = settings[names.indexOf('cloudinaryApiKey')].value,
+            cloudinaryApiSecret = settings[names.indexOf('cloudinaryApiSecret')].value,
+            rawSignature = 'public_id=' + uniqueFilename + '&timestamp=' + ts + cloudinaryApiSecret,
             shaObj = new jsSHA(rawSignature, 'TEXT'),
             hash = shaObj.getHash('SHA-1', 'HEX'),
             cloudinaryBody = {
-                api_key: '976386765757145',
+                api_key: cloudinaryApiKey,
                 file: 'data:image/jpeg;base64,' + imageData,
                 public_id: uniqueFilename,
                 timestamp: ts,
