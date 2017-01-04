@@ -2,8 +2,8 @@
 /*jshint unused: false */
 /*jslint node: true */
 /*jslint indent: 4 */
-/*jslint unparam:true*/
-/*global device, navigator, localStorage, ons, angular, module, dspRequest, homeNavigator, havePatience, waitNoMore, IN_CORDOVA, dial, sendEmail, niceMessage */
+/*jslint unparam:true */
+/*global navigator, localStorage, ons, angular, module, moment, jsSHA, Camera, DSP_BASE_URL, DSP_APP_NAME, dspRequest, homeNavigator, havePatience, waitNoMore, browse, openAd, niceMessage, writeOutBearing, settingAppName, settingPickPatrolScreen, settingSnowConditionsImage */
 "use strict";
 
 /*
@@ -26,7 +26,6 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
         adRequest = dspRequest('GET', '/db/Ad', null),
         email = localStorage.getItem('DspEmail'),
         password = localStorage.getItem('DspPassword'),
-        patrol = localStorage.getItem('DspPatrol'),
         introDone = localStorage.getItem('OnsIntroDone'),
         body = {
             email: email,
@@ -124,7 +123,7 @@ Get the user going on a new registration.
 module.controller('IntroController', function ($rootScope, $scope, $http, AccessLogService) {
     AccessLogService.log('info', 'Intro');
     if (!settingAppName) {
-        settingAppName = 'the Ski Patrol Mobile App';
+        settingAppName = 'the Ski Patrol Mobile App'; // jshint ignore:line
     }
     $scope.settingAppName = settingAppName;
     localStorage.removeItem('DspPassword');
@@ -169,7 +168,7 @@ module.controller('NameController', function ($scope, AccessLogService) {
             localStorage.setItem('OnsFirstName', $scope.firstName);
             localStorage.setItem('OnsLastName', $scope.lastName);
             if (!settingPickPatrolScreen) {
-                settingPickPatrolScreen = 'home/pickpatrol.html';
+                settingPickPatrolScreen = 'home/pickpatrol.html'; // jshint ignore:line
             }
             homeNavigator.pushPage(settingPickPatrolScreen);
         }
@@ -217,7 +216,7 @@ module.controller('PickPatrolController', function ($scope, $http, AccessLogServ
             }
         }
         $scope.patrols = [];
-    }
+    };
     $scope.back = function () {
         homeNavigator.popPage();
     };
@@ -1048,7 +1047,7 @@ module.controller('PostsController', function ($rootScope, $scope, $http, PostPh
             ts = aMoment.format('X'),
             settings = angular.fromJson(localStorage.getItem('DspSetting')),
             names = settings.map(function(setting) {
-                return setting['name'];
+                return setting.name;
             }),
             cloudinaryApiKey = settings[names.indexOf('cloudinaryApiKey')].value,
             cloudinaryApiSecret = settings[names.indexOf('cloudinaryApiSecret')].value,
@@ -1134,7 +1133,7 @@ module.controller('PostsController', function ($rootScope, $scope, $http, PostPh
     $scope.showPost = function (index) {
         localStorage.setItem('OnsPost', angular.toJson(posts[index]));
         homeNavigator.pushPage('home/post.html');
-    }
+    };
     $scope.close = function () {
         homeNavigator.popPage();
     };
@@ -1161,6 +1160,7 @@ module.controller('PostController', function ($rootScope, $scope, $http, AccessL
     $scope.update = function () {
         var body = {
                 id: post.id,
+                tenantId: patrolPrefix,
                 postedOn: post.postedOn,
                 body: $scope.body,
                 userId: post.userId,
@@ -1362,10 +1362,10 @@ module.controller('WeatherForecastController', function ($scope, AccessLogServic
                 if (nums.length > 1) {
                     l = nums[0];
                     u = nums[1].split('mph')[0];
-                    days[i].dayWindSpeed = 5 * Math.round(0.2 * 1.60934 * Number(l)) + ' -  ' + 5 * Math.round(0.2 * 1.60934 * Number(u)) + ' km/h'
+                    days[i].dayWindSpeed = 5 * Math.round(0.2 * 1.60934 * Number(l)) + ' -  ' + 5 * Math.round(0.2 * 1.60934 * Number(u)) + ' km/h';
                 } else {
                     u = nums[0].split('mph')[0];
-                    days[i].dayWindSpeed = 5 * Math.round(0.2 * 1.60934 * Number(u)) + ' km/h'
+                    days[i].dayWindSpeed = 5 * Math.round(0.2 * 1.60934 * Number(u)) + ' km/h';
                 }
                 if (openSnow.location.forecast.period[i].night.snow.indexOf('-') > 0) {
                     days[i].nightSnow = 'Snow: ' +
@@ -1381,10 +1381,10 @@ module.controller('WeatherForecastController', function ($scope, AccessLogServic
                 if (nums.length > 1) {
                     l = nums[0];
                     u = nums[1].split('mph')[0];
-                    days[i].nightWindSpeed = 5 * Math.round(0.2 * 1.60934 * Number(l)) + ' -  ' + 5 * Math.round(0.2 * 1.60934 * Number(u)) + ' km/h'
+                    days[i].nightWindSpeed = 5 * Math.round(0.2 * 1.60934 * Number(l)) + ' -  ' + 5 * Math.round(0.2 * 1.60934 * Number(u)) + ' km/h';
                 } else {
                     u = nums[0].split('mph')[0];
-                    days[i].nightWindSpeed = 5 * Math.round(0.2 * 1.60934 * Number(u)) + ' km/h'
+                    days[i].nightWindSpeed = 5 * Math.round(0.2 * 1.60934 * Number(u)) + ' km/h';
                 }
             }
         }
