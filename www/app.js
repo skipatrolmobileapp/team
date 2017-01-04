@@ -2,8 +2,8 @@
 /*jshint unused: false */
 /*jslint node: true */
 /*jslint indent: 4 */
-/*jslint unparam:true*/
-/*global console, setTimeout, device, onDeviceReady, window, navigator, localStorage, document, Date, ons, module, angular, spinnerModal, moment */
+/*jslint unparam:true */
+/*global console, setTimeout, device, onDeviceReady, window, navigator, localStorage, document, Date, ons, module, angular, spinnerModal, moment, settingLoggingAppId */
 "use strict";
 
 /*
@@ -52,18 +52,18 @@ angular.module('myApp')
     return {
       restrict: 'A',
       link: function postLink(scope, element, attrs) {
-        if (attrs.myFocus == "") {
-          attrs.myFocus = "focusElement";
+        if ('' === attrs.myFocus) {
+          attrs.myFocus = 'focusElement';
         }
         scope.$watch(attrs.myFocus, function(value) {
           if(value == attrs.id) {
             element[0].focus();
           }
         });
-        element.on("blur", function() {
-          scope[attrs.myFocus] = "";
+        element.on('blur', function() {
+          scope[attrs.myFocus] = '';
           scope.$apply();
-        })        
+        });
       }
     };
   });
@@ -255,28 +255,6 @@ function win(r) {
 function fail(error) {
     // alert("An error has occurred: Code = " + error.code);
 }
-
-/*
-File upload service.
-From: https://github.com/dreamfactorysoftware/dsp-core/wiki/File-Storage-Services.
-TODO: Will be changing with upgrade to DSP 2.0.
-*/
-module.service('PostPhoto', ['$http', function ($http) {
-    this.upload = function (filename, imageUri) {
-        var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-            email = localStorage.getItem('DspEmail'),
-            password = localStorage.getItem('DspPassword'),
-            url = 'https://' + DSP_HOST + ':' + DSP_PORT + '/rest/files/posts/' + patrolPrefix + '/' + filename + '?app_name=' + DSP_APP_NAME,
-            options = new FileUploadOptions(),
-            ft = new FileTransfer();
-        options.fileKey = "files";
-        options.fileName = filename;
-        options.mimeType = "image/jpeg";
-        options.chunkedMode = false;
-        ft.upload(imageUri, url, win, fail, options);
-        
-    };
-}]);
 
 /*
 Text somebody's phone number.
