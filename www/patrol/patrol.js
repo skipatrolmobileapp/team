@@ -2,13 +2,13 @@
 /*jshint unused: false */
 /*jslint node: true */
 /*jslint indent: 4 */
-/*jslint unparam:true*/
-/*global document, window, localStorage, ons, angular, module, moment, dspRequest, dial, sendEmail, niceMessage, patrolNavigator, havePatience, waitNoMore */
+/*jslint unparam:true */
+/*global document, window, localStorage, ons, angular, module, moment, dspRequest, dial, sendEmail, niceMessage, patrolNavigator, havePatience, waitNoMore, openAd, sms, browse */
 "use strict";
 
 /*
 Ski Patrol Mobile App
-Copyright © 2014-2016, Gary Meyer.
+Copyright © 2014-2017, Gary Meyer.
 All rights reserved.
 */
 
@@ -46,11 +46,9 @@ function upcomingStuff(events) {
 Show patrol info.
 */
 module.controller('PatrolController', function ($scope, $http, AccessLogService) {
-    var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
+    var patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         role = localStorage.getItem('DspRole'),
         ads = angular.fromJson(localStorage.getItem('DspAd')),
-        userId = localStorage.getItem('DspUserId'),
         patrollers = angular.fromJson(localStorage.getItem('DspPatroller')),
         patrollerRequest = dspRequest('GET', '/db/Patroller?order=name', null),
         categories = [],
@@ -207,8 +205,7 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
 Help the user call somebody really important.
 */
 module.controller('CallController', function ($scope, $http, AccessLogService) {
-    var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        callRequest = dspRequest('GET', '/db/Phone?filter=displayInPatrolApp%3D%22Yes%22&order=territory%2Cname', null);
+    var callRequest = dspRequest('GET', '/db/Phone?filter=displayInPatrolApp%3D%22Yes%22&order=territory%2Cname', null);
     AccessLogService.log('info', 'Call');
     $scope.items = angular.fromJson(localStorage.getItem('DspCall'));
     $http(callRequest).
@@ -269,8 +266,7 @@ module.controller('SearchController', function ($scope, AccessLogService) {
 Show patroller details.
 */
 module.controller('PatrollerController', function ($scope, $http, AccessLogService) {
-    var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
+    var patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         patroller = angular.fromJson(localStorage.getItem('OnsPatroller')),
         patrollers = angular.fromJson(localStorage.getItem('DspPatroller')),
         scheduleRequest = dspRequest('GET', '/db/Schedule?filter=patrollerId%3D' + patroller.id + '%20AND%20activityDate%3C%22' + moment().format('YYYY-MM-DD') + '%22&order=activityDate%20desc%2Cactivity', null),
@@ -425,8 +421,7 @@ function patrolAllEvents(events) {
 Edit the calendar.
 */
 module.controller('CalendarController', function ($rootScope, $scope, $http, AccessLogService) {
-    var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        events = angular.fromJson(localStorage.getItem('DspEvent')),
+    var events = angular.fromJson(localStorage.getItem('DspEvent')),
         eventRequest = dspRequest('GET', '/db/Event?order=start,activity', null);
     AccessLogService.log('info', 'Calendar');
     eventRequest.cache = false;
@@ -557,8 +552,8 @@ module.controller('AddEventController', function ($rootScope, $scope, $http, Acc
             },
             eventRequest;
         if (!$scope.allDay) {
-            body.start = $scope.startDate + ' ' + $scopeStartAt + ' UTC';
-            body.end = $scope.endDate + ' ' + $scopeEndAt + ' UTC';
+            body.start = $scope.startDate + ' ' + $scope.startAt + ' UTC';
+            body.end = $scope.endDate + ' ' + $scope.endAt + ' UTC';
             body.allDay = 'No';
         }
         eventRequest = dspRequest('POST', '/db/Event', body);
@@ -674,6 +669,7 @@ module.controller('EventController', function ($rootScope, $scope, $http, Access
     $scope.update = function () {
         var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
             body = {
+                tenantId: patrolPrefix,
                 start: $scope.startDate + ' 00:00:00 UTC',
                 end: null,
                 allDay: 'Yes',
@@ -703,8 +699,7 @@ module.controller('EventController', function ($rootScope, $scope, $http, Access
             });
     };
     $scope.delete = function () {
-        var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-            eventRequest = dspRequest('DELETE', '/db/Event?ids=' + event.id, null);
+        var eventRequest = dspRequest('DELETE', '/db/Event?ids=' + event.id, null);
         havePatience($rootScope);
         $scope.message = '';
         $http(eventRequest).
@@ -795,8 +790,7 @@ module.controller('LeaderController', function ($rootScope, $scope, $http, Acces
         $scope.patrollers = [];
     };
     $scope.update = function () {
-        var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-            eventRequest = dspRequest('PUT', '/db/Event', event);
+        var eventRequest = dspRequest('PUT', '/db/Event', event);
         havePatience($rootScope);
         $scope.message = '';
         $http(eventRequest).
@@ -894,8 +888,7 @@ module.controller('SheetsController', function ($scope, AccessLogService) {
 Pick a patroller to edit on the sign in sheet.
 */
 module.controller('SheetController', function ($rootScope, $scope, $http, AccessLogService) {
-    var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        event = angular.fromJson(localStorage.getItem('OnsEvent')),
+    var event = angular.fromJson(localStorage.getItem('OnsEvent')),
         schedules = null,
         scheduleRequest = dspRequest('GET', '/db/Schedule?filter=' +
                 'activityDate%3D%22' + encodeURIComponent(event.start) +
@@ -1062,8 +1055,7 @@ module.controller('SignUpController', function ($rootScope, $scope, $http, Acces
 Do a patroller sign in.
 */
 module.controller('EditSignInController', function ($rootScope, $scope, $http, AccessLogService) {
-    var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        event = angular.fromJson(localStorage.getItem('OnsEvent')),
+    var event = angular.fromJson(localStorage.getItem('OnsEvent')),
         activities = angular.fromJson(localStorage.getItem('DspActivity')),
         duty,
         i,
@@ -1114,6 +1106,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
         var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
             body = {
                 id: schedule.id,
+                tenantId: patrolPrefix,
                 patrollerId: schedule.patrollerId,
                 name: schedule.name,
                 activityDate: schedule.activityDate,
@@ -1138,8 +1131,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
             });
     };
     $scope.remove = function () {
-        var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-            scheduleRequest = dspRequest('DELETE', '/db/Schedule?ids%3D', schedule.id);
+        var scheduleRequest = dspRequest('DELETE', '/db/Schedule?ids%3D', schedule.id);
         havePatience($rootScope);
         $scope.message = '';
         $http(scheduleRequest).
