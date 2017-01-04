@@ -2,8 +2,8 @@
 /*jshint unused: false */
 /*jslint node: true */
 /*jslint indent: 4 */
-/*jslint unparam:true*/
-/*global window, document, navigator, alert, localStorage, ons, angular, module, dspRequest, AccessLogService, logisticsNavigator, dial, browse, moment, LatLon, Math */
+/*jslint unparam:true */
+/*global window, document, navigator, localStorage, ons, angular, module, moment, Math, LatLon, google, dspRequest, logisticsNavigator, dial, browse, niceMessage, openAd, havePatience, waitNoMore, numberWithCommas, writeOutBearing */
 "use strict";
 
 /*
@@ -38,8 +38,7 @@ function hideMenuFor(label) {
 Logistics.
 */
 module.controller('LogisticsController', function ($rootScope, $scope, $http, AccessLogService) {
-    var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
+    var patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         role = localStorage.getItem('DspRole'),
         ads = angular.fromJson(localStorage.getItem('DspAd')),
         maps = angular.fromJson(localStorage.getItem('DspMap')),
@@ -47,7 +46,6 @@ module.controller('LogisticsController', function ($rootScope, $scope, $http, Ac
         territories = angular.fromJson(localStorage.getItem('DspTerritory')),
         nicknames = angular.fromJson(localStorage.getItem('DspNickname')),
         nicknameRequest = dspRequest('GET', '/db/Nickname?order=territory,name', null),
-        element,
         i;
     AccessLogService.log('info', 'Logistics');
     $scope.enableAd = false;
@@ -437,6 +435,7 @@ function postQrCodeScan($http, $scope, AccessLogService, nickname, longitude, la
         userId = localStorage.getItem('DspUserId'),
         body = {
             id: null,
+            tenantId: patrolPrefix,
             location: nickname,
             userId: userId,
             scannedBy: localStorage.getItem('DspName'),
@@ -460,8 +459,7 @@ function postQrCodeScan($http, $scope, AccessLogService, nickname, longitude, la
 Get and populate QR code scans.
 */
 function fillInQrCodeScans($http, $scope, AccessLogService) {
-    var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        i = 0,
+    var i = 0,
         userId = localStorage.getItem('DspUserId'),
         qrCodeScans = angular.fromJson(localStorage.getItem('DspQrCodeScan')),
         qrCodeScanRequest = dspRequest('GET', '/db/QrCodeScan?filter=userId%3D' + userId + '&order=scannedOn%20desc', null);
@@ -565,8 +563,7 @@ module.controller('QrCodeController', function ($scope, $http, AccessLogService)
 QR code leaderboard.
 */
 module.controller('LeaderBoardController', function ($scope, $http, AccessLogService) {
-    var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        qrCodeSummaryRequest = dspRequest('GET', '/db/QrCodeSummary?order=scanCount%20desc,name', null);
+    var qrCodeSummaryRequest = dspRequest('GET', '/db/QrCodeSummary?order=scanCount%20desc,name', null);
     AccessLogService.log('info', 'LeaderBoard');
     $scope.leaders = angular.fromJson(localStorage.getItem('DspQrCodeSummary'));
     $scope.qrcodesummary = angular.fromJson(localStorage.getItem('DspQrCodeSummary'));
@@ -595,8 +592,7 @@ module.controller('LeaderBoardController', function ($scope, $http, AccessLogSer
 Map.
 */
 module.controller('MapController', function ($scope, $http, AccessLogService) {
-    var role = localStorage.getItem('DspRole'),
-        map = angular.fromJson(localStorage.getItem('OnsMap'));
+    var map = angular.fromJson(localStorage.getItem('OnsMap'));
     AccessLogService.log('info', 'Map', map.name);
     $scope.name = map.name;
     $scope.address = map.address;
@@ -623,7 +619,6 @@ Territory.
 */
 module.controller('TerritoryController', function ($scope, $http, AccessLogService) {
     var territory = angular.fromJson(localStorage.getItem('OnsTerritory')),
-        patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
         patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         role = localStorage.getItem('DspRole'),
         trailCheckRequest = dspRequest('GET', '/db/TrailCheck?order=territory,name', null),
