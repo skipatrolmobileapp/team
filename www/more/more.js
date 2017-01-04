@@ -2,8 +2,8 @@
 /*jshint unused: false */
 /*jslint node: true */
 /*jslint indent: 4 */
-/*jslint unparam:true*/
-/*global localStorage, ons, angular, module, dspRequest, moreNavigator, youtube */
+/*jslint unparam:true */
+/*global IN_CORDOVA, device, localStorage, ons, angular, module, dspRequest, moreNavigator, youtube, settingAppName, openAd, havePatience, waitNoMore, niceMessage, sendEmail */
 "use strict";
 
 /*
@@ -20,8 +20,6 @@ module.controller('MoreController', function ($scope, $http, AccessLogService) {
         patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         role = localStorage.getItem('DspRole'),
         ads = angular.fromJson(localStorage.getItem('DspAd')),
-        adRequest = dspRequest('GET', '/db/Ad', null),
-        role = localStorage.getItem('DspRole'),
         i;
     AccessLogService.log('info', 'More');
     $scope.enableAd = false;
