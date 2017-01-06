@@ -1,0 +1,38 @@
+<ons-page ng-controller="NspoLinkController" modifier="full_bg" ng-device-backbutton="exit()">
+  <div class="inset">
+    &nbsp;
+  </div>
+  <div class="inset">
+    <div>
+      <ons-list>
+        <ons-list-item class="centered">
+          <ons-icon icon="fa-link" fixed-width="true">
+          </ons-icon>
+          NSP Online Link
+        </ons-list-item>
+      </ons-list>
+    </div>
+    <div class="inset copy centered hey">
+      {{message}}
+    </div>
+    <div class="inset copy centered">
+      To link your NSP Online shift scheduling account, enter your info below.
+    </div>
+    <br/>
+    <ons-list><ons-list-item>
+    <br/>
+    <input my-focus id="nspId" type="nspId" class="text-input" ng-model="email" placeholder="NSP ID..." style="width: 100%">
+    <br/>
+    <input my-focus id="password" type="password" class="text-input" ng-model="password" placeholder="Password..." style="width: 100%">
+    <div>&nbsp;</div>
+    </ons-list-item></ons-list>
+    <br/>
+    <div>
+      <ons-button modifier="large tappable" ng-click="link()">
+        <ons-icon icon="fa-link" fixed-width="true">
+        </ons-icon>
+        Link
+      </ons-button>
+    </div>
+  </div>
+</ons-page>

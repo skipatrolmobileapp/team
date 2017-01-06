@@ -190,6 +190,7 @@ module.controller('PickPatrolController', function ($scope, $http, AccessLogServ
     $scope.patrols = [];
     $scope.patrolName = localStorage.getItem('DspPatrolName');
     $scope.message = 'Start typing the name of your resort in the field below. Select. Then tap "Next."';
+    $scope.focusElement = 'patrolName';
     $scope.search = function (patrolName) {
         var n = 0,
             i = 0;

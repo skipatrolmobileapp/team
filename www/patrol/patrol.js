@@ -128,27 +128,36 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
                 AccessLogService.log('error', 'GetActivityErr', niceMessage(data, status));
             });
         if (patrol.nspOnlineResort) {
-            $scope.enableNspOnline = true;
-            $scope.enableNspLink = true;
-            // HERE for authenticating against NSPOnline and pulling the stuff.
-            $http(nspOnlineUserRequest).
-                    success(function (data, status, headers, config) {
-                        if (data.record.length > 0) {
-                            AccessLogService.log('info', 'NspOnlineUser', nspOnlineUser);
-                            nspOnlineUser = data.record[0];
-                            localStorage.setItem('NspOnlineUser', angular.toJson(nspOnlineUser));
-                            // TODO: Authenticate against NSP Online
-                        } else {
-                            AccessLogService.log('warn', 'NspOnlineUser', 'User has not linked NSP Online');
+            if (patrol.nspOnlineResort) {
+                console.debug("IT IS AN NSP ONLINE RESORT");
+                console.debug(patrol.nspOnlineResort);
+                // I DON'T THINK I SHOULD HARD CODE THESE TWO
+                $scope.enableNspOnline = true;
+                $scope.enableNspLink = true;
+                // HERE for authenticating against NSPOnline and pulling the stuff.
+                $http(nspOnlineUserRequest).
+                        success(function (data, status, headers, config) {
+                            if (data.record.length > 0) {
+                                AccessLogService.log('info', 'NspOnlineUser', nspOnlineUser);
+                                nspOnlineUser = data.record[0];
+                                localStorage.setItem('NspOnlineUser', angular.toJson(nspOnlineUser));
+                                // TODO: Authenticate against NSP Online
+                            } else {
+                                AccessLogService.log('warn', 'NspOnlineUser', 'User has not linked NSP Online');
+                                nspOnlineUser = null;
+                                localStorage.removeItem('NspOnlineUser');
+                            }
+                        }).
+                        error(function (data, status, headers, config) {
+                            AccessLogService.log('error', 'GetNspOnlineUserErr', niceMessage(data, status));
                             nspOnlineUser = null;
                             localStorage.removeItem('NspOnlineUser');
-                        }
-                    }).
-                    error(function (data, status, headers, config) {
-                        AccessLogService.log('error', 'GetNspOnlineUserErr', niceMessage(data, status));
-                        nspOnlineUser = null;
-                        localStorage.removeItem('NspOnlineUser');
-                    });
+                        });
+            } else {
+                console.debug("IT IS *NOT* AN NSP ONLINE RESORT");
+                $scope.enableNspOnline = false;
+                $scope.enableNspLink = false;
+            }
         }
     } else {
         $scope.enableAd = false;
@@ -193,8 +202,8 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
             patrolNavigator.pushPage('patrol/schedule.html');
         }
     };
-    $scope.linkNspOnline = function (index) {
-        patrolNavigator.pushPage('patrol/contentcategory.html');
+    $scope.welcomeNspOnline = function (index) {
+        patrolNavigator.pushPage('patrol/nspowelcome.html');
     };
     ons.ready(function () {
         return;
@@ -1149,6 +1158,40 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
         patrolNavigator.pushPage('patrol/sheet.html');
     };
     $scope.back = function () {
+        patrolNavigator.popPage();
+    };
+    ons.ready(function () {
+        return;
+    });
+});
+
+/*
+Welcome to NSP Online, offering to user to link accounts.
+*/
+module.controller('NspoWelcomeController', function ($rootScope, $scope, $http, AccessLogService) {
+    $scope.close = function () {
+        patrolNavigator.popPage();
+    };
+    ons.ready(function () {
+        return;
+    });
+});
+
+/*
+Link NSP Online accounts.
+*/
+module.controller('NspoLinkController', function ($rootScope, $scope, $http, AccessLogService) {
+    var nspOnlineUser = angular.fromJson(localStorage.getItem('NspOnlineUser')),
+        nspOnlineUserRequest = dspRequest('GET', '/db/NspOnlineUser', null);
+    if (nspOnlineUser) {
+        $scope.nspId = nspOnlineUser.nspId;
+        console.debug('USER ID');
+        console.debug(nspOnlineUser.nspId);
+    } else {
+        
+    }
+    $scope.focusElement = "nspId";
+    $scope.close = function () {
         patrolNavigator.popPage();
     };
     ons.ready(function () {

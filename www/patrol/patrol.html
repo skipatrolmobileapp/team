@@ -21,7 +21,7 @@
                 <ons-list-item class="navigable" modifier="tappable" ng-repeat="item in items" ng-click="call($index)">
                     <ons-icon icon="fa-phone" fixed-width="true">
                     </ons-icon>
-                    {{item.name}}
+                    {{item.publicName}}
                 </ons-list-item>
             </ons-list>
         </div>
@@ -85,6 +85,14 @@
                 <ons-icon icon="fa-calendar-o" fixed-width="true" ng-hide="event.attendeeCount>0">
                 </ons-icon>
                 {{event.quickTeaser}}
+            </ons-list-item>
+            <ons-list-header ng-show="{{enableNspOnline}}">
+                Shift Schedule
+            </ons-list-header>
+            <ons-list-item ng-show="{{enableNspLink}}" class="navigable" modifier="chevron tappable" ng-click="welcomeNspOnline()">
+                <ons-icon icon="fa-link" fixed-width="true">
+                </ons-icon>
+                Link your NSP Online account
             </ons-list-item>
         </ons-list>
     </div>

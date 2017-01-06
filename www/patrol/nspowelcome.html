@@ -1,0 +1,32 @@
+<ons-page ng-controller="NspoWelcomeController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="back()" ng-swipe-left="next()">
+        <div style="min-height: 300px">
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-link" fixed-width="true">
+                    </ons-icon>
+                    NSP Online
+                </ons-list-item>
+            </ons-list>
+            <div class="inset">
+                This mobile app integrates with Steve Gledhill's NSP Online scheduling system.
+            </div>
+            <div class="inset">
+                As your patrol is using this system, you can "link" your NSP Online account to
+                access your schedule from this app. You'll need to enter your NSP ID and NSP Online
+                password to establish this link. To begin, tap "Link" below.
+            </div>
+        </div>
+        <div class="centered">
+            <ons-button modifier="tappable"  modifier="chevron tappable" onclick="patrolNavigator.pushPage('patrol/nspolink.html')" style="width:55%">
+                <ons-icon icon="fa-link" fixed-width="true">
+                </ons-icon>
+                Link
+            </ons-button>
+        </div>
+        <br/>
+    </div>
+</ons-page>

@@ -806,7 +806,8 @@ module.controller('AedController', function ($scope, $http, AccessLogService) {
 Phones.
 */
 module.controller('PhonesController', function ($scope, $http, AccessLogService) {
-    var territory = angular.fromJson(localStorage.getItem('OnsTerritory')),
+    var role = localStorage.getItem('DspRole'),
+        territory = angular.fromJson(localStorage.getItem('OnsTerritory')),
         allPhones = angular.fromJson(localStorage.getItem('DspPhone')),
         phones = [],
         n = 0,
@@ -816,6 +817,9 @@ module.controller('PhonesController', function ($scope, $http, AccessLogService)
     for (i = 0; i < allPhones.length; i += 1) {
         if (allPhones[i].territory === territory.code) {
             phones[n] = allPhones[i];
+            if ('Guest' === role) {
+                phones[n].name = phones[n].publicName;
+            }
             n = n + 1;
         }
     }
@@ -836,11 +840,17 @@ module.controller('PhonesController', function ($scope, $http, AccessLogService)
 Phone.
 */
 module.controller('PhoneController', function ($scope, $http, AccessLogService) {
-    var phone = angular.fromJson(localStorage.getItem('OnsPhone')),
+    var role = localStorage.getItem('DspRole'),
+        phone = angular.fromJson(localStorage.getItem('OnsPhone')),
         notes;
     AccessLogService.log('info', 'Phone', phone.name);
-    $scope.name = phone.name;
-    $scope.location = phone.location;
+    if ('Basic' === role || 'Power' === role || 'Leader' === role) {
+        $scope.name = phone.name;
+        $scope.location = phone.location;
+    } else {
+        $scope.name = phone.publicName;
+        $scope.location = '';
+    }
     if ((phone.number) && (phone.number.length > 6)) {
         $scope.hide = false;
         $scope.number = phone.number;
