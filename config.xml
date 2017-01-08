@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.medic52.amazon.team" versionCode="10" version="2.5.9">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.medic52.amazon.team" versionCode="10" version="2.6.0">
   <name>Ski Patrol</name>
   <description>Mobile App for Ski Patrollers</description>
   <author href="http://www.skipatrolmobileapp.com" email="skipatrolmobileapp@gmail.com">Gary Meyer</author>
@@ -41,18 +41,8 @@
   <preference name="FadeSplashScreen" value="true"/>
   <preference name="ShowSplashScreenSpinner" value="false"/>
   <preference name="EnableViewportScale" value="false"/>
-  <access origin="*"/>
-  <preference name="KeepRunning" value="true"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
   <preference name="monaca:WebViewEngine" value="default"/>
-  <preference name="Orientation" value="portrait"/>
-  <preference name="SplashScreenDelay" value="2000"/>
-  <preference name="Fullscreen" value="true"/>
   <preference name="BackgroundColor" value="0xffffffff"/>
-  <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
-  <preference name="WindowsStorePublisherName" value="Ski Patrol Mobile App"/>
-  <preference name="WindowsStoreIdentityName" value="Ski Patrol Mobile App"/>
   <preference name="FadeSplashScreenDuration" value="250"/>
   <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
   <platform name="ios">
@@ -108,4 +98,14 @@
   <platform name="chrome">
     <icon src="/platforms/chrome/icon.png" width="128" height="128"/>
   </platform>
+  <access origin="*"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="Orientation" value="portrait"/>
+  <preference name="SplashScreenDelay" value="2000"/>
+  <preference name="Fullscreen" value="true"/>
+  <preference name="WindowsStoreIdentityName" value="Ski Patrol Mobile App"/>
+  <preference name="WindowsStorePublisherName" value="Ski Patrol Mobile App"/>
+  <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
 </widget>
