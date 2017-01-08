@@ -87,7 +87,7 @@
             <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="area in areas" ng-click="showTrails($index)" ng-hide="{{'hideMtnXml'}}">
                 <ons-icon icon="ion-image" fixed-width="true">
                 </ons-icon>
-                {{area.name}} - {{area.trailsOpen}}
+                {{area.name}} {{area.trailsOpen}}
             </ons-list-item>
             <ons-list-header ng-show="liveCams">
                 Live Cams
