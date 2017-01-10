@@ -398,6 +398,10 @@ module.controller('LogoutController', function ($rootScope, $scope, $http, Acces
     localStorage.removeItem('OnsTerritory');
     localStorage.removeItem('OnsToboggan');
     localStorage.removeItem('OnsTrailCheck');
+    localStorage.removeItem('NspOnlineUser');
+    localStorage.removeItem('NspOnlineToken');
+    localStorage.removeItem('NspOnlineUserInfo');
+    localStorage.removeItem('NspOnlineUserAssignments');
     $rootScope.hideTabs = true;
     $http(sessionRequest).
         success(function (data, status, headers, config) {

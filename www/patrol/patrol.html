@@ -25,17 +25,6 @@
                 </ons-list-item>
             </ons-list>
         </div>
-        <!--
-        <div ng-show="{{'enablePatrolInfo'}}">
-            <ons-list>
-                <ons-list-item class="centered">
-                    <ons-icon icon="ion-ios-people" fixed-width="true">
-                    </ons-icon>
-                    Patrol
-                </ons-list-item>
-            </ons-list>
-        </div>
-        -->
         <ons-list ng-show="{{'enablePatrolInfo'}}">
             <ons-list-header>
                 Patrol Directory
@@ -93,6 +82,11 @@
                 <ons-icon icon="fa-link" fixed-width="true">
                 </ons-icon>
                 Link your NSP Online account
+            </ons-list-item>
+            <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="day in days" ng-click="showAssignment($index)">
+                <ons-icon icon="fa-calendar" fixed-width="true">
+                </ons-icon>
+                {{day.quickTeaser}}
             </ons-list-item>
         </ons-list>
     </div>
