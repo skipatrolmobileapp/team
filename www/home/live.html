@@ -89,7 +89,7 @@
                 </ons-icon>
                 {{area.name}} {{area.trailsOpen}}
             </ons-list-item>
-            <ons-list-header ng-show="liveCams">
+            <ons-list-header ng-show="liveCams || travelCams">
                 Live Cams
             </ons-list-header>
             <ons-list-item class="navigable" modifier="chevron tappable" onclick="homeNavigator.pushPage('home/livecams.html')" ng-show="liveCams">
