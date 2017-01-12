@@ -57,17 +57,14 @@ function upcomingDays(assignments) {
         return [];
     }
     for (i = 0; i < assignments.length; i += 1) {
-        console.debug(assignments[i].Date);
         quickTeaser = moment(assignments[i].Date.substring(0, 10)).format('ddd, MMM D');
         found = false;
         for (j = 0; j < stuff.length; j += 1) {
-            console.debug('VS: ' + quickTeaser + ' / ' + stuff[j].quickTeaser);
             if (quickTeaser === stuff[j].quickTeaser) {
                 found = true;
             }
         }
         if (!found) {
-            console.debug('ADDING ' + quickTeaser);
             stuff[n] = assignments[i];
             stuff[n].quickTeaser = quickTeaser;
             n += 1;
@@ -137,35 +134,6 @@ function initNspOnline(resort, $scope, $http, AccessLogService) {
         $scope.enableNspLink = true;
     }
 }
-
-        /*
-        console.debug("TRY A LOGIN");
-        request = {
-            'method': 'POST',
-            'cache': false,
-            'timeout': 8000,
-            'url': nspOnlineBaseUrl + '/login?resort=' + resort,
-            'data': {
-                id: nspOnlineUser.nspId,
-                password: nspOnlineUser.password
-            }
-        };
-        $http(request).
-                success(function (data, status, headers, config) {
-                    console.debug("LOGGED IN");
-                    console.debug(data.authToken);
-                    localStorage.setItem('NspOnlineToken', data.authToken);
-                    AccessLogService.log('info', 'NspOnlineLogin', nspOnlineUser);
-                }).
-                error(function (data, status, headers, config) {
-                    console.debug(angular.toJson(data));
-                    console.debug(status);
-                    localStorage.removeItem('NspOnlineToken');
-                    AccessLogService.log('warn', 'NspOnlineLoginErr', nspOnlineUser);
-                });
-        */
-
-
 
 /*
 Show patrol info.
@@ -253,7 +221,6 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
         if (patrol.nspOnlineResort) {
             initNspOnline(patrol.nspOnlineResort, $scope, $http, AccessLogService);
         } else {
-            console.debug("IT IS *NOT* AN NSP ONLINE RESORT");
             $scope.enableNspOnline = false;
             $scope.enableNspLink = false;
         }
@@ -1314,13 +1281,20 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
         patrolNavigator.popPage();
     };
     $scope.link = function () {
-        var nspId = $scope.nspId,
+        var patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
+            settings = angular.fromJson(localStorage.getItem('DspSetting')),
+            names = settings.map(function (setting) {
+                return setting.name;
+            }),
+            nspOnlineBaseUrl = settings[names.indexOf('nspOnlineBaseUrl')].value,
+            nspId = $scope.nspId,
             password = $scope.password,
             sessionRequest = dspRequest('GET', '/user/session'),
             deleteUserRequest,
             userBody,
             postUserRequest,
-            id;
+            id,
+            loginRequest;
         $http(sessionRequest).
             success(function (data, status, headers, config) {
                 id = data.id;
@@ -1334,8 +1308,25 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
                         postUserRequest = dspRequest('POST', '/db/NspOnlineUser', userBody);
                         $http(postUserRequest).
                             success(function (data, status, headers, config) {
-                                console.debug('POSTED');
-                                // LOGIN
+                                loginRequest = {
+                                    'method': 'POST',
+                                    'cache': false,
+                                    'timeout': 8000,
+                                    'url': nspOnlineBaseUrl + '/login?resort=' + patrol.nspOnlineResort,
+                                    'data': {
+                                        id: $scope.nspId,
+                                        password: $scope.password
+                                    }
+                                };
+                                $http(loginRequest).
+                                        success(function (data, status, headers, config) {
+                                            localStorage.setItem('NspOnlineToken', data.authToken);
+                                            AccessLogService.log('info', 'NspOnlineLogin', nspOnlineUser);
+                                        }).
+                                        error(function (data, status, headers, config) {
+                                            localStorage.removeItem('NspOnlineToken');
+                                            AccessLogService.log('warn', 'NspOnlineLoginErr', loginRequest.data);
+                                        });
                             }).
                             error(function (data, status, headers, config) {
                                 $scope.message = niceMessage(data, status);
@@ -1343,6 +1334,37 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
                             });
                     }).
                     error(function (data, status, headers, config) {
+                        userBody = {
+                            userId: id,
+                            nspId: nspId
+                        };
+                        postUserRequest = dspRequest('POST', '/db/NspOnlineUser', userBody);
+                        $http(postUserRequest).
+                            success(function (data, status, headers, config) {
+                                loginRequest = {
+                                    'method': 'POST',
+                                    'cache': false,
+                                    'timeout': 8000,
+                                    'url': nspOnlineBaseUrl + '/login?resort=' + patrol.nspOnlineResort,
+                                    'data': {
+                                        id: $scope.nspId,
+                                        password: $scope.password
+                                    }
+                                };
+                                $http(loginRequest).
+                                        success(function (data, status, headers, config) {
+                                            localStorage.setItem('NspOnlineToken', data.authToken);
+                                            AccessLogService.log('info', 'NspOnlineLogin', nspOnlineUser);
+                                        }).
+                                        error(function (data, status, headers, config) {
+                                            localStorage.removeItem('NspOnlineToken');
+                                            AccessLogService.log('warn', 'NspOnlineLoginErr', loginRequest.data);
+                                        });
+                            }).
+                            error(function (data, status, headers, config) {
+                                $scope.message = niceMessage(data, status);
+                                AccessLogService.log('error', 'PostNspOnlineUserErr', niceMessage(data, status));
+                            });
                     });
             }).
             error(function (data, status, headers, config) {
