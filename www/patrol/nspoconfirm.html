@@ -1,0 +1,37 @@
+<ons-page ng-controller="NspoConfirmController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-link" fixed-width="true">
+                    </ons-icon>
+                    NSP Online
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset copy centered hey">
+            {{message}}
+        </div>
+        <ons-list>
+            <ons-list-item ng-show="name" class="navigable" modifier="tappable" ng-click="textCellPhone()">
+                <ons-icon icon="fa-user" fixed-width="true">
+                </ons-icon>
+                {{name}}
+            </ons-list-item>
+            <ons-list-item ng-show="email" class="navigable" modifier="tappable" ng-click="sendEmail()">
+                <!-- <a ng-href="mailto:{{email}}"> -->
+                <ons-icon icon="fa-envelope" fixed-width="true">
+                </ons-icon>
+                {{email}}<!-- </a> -->
+            </ons-list-item>
+            <ons-list-item ng-show="badges" class="navigable" modifier="tappable" ng-click="textCellPhone()">
+                <ons-icon icon="fa-certificate" fixed-width="true">
+                </ons-icon>
+                {{badges}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+</ons-page>
