@@ -1,0 +1,45 @@
+<ons-page ng-controller="NspoUserController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered prominent">
+                    <ons-icon icon="fa-user" fixed-width="true">
+                    </ons-icon>
+                    {{name}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-item ng-show="classificationCode">
+                <ons-icon icon="fa-certificate" fixed-width="true">
+                </ons-icon>
+                {{classificationCode}}
+            </ons-list-item>
+            <ons-list-item ng-show="email" class="navigable" modifier="tappable" ng-click="sendEmail()">
+                <!-- <a ng-href="mailto:{{email}}"> -->
+                <ons-icon icon="fa-envelope" fixed-width="true">
+                </ons-icon>
+                {{email}}<!-- </a> -->
+            </ons-list-item>
+        </ons-list>
+        <div>
+            &nbsp;    
+        </div>
+        <div>
+            Your NSP Online account has been linked.
+        </div>
+        <div>
+            &nbsp;    
+        </div>
+        <div>
+            <ons-button modifier="large tappable" ng-click="continue()">
+                <ons-icon icon="fa-play-circle-o" fixed-width="true">
+                </ons-icon>
+                Continue
+            </ons-button>
+        </div>
+    </div>
+</ons-page>

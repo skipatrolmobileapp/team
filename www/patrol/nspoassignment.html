@@ -16,23 +16,20 @@
             {{message}}
         </div>
         <ons-list>
-            <ons-list-header>
-                Details
-            </ons-list-header>
             <ons-list-item ng-show="{{'date'}}">
                 <ons-icon icon="fa-calendar" fixed-width="true">
                 </ons-icon>
                 {{date}}
             </ons-list-item>
-            <ons-list-item ng-show="{{'description'}}">
-                <ons-icon icon="fa-check-square" fixed-width="true">
-                </ons-icon>
-                {{description}}
-            </ons-list-item>
             <ons-list-item ng-show="{{'time'}}">
                 <ons-icon icon="fa-clock-o" fixed-width="true">
                 </ons-icon>
                 {{time}}
+            </ons-list-item>
+            <ons-list-item ng-show="{{'description'}}">
+                <ons-icon icon="fa-check-square" fixed-width="true">
+                </ons-icon>
+                {{description}}
             </ons-list-item>
         </ons-list>
     </div>

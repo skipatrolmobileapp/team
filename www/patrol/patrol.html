@@ -65,7 +65,7 @@
                 </ons-icon>
                 Sign In Sheets
             </ons-list-item>
-            <ons-list-header>
+            <ons-list-header ng-show="events.length>0">
                 Upcoming Schedule
             </ons-list-header>
             <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="event in events" ng-click="showEvent($index)">

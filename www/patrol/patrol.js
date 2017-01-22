@@ -1269,39 +1269,41 @@ module.controller('NspoWelcomeController', function ($rootScope, $scope, $http, 
 /*
 Link NSP Online accounts.
 */
-module.controller('NspoLinkController', function ($rootScope, $scope, $http, AccessLogService) {
+module.controller('NspoLinkController', function ($rootScope, $scope, $timeout, $http, AccessLogService) {
     var nspOnlineUser = angular.fromJson(localStorage.getItem('NspOnlineUser')),
         nspOnlineUserRequest = dspRequest('GET', '/db/NspOnlineUser', null);
     AccessLogService.log('info', 'NspoLink', nspOnlineUser);
-    if (nspOnlineUser) {
-        $scope.nspId = nspOnlineUser.nspId;
-        $scope.focusElement = "password";
-    } else {
-        $scope.focusElement = "nspId";
-    }
-    $http(nspOnlineUserRequest).
-        success(function (data, status, headers, config) {
-            if (data.record.length > 0) {
-                AccessLogService.log('info', 'NspOnlineUser', nspOnlineUser);
-                nspOnlineUser = data.record[0];
-                $scope.nspId = nspOnlineUser.nspId;
-                $scope.focusElement = "password";
-                localStorage.setItem('NspOnlineUser', angular.toJson(nspOnlineUser));
-            } else {
-                AccessLogService.log('info', 'NspOnlineUser', 'User has not linked NSP Online');
+    $timeout(function() {
+        if (nspOnlineUser) {
+            $scope.nspId = nspOnlineUser.nspId;
+            $scope.focusElement = "password";
+        } else {
+            $scope.focusElement = "nspId";
+        }
+        $http(nspOnlineUserRequest).
+            success(function (data, status, headers, config) {
+                if (data.record.length > 0) {
+                    AccessLogService.log('info', 'NspOnlineUser', nspOnlineUser);
+                    nspOnlineUser = data.record[0];
+                    $scope.nspId = nspOnlineUser.nspId;
+                    // $scope.focusElement = "password";
+                    localStorage.setItem('NspOnlineUser', angular.toJson(nspOnlineUser));
+                } else {
+                    AccessLogService.log('info', 'NspOnlineUser', 'User has not linked NSP Online');
+                    nspOnlineUser = null;
+                    $scope.nspId = '';
+                    // $scope.focusElement = "nspId";
+                    localStorage.removeItem('NspOnlineUser');
+                }
+            }).
+            error(function (data, status, headers, config) {
+                AccessLogService.log('error', 'GetNspOnlineUserErr', niceMessage(data, status));
                 nspOnlineUser = null;
-                $scope.nspId = '';
-                $scope.focusElement = "nspId";
                 localStorage.removeItem('NspOnlineUser');
-            }
-        }).
-        error(function (data, status, headers, config) {
-            AccessLogService.log('error', 'GetNspOnlineUserErr', niceMessage(data, status));
-            nspOnlineUser = null;
-            localStorage.removeItem('NspOnlineUser');
-            $scope.nspId = '';
-            $scope.message = niceMessage(data, status);
-        });
+                $scope.nspId = '';
+                $scope.message = niceMessage(data, status);
+            });
+    });
     $scope.close = function () {
         patrolNavigator.popPage();
     };
@@ -1320,6 +1322,7 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
             postUserRequest,
             id,
             loginRequest;
+        havePatience($rootScope);
         $http(sessionRequest).
             success(function (data, status, headers, config) {
                 id = data.id;
@@ -1348,17 +1351,21 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
                                         success(function (data, status, headers, config) {
                                             localStorage.setItem('NspOnlineToken', data.authToken);
                                             AccessLogService.log('info', 'NspOnlineLogin', nspOnlineUser);
+                                            patrolNavigator.pushPage('patrol/nspouser.html');
+                                            waitNoMore();
                                         }).
                                         error(function (data, status, headers, config) {
                                             $scope.message = 'Login failed. Try again.';
                                             $scope.focusElement = "password";
                                             localStorage.removeItem('NspOnlineToken');
                                             AccessLogService.log('warn', 'NspOnlineLoginErr', loginRequest.data);
+                                            waitNoMore();
                                         });
                             }).
                             error(function (data, status, headers, config) {
                                 $scope.message = niceMessage(data, status);
                                 AccessLogService.log('error', 'PostNspOnlineUserErr', niceMessage(data, status));
+                                waitNoMore();
                             });
                     }).
                     error(function (data, status, headers, config) {
@@ -1384,23 +1391,28 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
                                         success(function (data, status, headers, config) {
                                             localStorage.setItem('NspOnlineToken', data.authToken);
                                             AccessLogService.log('info', 'NspOnlineLogin', nspOnlineUser);
+                                            patrolNavigator.pushPage('patrol/nspouser.html');
+                                            waitNoMore();
                                         }).
                                         error(function (data, status, headers, config) {
                                             $scope.message = 'Login failed. Try again.';
                                             $scope.focusElement = "password";
                                             localStorage.removeItem('NspOnlineToken');
                                             AccessLogService.log('warn', 'NspOnlineLoginErr', loginRequest.data);
+                                            waitNoMore();
                                         });
                             }).
                             error(function (data, status, headers, config) {
                                 $scope.message = niceMessage(data, status);
                                 AccessLogService.log('error', 'PostNspOnlineUserErr', niceMessage(data, status));
+                                waitNoMore();
                             });
                     });
             }).
             error(function (data, status, headers, config) {
                 $scope.message = niceMessage(data, status);
                 AccessLogService.log('error', 'UserSessionErr', niceMessage(data, status));
+                waitNoMore();
             });
     };
     ons.ready(function () {
@@ -1460,6 +1472,57 @@ module.controller('NspoAssignmentController', function ($rootScope, $scope, $htt
     }
     $scope.close = function () {
         patrolNavigator.popPage();
+    };
+    ons.ready(function () {
+        return;
+    });
+});
+
+/*
+Patroller's NSP Online user confirmation.
+*/
+module.controller('NspoUserController', function ($rootScope, $scope, $http, AccessLogService) {
+    var patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
+        nspOnlineUserInfo = angular.fromJson(localStorage.getItem('NspOnlineUserInfo')),
+        settings = angular.fromJson(localStorage.getItem('DspSetting')),
+        names = settings.map(function (setting) {
+            return setting.name;
+        }),
+        nspOnlineBaseUrl = settings[names.indexOf('nspOnlineBaseUrl')].value,
+        nspOnlineToken = localStorage.getItem('NspOnlineToken'),
+        nspOnlineUserInfoRequest = {
+            'method': 'GET',
+            'cache': false,
+            'timeout': 8000,
+            'url': nspOnlineBaseUrl + '/user?resort=' + patrol.nspOnlineResort,
+            'headers': {
+                'Authorization': nspOnlineToken
+            }
+        };
+    AccessLogService.log('info', 'NspoUser', nspOnlineUserInfo);
+    console.debug(angular.toJson(nspOnlineUserInfo));
+    if (nspOnlineUserInfo) {
+        $scope.name = nspOnlineUserInfo.FirstName + ' ' + nspOnlineUserInfo.LastName;
+        $scope.classificationCode = nspOnlineUserInfo.ClassificationCode;
+        $scope.email = nspOnlineUserInfo.email;
+    }
+    $http(nspOnlineUserInfoRequest).
+            success(function (data, status, headers, config) {
+                localStorage.setItem('NspOnlineUserInfo', angular.toJson(data));
+                AccessLogService.log('info', 'NspOnlineUserInfo', data);
+                $scope.name = data.FirstName + ' ' + data.LastName;
+                $scope.classificationCode = data.ClassificationCode;
+                $scope.email = data.email;
+            }).
+            error(function (data, status, headers, config) {
+                localStorage.removeItem('NspOnlineUserInfo');
+                AccessLogService.log('warn', 'NspOnlineUserInfoErr', nspOnlineUser);
+            });
+    $scope.continue = function () {
+        patrolNavigator.resetToPage('patrol/patrol.html');
+    };
+    $scope.close = function () {
+        patrolNavigator.resetToPage('patrol/patrol.html');
     };
     ons.ready(function () {
         return;
