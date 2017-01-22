@@ -1286,13 +1286,11 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $timeout, 
                     AccessLogService.log('info', 'NspOnlineUser', nspOnlineUser);
                     nspOnlineUser = data.record[0];
                     $scope.nspId = nspOnlineUser.nspId;
-                    // $scope.focusElement = "password";
                     localStorage.setItem('NspOnlineUser', angular.toJson(nspOnlineUser));
                 } else {
                     AccessLogService.log('info', 'NspOnlineUser', 'User has not linked NSP Online');
                     nspOnlineUser = null;
                     $scope.nspId = '';
-                    // $scope.focusElement = "nspId";
                     localStorage.removeItem('NspOnlineUser');
                 }
             }).
