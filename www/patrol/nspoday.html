@@ -1,0 +1,26 @@
+<ons-page ng-controller="NspoDayController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-calendar" fixed-width="true">
+                    </ons-icon>
+                    {{quickTeaser}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-header>
+                Shifts
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="shift in shifts" ng-click="pickShift($index)">
+                <ons-icon icon="fa-calendar" fixed-width="true">
+                </ons-icon>
+                {{shift.quickTeaser}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+</ons-page>

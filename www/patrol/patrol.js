@@ -270,6 +270,10 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
     $scope.welcomeNspOnline = function (index) {
         patrolNavigator.pushPage('patrol/nspowelcome.html');
     };
+    $scope.showDay = function (index) {
+        localStorage.setItem('OnsDay', angular.toJson($scope.days[index]));
+        patrolNavigator.pushPage('patrol/nspoday.html');
+    }
     ons.ready(function () {
         return;
     });
@@ -1377,6 +1381,20 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
                 $scope.message = niceMessage(data, status);
                 AccessLogService.log('error', 'UserSessionErr', niceMessage(data, status));
             });
+    };
+    ons.ready(function () {
+        return;
+    });
+});
+
+/*
+Link NSP Online day's shifts.
+*/
+module.controller('NspoDayController', function ($rootScope, $scope, $http, AccessLogService) {
+    var day = angular.fromJson(localStorage.getItem('OnsDay'));
+    $scope.quickTeaser = day.quickTeaser;
+    $scope.close = function () {
+        patrolNavigator.popPage();
     };
     ons.ready(function () {
         return;
