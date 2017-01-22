@@ -1403,12 +1403,17 @@ module.controller('NspoDayController', function ($rootScope, $scope, $http, Acce
     for (i = 0; i < userAssignments.assignments.length; i += 1) {
         if (userAssignments.assignments[i].Date.substring(0, 10) === day.Date.substring(0, 10)) {
             shifts[n] = userAssignments.assignments[i];
+            shifts[n].quickTeaser = shifts[n].StartTime;
             n += 1;
         }
     }
     $scope.shifts = shifts;
     console.debug(angular.toJson(userAssignments));
-    
+    $scope.pickShift = function (index) {
+        console.debug('Picked');
+        console.debug(angular.toJson(shifts[index]));
+        // TODO: Push Page
+    };
     $scope.close = function () {
         patrolNavigator.popPage();
     };
