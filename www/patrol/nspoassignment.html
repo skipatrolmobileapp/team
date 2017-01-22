@@ -1,0 +1,39 @@
+<ons-page ng-controller="NspoAssignmentController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="fa-calendar" fixed-width="true">
+                    </ons-icon>
+                    Shift Assignment
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset copy centered hey" ng-show="{{'message'}}">
+            {{message}}
+        </div>
+        <ons-list>
+            <ons-list-header>
+                Details
+            </ons-list-header>
+            <ons-list-item ng-show="{{'date'}}">
+                <ons-icon icon="fa-calendar" fixed-width="true">
+                </ons-icon>
+                {{date}}
+            </ons-list-item>
+            <ons-list-item ng-show="{{'description'}}">
+                <ons-icon icon="fa-check-square" fixed-width="true">
+                </ons-icon>
+                {{description}}
+            </ons-list-item>
+            <ons-list-item ng-show="{{'time'}}">
+                <ons-icon icon="fa-clock-o" fixed-width="true">
+                </ons-icon>
+                {{time}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+</ons-page>

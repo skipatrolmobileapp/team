@@ -136,6 +136,25 @@ function initNspOnline(resort, $scope, $http, AccessLogService) {
 }
 
 /*
+Convert NSP Online shift type to string.
+*/
+function decodeShiftType(shiftType) {
+    var description = 'Day Shift';
+    switch (shiftType) {
+        case '1':
+            description = 'Swing Shift';
+            break;
+        case '2':
+            description = 'Night Shift';
+            break;
+        case '3':
+            description = 'Training Shift';
+            break;
+    }
+    return description;
+}
+
+/*
 Show patrol info.
 */
 module.controller('PatrolController', function ($scope, $http, AccessLogService) {
@@ -1390,7 +1409,7 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
 });
 
 /*
-Link NSP Online day's shifts.
+Patroller's NSP Online shift assignments for a day.
 */
 module.controller('NspoDayController', function ($rootScope, $scope, $http, AccessLogService) {
     var day = angular.fromJson(localStorage.getItem('OnsDay')),
@@ -1408,12 +1427,37 @@ module.controller('NspoDayController', function ($rootScope, $scope, $http, Acce
         }
     }
     $scope.shifts = shifts;
-    console.debug(angular.toJson(userAssignments));
     $scope.pickShift = function (index) {
-        console.debug('Picked');
-        console.debug(angular.toJson(shifts[index]));
-        // TODO: Push Page
+        localStorage.setItem('OnsAssignment', angular.toJson($scope.shifts[index]));
+        patrolNavigator.pushPage('patrol/nspoassignment.html');
     };
+    $scope.close = function () {
+        patrolNavigator.popPage();
+    };
+    ons.ready(function () {
+        return;
+    });
+});
+
+/*
+Patroller's NSP Online shift assignment.
+*/
+module.controller('NspoAssignmentController', function ($rootScope, $scope, $http, AccessLogService) {
+    var assignment = angular.fromJson(localStorage.getItem('OnsAssignment'));
+    AccessLogService.log('info', 'NspoAssignment', assignment);
+    if (assignment.Date) {
+        $scope.date = moment(assignment.Date.substring(0, 10)).format('ddd, MMM D');
+    }
+    if (assignment.EventName && (assignment.EventName.length > 1)) {
+        $scope.description = decodeShiftType(assignment.ShiftType) + ' - ' + assignment.EventName;
+    } else {
+        $scope.description = decodeShiftType(assignment.ShiftType);
+    }
+    if(assignment.EndTime && (assignment.EndTime.length > 1)) {
+        $scope.time = assignment.StartTime + ' - ' + assignment.EndTime;
+    } else {
+        $scope.time = assignment.StartTime;
+    }
     $scope.close = function () {
         patrolNavigator.popPage();
     };
