@@ -1318,12 +1318,15 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
                                         password: $scope.password
                                     }
                                 };
+                                $scope.message = '';
                                 $http(loginRequest).
                                         success(function (data, status, headers, config) {
                                             localStorage.setItem('NspOnlineToken', data.authToken);
                                             AccessLogService.log('info', 'NspOnlineLogin', nspOnlineUser);
                                         }).
                                         error(function (data, status, headers, config) {
+                                            $scope.message = 'Login failed. Try again.';
+                                            $scope.focusElement = "password";
                                             localStorage.removeItem('NspOnlineToken');
                                             AccessLogService.log('warn', 'NspOnlineLoginErr', loginRequest.data);
                                         });
@@ -1351,12 +1354,15 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
                                         password: $scope.password
                                     }
                                 };
+                                $scope.message = '';
                                 $http(loginRequest).
                                         success(function (data, status, headers, config) {
                                             localStorage.setItem('NspOnlineToken', data.authToken);
                                             AccessLogService.log('info', 'NspOnlineLogin', nspOnlineUser);
                                         }).
                                         error(function (data, status, headers, config) {
+                                            $scope.message = 'Login failed. Try again.';
+                                            $scope.focusElement = "password";
                                             localStorage.removeItem('NspOnlineToken');
                                             AccessLogService.log('warn', 'NspOnlineLoginErr', loginRequest.data);
                                         });
