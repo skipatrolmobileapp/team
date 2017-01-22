@@ -1394,10 +1394,21 @@ Link NSP Online day's shifts.
 */
 module.controller('NspoDayController', function ($rootScope, $scope, $http, AccessLogService) {
     var day = angular.fromJson(localStorage.getItem('OnsDay')),
-        userAssignments = angular.fromJson(localStorage.getItem('NspOnlineUserAssignments'));
+        userAssignments = angular.fromJson(localStorage.getItem('NspOnlineUserAssignments')),
+        shifts = [],
+        i = 0,
+        n = 0;
     AccessLogService.log('info', 'NspoDay', day);
     $scope.quickTeaser = day.quickTeaser;
-    // TODO get the userAssignments day.Date 
+    for (i = 0; i < userAssignments.assignments.length; i += 1) {
+        if (userAssignments.assignments[i].Date.substring(0, 10) === day.Date.substring(0, 10)) {
+            shifts[n] = userAssignments.assignments[i];
+            n += 1;
+        }
+    }
+    $scope.shifts = shifts;
+    console.debug(angular.toJson(userAssignments));
+    
     $scope.close = function () {
         patrolNavigator.popPage();
     };

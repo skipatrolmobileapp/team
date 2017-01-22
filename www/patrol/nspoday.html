@@ -8,9 +8,17 @@
                 <ons-list-item class="centered">
                     <ons-icon icon="fa-calendar" fixed-width="true">
                     </ons-icon>
-                    {{quickTeaser}}
+                    Day Shifts
                 </ons-list-item>
             </ons-list>
+        </div>
+        <div class="inset copy centered hey" ng-show="message">
+            {{message}}
+        </div>
+        <div class="inset">
+            <div class="copy centered">
+                {{quickTeaser}}
+            </div>
         </div>
         <ons-list>
             <ons-list-header>
@@ -19,7 +27,7 @@
             <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="shift in shifts" ng-click="pickShift($index)">
                 <ons-icon icon="fa-calendar" fixed-width="true">
                 </ons-icon>
-                {{shift.quickTeaser}}
+                {{shift.StartTime}}
             </ons-list-item>
         </ons-list>
     </div>
