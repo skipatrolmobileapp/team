@@ -1238,6 +1238,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
 Welcome to NSP Online, offering to user to link accounts.
 */
 module.controller('NspoWelcomeController', function ($rootScope, $scope, $http, AccessLogService) {
+    AccessLogService.log('info', 'NspoWelcome');
     $scope.close = function () {
         patrolNavigator.popPage();
     };
@@ -1252,6 +1253,7 @@ Link NSP Online accounts.
 module.controller('NspoLinkController', function ($rootScope, $scope, $http, AccessLogService) {
     var nspOnlineUser = angular.fromJson(localStorage.getItem('NspOnlineUser')),
         nspOnlineUserRequest = dspRequest('GET', '/db/NspOnlineUser', null);
+    AccessLogService.log('info', 'NspoLink', nspOnlineUser);
     if (nspOnlineUser) {
         $scope.nspId = nspOnlineUser.nspId;
         $scope.focusElement = "password";
@@ -1391,8 +1393,11 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $http, Acc
 Link NSP Online day's shifts.
 */
 module.controller('NspoDayController', function ($rootScope, $scope, $http, AccessLogService) {
-    var day = angular.fromJson(localStorage.getItem('OnsDay'));
+    var day = angular.fromJson(localStorage.getItem('OnsDay')),
+        userAssignments = angular.fromJson(localStorage.getItem('NspOnlineUserAssignments'));
+    AccessLogService.log('info', 'NspoDay', day);
     $scope.quickTeaser = day.quickTeaser;
+    // TODO get the userAssignments day.Date 
     $scope.close = function () {
         patrolNavigator.popPage();
     };
