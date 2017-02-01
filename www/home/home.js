@@ -972,7 +972,7 @@ module.controller('LiveController', function ($scope, $http, AccessLogService) {
 /*
 Posts.
 */
-module.controller('PostsController', function ($rootScope, $scope, $http, PostPhoto, AccessLogService) {
+module.controller('PostsController', function ($rootScope, $scope, $http, AccessLogService) {
     var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
         postRequest = dspRequest('GET', '/db/Post?limit=25&order=postedOn%20desc', null),
         posts = angular.fromJson(localStorage.getItem('DspPost')),

@@ -1498,7 +1498,6 @@ module.controller('NspoUserController', function ($rootScope, $scope, $http, Acc
             }
         };
     AccessLogService.log('info', 'NspoUser', nspOnlineUserInfo);
-    console.debug(angular.toJson(nspOnlineUserInfo));
     if (nspOnlineUserInfo) {
         $scope.name = nspOnlineUserInfo.FirstName + ' ' + nspOnlineUserInfo.LastName;
         $scope.classificationCode = nspOnlineUserInfo.ClassificationCode;
