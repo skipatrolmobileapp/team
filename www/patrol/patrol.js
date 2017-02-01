@@ -326,6 +326,25 @@ module.controller('CallController', function ($scope, $http, AccessLogService) {
 });
 
 /*
+Patroller directory.
+*/
+module.controller('DirectoryController', function ($scope, AccessLogService) {
+    var patrollers = angular.fromJson(localStorage.getItem('DspPatroller'));
+    AccessLogService.log('info', 'Directory');
+    $scope.patrollers = patrollers;
+    $scope.view = function (index) {
+        localStorage.setItem('OnsPatroller', angular.toJson($scope.patrollers[index]));
+        patrolNavigator.pushPage('patrol/patroller.html');
+    };
+    $scope.close = function () {
+        patrolNavigator.popPage();
+    };
+    ons.ready(function () {
+        return;
+    });
+});
+
+/*
 Search for a patroller.
 */
 module.controller('SearchController', function ($scope, AccessLogService) {

@@ -1,0 +1,24 @@
+<ons-page ng-controller="DirectoryController" modifier="full_bg">
+    <div class="inset" ng-swipe-right="close()">
+        <div class="inset">
+            &nbsp;
+        </div>
+        <div>
+            <ons-list>
+                <ons-list-item class="centered">
+                    <ons-icon icon="ion-ios-people" fixed-width="true">
+                    </ons-icon>
+                    Directory
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-header>
+                Patrollers
+            </ons-list-header>
+            <ons-list-item class="navigable" modifier="chevron tappable" ng-repeat="patroller in patrollers" ng-click="view($index)">
+                {{patroller.name}}
+            </ons-list-item>
+        </ons-list>
+    </div>
+</ons-page>
