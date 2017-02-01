@@ -366,7 +366,7 @@ module.controller('PatrollerController', function ($scope, $http, AccessLogServi
     var patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         patroller = angular.fromJson(localStorage.getItem('OnsPatroller')),
         patrollers = angular.fromJson(localStorage.getItem('DspPatroller')),
-        scheduleRequest = dspRequest('GET', '/db/Schedule?filter=patrollerId%3D' + patroller.id + '%20AND%20activityDate%3C%22' + moment().format('YYYY-MM-DD') + '%22&order=activityDate%20desc%2Cactivity', null),
+        scheduleRequest = dspRequest('GET', '/db/Schedule?filter=patrollerId%3D' + patroller.id + '%20AND%20activityDate%3C%3D%22' + moment().format('YYYY-MM-DD') + '%22&order=activityDate%20desc%2Cactivity', null),
         schedules,
         i;
     AccessLogService.log('info', 'Patroller', patroller.name);
