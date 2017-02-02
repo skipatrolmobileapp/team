@@ -508,10 +508,8 @@ function summarizeLiftStatus(data) {
     }
     if (0 === runningLiftCount) {
         liftStatusSummary = 'No lifts running';
-    } else if (runningLiftCount === liftCount) {
-        liftStatusSummary = 'All lifts running';
     } else {
-        liftStatusSummary = runningLiftCount + ' of ' + liftCount;
+        liftStatusSummary = runningLiftCount + ' lifts running';
     }
     return liftStatusSummary;
 }
@@ -546,10 +544,8 @@ function summarizeTrailStatus(data) {
             areas[n].name = data.facilities.areas.area[i].name;
             if (0 === openTrailCount) {
                 areas[n].trailsOpen = '- Closed';
-            } else if (openTrailCount === trailCount) {
-                areas[n].trailsOpen = '- All open';
             } else {
-                areas[n].trailsOpen = '- ' + openTrailCount + ' of ' + trailCount;
+                areas[n].trailsOpen = '- ' + openTrailCount + ' trails open';
             }
             openTrailCount = 0;
             trailCount = 0;
