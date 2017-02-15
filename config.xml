@@ -98,14 +98,14 @@
   <platform name="chrome">
     <icon src="/platforms/chrome/icon.png" width="128" height="128"/>
   </platform>
+  <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
   <access origin="*"/>
   <preference name="KeepRunning" value="true"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="Orientation" value="portrait"/>
   <preference name="SplashScreenDelay" value="2000"/>
-  <preference name="Fullscreen" value="false"/>
-  <preference name="WindowsStoreIdentityName" value="Ski Patrol Mobile App"/>
+  <preference name="Fullscreen" value="true"/>
   <preference name="WindowsStorePublisherName" value="Ski Patrol Mobile App"/>
-  <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
+  <preference name="WindowsStoreIdentityName" value="Ski Patrol Mobile App"/>
 </widget>

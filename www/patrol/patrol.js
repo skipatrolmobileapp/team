@@ -64,7 +64,7 @@ function upcomingDays(assignments) {
                 found = true;
             }
         }
-        if (!found) {
+        if ((!found) && (moment(assignments[i].Date.substring(0, 10)) >= yesterday)) {
             stuff[n] = assignments[i];
             stuff[n].quickTeaser = quickTeaser;
             n += 1;
@@ -95,11 +95,11 @@ function initNspOnline(resort, $scope, $http, AccessLogService) {
                 'Authorization': nspOnlineToken
             }
         },
-        nspOnlineUserAssignmentsRequest = {
+        nspOnlinePatrolAssignmentsRequest = {
             'method': 'GET',
             'cache': false,
             'timeout': 8000,
-            'url': nspOnlineBaseUrl + '/user/assignments?resort=' + resort,
+            'url': nspOnlineBaseUrl + '/patrol/assignments?resort=' + resort,
             'headers': {
                 'Authorization': nspOnlineToken
             }
@@ -117,15 +117,15 @@ function initNspOnline(resort, $scope, $http, AccessLogService) {
                         localStorage.removeItem('NspOnlineUserInfo');
                         AccessLogService.log('warn', 'NspOnlineUserInfoErr', nspOnlineUser);
                     });
-            $http(nspOnlineUserAssignmentsRequest).
+            $http(nspOnlinePatrolAssignmentsRequest).
                     success(function (data, status, headers, config) {
-                        localStorage.setItem('NspOnlineUserAssignments', angular.toJson(data));
-                        AccessLogService.log('info', 'NspOnlineUserAssignments', data);
+                        localStorage.setItem('NspOnlinePatrolAssignments', angular.toJson(data));
+                        AccessLogService.log('info', 'NspOnlinePatrolAssignments');
                         $scope.days = upcomingDays(data.assignments);
                     }).
                     error(function (data, status, headers, config) {
-                        localStorage.removeItem('NspOnlineUserAssignments');
-                        AccessLogService.log('warn', 'NspOnlineUserAssignmentsErr', nspOnlineUser);
+                        localStorage.removeItem('NspOnlinePatrolAssignments');
+                        AccessLogService.log('warn', 'NspOnlinePatrolAssignmentsErr', nspOnlineUser);
                     });
         } else {
             $scope.enableNspLink = true;
@@ -1442,15 +1442,15 @@ Patroller's NSP Online shift assignments for a day.
 */
 module.controller('NspoDayController', function ($rootScope, $scope, $http, AccessLogService) {
     var day = angular.fromJson(localStorage.getItem('OnsDay')),
-        userAssignments = angular.fromJson(localStorage.getItem('NspOnlineUserAssignments')),
+        patrolAssignments = angular.fromJson(localStorage.getItem('NspOnlinePatrolAssignments')),
         shifts = [],
         i = 0,
         n = 0;
     AccessLogService.log('info', 'NspoDay', day);
     $scope.quickTeaser = day.quickTeaser;
-    for (i = 0; i < userAssignments.assignments.length; i += 1) {
-        if (userAssignments.assignments[i].Date.substring(0, 10) === day.Date.substring(0, 10)) {
-            shifts[n] = userAssignments.assignments[i];
+    for (i = 0; i < patrolAssignments.assignments.length; i += 1) {
+        if (patrolAssignments.assignments[i].Date.substring(0, 10) === day.Date.substring(0, 10)) {
+            shifts[n] = patrolAssignments.assignments[i];
             shifts[n].quickTeaser = shifts[n].StartTime;
             n += 1;
         }
