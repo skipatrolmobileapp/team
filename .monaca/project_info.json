@@ -2,7 +2,8 @@
     "plugins": [
         "mobi.monaca.plugins.Monaca@3.1.0",
         "mobi.monaca.plugins.datepicker@1.0.1",
-        "mobi.monaca.plugins.BarcodeScanner@1.0.3"
+        "mobi.monaca.plugins.BarcodeScanner@1.0.3",
+        "mobi.monaca.plugins.MonacaBackend@1.2.1"
     ],
     "framework_version": "3.5",
     "xcode_version": "7",

@@ -18,6 +18,14 @@ Global initialization indicator.
 var haveInitializedApp = false;
 
 /*
+Go back to the home screen.
+*/
+function h() {
+    console.debug('Go home!');
+    homeNavigator.popPage();
+}
+
+/*
 Start the app. Direct the user to register, login, or just show the live home screen.
 */
 module.controller('HomeController', function ($rootScope, $scope, $http, AccessLogService) {

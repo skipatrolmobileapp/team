@@ -98,7 +98,6 @@
   <platform name="chrome">
     <icon src="/platforms/chrome/icon.png" width="128" height="128"/>
   </platform>
-  <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
   <access origin="*"/>
   <preference name="KeepRunning" value="true"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
@@ -106,6 +105,10 @@
   <preference name="Orientation" value="portrait"/>
   <preference name="SplashScreenDelay" value="2000"/>
   <preference name="Fullscreen" value="true"/>
+  <preference name="monaca:MonacaBackendUrl" value="https://cloud.monaca.mobi/json-rpc/"/>
+  <preference name="monaca:MonacaBackendId" value="56407020fd17342909b01a4d"/>
+  <preference name="monaca:MonacaBackendApiKey" value="4aa2daa49c23074f826197010bb79b1e752379330a826f738c7b2fc8a2439465"/>
+  <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
   <preference name="WindowsStorePublisherName" value="Ski Patrol Mobile App"/>
   <preference name="WindowsStoreIdentityName" value="Ski Patrol Mobile App"/>
 </widget>
