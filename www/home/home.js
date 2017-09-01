@@ -1737,6 +1737,7 @@ module.controller('TravelCamsController', function ($scope, AccessLogService) {
     });
     $scope.liveCams = liveCams;
     $scope.logoAddress = DSP_BASE_URL + '/api/v2' + angular.fromJson(localStorage.getItem('DspPatrol')).travelCamsLogoPath + '?api_key=' + DSP_API_KEY;
+    console.log($scope.logoAddress);
     $scope.patrolName = angular.fromJson(localStorage.getItem('DspPatrol')).patrolName;
     $scope.view = function (index) {
         browse(liveCams[index].address);        
