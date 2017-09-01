@@ -121,12 +121,12 @@ module.controller('ProfileController', function ($rootScope, $scope, $http, Acce
             $scope.phone = data.phone;
             localStorage.setItem('DspName', data.first_name);
             if ('Basic' === role || 'Power' === role || 'Leader' === role) {
-                getPatrollerRequest = dspRequest('GET', '/db/Patroller?filter=email%3D"' + data.email + '"', null);
+                getPatrollerRequest = dspRequest('GET', '/team/_table/Patroller?filter=email%3D"' + data.email + '"', null);
                 getPatrollerRequest.cache = false;
                 $http(getPatrollerRequest).
                     success(function (data, status, headers, config) {
-                        if ((data.record) && (data.record.length > 0)) {
-                            localStorage.setItem('OnsPatroller', angular.toJson(data.record[0]));
+                        if ((data.resource) && (data.resource.length > 0)) {
+                            localStorage.setItem('OnsPatroller', angular.toJson(data.resource[0]));
                             waitNoMore();
                         } else {
                             localStorage.removeItem('OnsPatroller');
@@ -168,7 +168,7 @@ module.controller('ProfileController', function ($rootScope, $scope, $http, Acce
                         patroller.name = $scope.name;
                         patroller.cellPhone = $scope.phone;
                         patroller.tenantId = patrolPrefix;
-                        patrollerRequest = dspRequest('PUT', '/db/Patroller', patroller);
+                        patrollerRequest = dspRequest('PUT', '/team/_table/Patroller', patroller);
                         $http(patrollerRequest).
                             success(function (data, status, headers, config) {
                                 localStorage.setItem('DspName', $scope.name);
@@ -193,7 +193,7 @@ module.controller('ProfileController', function ($rootScope, $scope, $http, Acce
                             'additionalEmail': ''
                         };
                         if ('Guest' !== role) {
-                            patrollerRequest = dspRequest('POST', '/db/Patroller', patroller);
+                            patrollerRequest = dspRequest('POST', '/team/_table/Patroller', patroller);
                             $http(patrollerRequest).
                                 success(function (data, status, headers, config) {
                                     $scope.message = 'Profile created.';

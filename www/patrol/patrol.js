@@ -83,7 +83,7 @@ function initNspOnline(resort, $scope, $http, AccessLogService) {
         }),
         nspOnlineBaseUrl = settings[names.indexOf('nspOnlineBaseUrl')].value,
         nspOnlineUser = angular.fromJson(localStorage.getItem('NspOnlineUser')),
-        nspOnlineUserRequest = dspRequest('GET', '/db/NspOnlineUser', null),
+        nspOnlineUserRequest = dspRequest('GET', '/team/_table/NspOnlineUser', null),
         nspOnlineToken = localStorage.getItem('NspOnlineToken'),
         nspOnlineUserInfo = angular.fromJson(localStorage.getItem('NspOnlineUserInfo')),
         nspOnlineUserInfoRequest = {
@@ -162,16 +162,16 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
         role = localStorage.getItem('DspRole'),
         ads = angular.fromJson(localStorage.getItem('DspAd')),
         patrollers = angular.fromJson(localStorage.getItem('DspPatroller')),
-        patrollerRequest = dspRequest('GET', '/db/Patroller?order=name', null),
+        patrollerRequest = dspRequest('GET', '/team/_table/Patroller?order=name', null),
         categories = [],
         priorCategory,
         contents = angular.fromJson(localStorage.getItem('DspContent')),
-        contentRequest = dspRequest('GET', '/db/Content?order=category,title', null),
+        contentRequest = dspRequest('GET', '/team/_table/Content?order=category,title', null),
         events = angular.fromJson(localStorage.getItem('DspEvent')),
-        eventRequest = dspRequest('GET', '/db/Event?order=start,activity', null),
+        eventRequest = dspRequest('GET', '/team/_table/Event?order=start,activity', null),
         activities = angular.fromJson(localStorage.getItem('DspActivity')),
-        activityRequest = dspRequest('GET', '/db/Activity?order=activity', null),
-        callRequest = dspRequest('GET', '/db/Phone?order=territory,name', null),
+        activityRequest = dspRequest('GET', '/team/_table/Activity?order=activity', null),
+        callRequest = dspRequest('GET', '/team/_table/Phone?order=territory,name', null),
         i;
     AccessLogService.log('info', 'Patrol');
     if ('Leader' === role) {
@@ -194,7 +194,7 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
         $scope.enablePatrolInfo = true;
         $http(patrollerRequest).
                 success(function (data, status, headers, config) {
-                    patrollers = data.record;
+                    patrollers = data.resource;
                     localStorage.setItem('DspPatroller', angular.toJson(patrollers));
                 }).
                 error(function (data, status, headers, config) {
@@ -203,7 +203,7 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
         eventRequest.cache = false;
         $http(contentRequest).
             success(function (data, status, headers, config) {
-                contents = data.record;
+                contents = data.resource;
                 priorCategory = null;
                 categories = [];
                 localStorage.setItem('DspContent', angular.toJson(contents));
@@ -222,7 +222,7 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
             });
         $http(eventRequest).
             success(function (data, status, headers, config) {
-                events = data.record;
+                events = data.resource;
                 localStorage.setItem('DspEvent', angular.toJson(events));
                 $scope.events = upcomingEvents(events);
             }).
@@ -231,7 +231,7 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
             });
         $http(activityRequest).
             success(function (data, status, headers, config) {
-                activities = data.record;
+                activities = data.resource;
                 localStorage.setItem('DspActivity', angular.toJson(activities));
             }).
             error(function (data, status, headers, config) {
@@ -258,8 +258,8 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
         $scope.items = angular.fromJson(localStorage.getItem('DspCall'));
         $http(callRequest).
             success(function (data, status, headers, config) {
-                $scope.items = data.record;
-                localStorage.setItem('DspCall', angular.toJson(data.record));
+                $scope.items = data.resource;
+                localStorage.setItem('DspCall', angular.toJson(data.resource));
             }).
             error(function (data, status, headers, config) {
                 AccessLogService.log('error', 'GetCallErr', niceMessage(data, status));
@@ -302,13 +302,13 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
 Help the user call somebody really important.
 */
 module.controller('CallController', function ($scope, $http, AccessLogService) {
-    var callRequest = dspRequest('GET', '/db/Phone?filter=displayInPatrolApp%3D%22Yes%22&order=territory%2Cname', null);
+    var callRequest = dspRequest('GET', '/team/_table/Phone?filter=displayInPatrolApp%3D%22Yes%22&order=territory%2Cname', null);
     AccessLogService.log('info', 'Call');
     $scope.items = angular.fromJson(localStorage.getItem('DspCall'));
     $http(callRequest).
         success(function (data, status, headers, config) {
-            $scope.items = data.record;
-            localStorage.setItem('DspCall', angular.toJson(data.record));
+            $scope.items = data.resource;
+            localStorage.setItem('DspCall', angular.toJson(data.resource));
         }).
         error(function (data, status, headers, config) {
             AccessLogService.log('error', 'GetCallErr', niceMessage(data, status));
@@ -385,7 +385,7 @@ module.controller('PatrollerController', function ($scope, $http, AccessLogServi
     var patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         patroller = angular.fromJson(localStorage.getItem('OnsPatroller')),
         patrollers = angular.fromJson(localStorage.getItem('DspPatroller')),
-        scheduleRequest = dspRequest('GET', '/db/Schedule?filter=patrollerId%3D' + patroller.id + '%20AND%20activityDate%3C%3D%22' + moment().format('YYYY-MM-DD') + '%22&order=activityDate%20desc%2Cactivity', null),
+        scheduleRequest = dspRequest('GET', '/team/_table/Schedule?filter=patrollerId%3D' + patroller.id + '%20AND%20activityDate%3C%3D%22' + moment().format('YYYY-MM-DD') + '%22&order=activityDate%20desc%2Cactivity', null),
         schedules,
         i;
     AccessLogService.log('info', 'Patroller', patroller.name);
@@ -398,7 +398,7 @@ module.controller('PatrollerController', function ($scope, $http, AccessLogServi
     scheduleRequest.cache = false;
     $http(scheduleRequest).
         success(function (data, status, headers, config) {
-            schedules = data.record;
+            schedules = data.resource;
             for (i = 0; i < schedules.length; i += 1) {
                 schedules[i].displayDate = moment(schedules[i].activityDate).format('MMM D, YYYY');
                 if ((schedules[i].duty.indexOf('OEC') > 0) || (schedules[i].duty.indexOf('CPR') > 0) || (schedules[i].duty.indexOf('Refresher') > 0)  || (schedules[i].duty.indexOf('Course') > 0) || (schedules[i].duty.indexOf('Training') > 0) || (schedules[i].duty.indexOf('Test') > 0) || (schedules[i].duty.indexOf('NSP') > 0)) {
@@ -538,13 +538,13 @@ Edit the calendar.
 */
 module.controller('CalendarController', function ($rootScope, $scope, $http, AccessLogService) {
     var events = angular.fromJson(localStorage.getItem('DspEvent')),
-        eventRequest = dspRequest('GET', '/db/Event?order=start,activity', null);
+        eventRequest = dspRequest('GET', '/team/_table/Event?order=start,activity', null);
     AccessLogService.log('info', 'Calendar');
     eventRequest.cache = false;
     havePatience($rootScope);
     $http(eventRequest).
         success(function (data, status, headers, config) {
-            events = data.record;
+            events = data.resource;
             localStorage.setItem('DspEvent', angular.toJson(events));
             if (!events) {
                 patrolNavigator.popPage();
@@ -666,13 +666,17 @@ module.controller('AddEventController', function ($rootScope, $scope, $http, Acc
                 location: $scope.location,
                 address: $scope.address
             },
-            eventRequest;
+            eventRequest,
+            postResource = {
+                resource: []
+            };
         if (!$scope.allDay) {
             body.start = $scope.startDate + ' ' + $scope.startAt + ' UTC';
             body.end = $scope.endDate + ' ' + $scope.endAt + ' UTC';
             body.allDay = 'No';
         }
-        eventRequest = dspRequest('POST', '/db/Event', body);
+        postResource.resource.push(body);
+        eventRequest = dspRequest('POST', '/team/_table/Event', postResource);
         havePatience($rootScope);
         $scope.message = '';
         $http(eventRequest).
@@ -800,7 +804,7 @@ module.controller('EventController', function ($rootScope, $scope, $http, Access
             body.end = $scope.endDate + ' ' + $scope.endAt + ' UTC';
             body.allDay = 'No';
         }
-        eventRequest = dspRequest('PUT', '/db/Event?ids=' + event.id, body);
+        eventRequest = dspRequest('PUT', '/team/_table/Event?ids=' + event.id, body);
         havePatience($rootScope);
         $scope.message = '';
         $http(eventRequest).
@@ -815,7 +819,7 @@ module.controller('EventController', function ($rootScope, $scope, $http, Access
             });
     };
     $scope.delete = function () {
-        var eventRequest = dspRequest('DELETE', '/db/Event?ids=' + event.id, null);
+        var eventRequest = dspRequest('DELETE', '/team/_table/Event?ids=' + event.id, null);
         havePatience($rootScope);
         $scope.message = '';
         $http(eventRequest).
@@ -906,7 +910,7 @@ module.controller('LeaderController', function ($rootScope, $scope, $http, Acces
         $scope.patrollers = [];
     };
     $scope.update = function () {
-        var eventRequest = dspRequest('PUT', '/db/Event', event);
+        var eventRequest = dspRequest('PUT', '/team/_table/Event', event);
         havePatience($rootScope);
         $scope.message = '';
         $http(eventRequest).
@@ -1006,7 +1010,7 @@ Pick a patroller to edit on the sign in sheet.
 module.controller('SheetController', function ($rootScope, $scope, $http, AccessLogService) {
     var event = angular.fromJson(localStorage.getItem('OnsEvent')),
         schedules = null,
-        scheduleRequest = dspRequest('GET', '/db/Schedule?filter=' +
+        scheduleRequest = dspRequest('GET', '/team/_table/Schedule?filter=' +
                 'activityDate%3D%22' + encodeURIComponent(event.start) +
                 '%22&activity%3D%22' + encodeURIComponent(event.activity) + '%22&order=name', null);
     havePatience($rootScope);
@@ -1015,7 +1019,7 @@ module.controller('SheetController', function ($rootScope, $scope, $http, Access
     scheduleRequest.cache = false;
     $http(scheduleRequest).
         success(function (data, status, headers, config) {
-            schedules = data.record;
+            schedules = data.resource;
             $scope.attendees = schedules;
             $scope.showAttendees = (schedules.length > 0);
             waitNoMore();
@@ -1121,7 +1125,7 @@ module.controller('SignUpController', function ($rootScope, $scope, $http, Acces
     };
     $scope.add = function () {
         var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-            body = {
+            body = { resource: [{
                 tenantId: patrolPrefix,
                 patrollerId: $scope.patrollerId,
                 name: $scope.name,
@@ -1131,8 +1135,8 @@ module.controller('SignUpController', function ($rootScope, $scope, $http, Acces
                 equipment: $scope.equipment,
                 comments: $scope.comments,
                 credits: $scope.credits
-            },
-            scheduleRequest = dspRequest('POST', '/db/Schedule', body);
+            }]},
+            scheduleRequest = dspRequest('POST', '/team/_table/Schedule', body);
         if (!$scope.name) {
             $scope.message = 'Name is required.';
         } else {
@@ -1177,7 +1181,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
         i,
         dutyList,
         scheduleId = angular.fromJson(localStorage.getItem('OnsSchedule')).id,
-        scheduleRequest = dspRequest('GET', '/db/Schedule?filter=' +
+        scheduleRequest = dspRequest('GET', '/team/_table/Schedule?filter=' +
                 'id%3D' + scheduleId, null),
         schedule;
     AccessLogService.log('info', 'EditSignIn', scheduleId);
@@ -1194,7 +1198,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
     scheduleRequest.cache = false;
     $http(scheduleRequest).
         success(function (data, status, headers, config) {
-            schedule = data.record[0];
+            schedule = data.resource[0];
             $scope.name = schedule.name;
             $scope.equipment = schedule.equipment;
             $scope.comments = schedule.comments;
@@ -1232,7 +1236,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
                 comments: $scope.comments,
                 credits: $scope.credits
             },
-            scheduleRequest = dspRequest('PUT', '/db/Schedule', body);
+            scheduleRequest = dspRequest('PUT', '/team/_table/Schedule', body);
         havePatience($rootScope);
         $scope.message = '';
         $http(scheduleRequest).
@@ -1247,7 +1251,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
             });
     };
     $scope.remove = function () {
-        var scheduleRequest = dspRequest('DELETE', '/db/Schedule?ids%3D', schedule.id);
+        var scheduleRequest = dspRequest('DELETE', '/team/_table/Schedule?ids%3D', schedule.id);
         havePatience($rootScope);
         $scope.message = '';
         $http(scheduleRequest).
@@ -1290,7 +1294,7 @@ Link NSP Online accounts.
 */
 module.controller('NspoLinkController', function ($rootScope, $scope, $timeout, $http, AccessLogService) {
     var nspOnlineUser = angular.fromJson(localStorage.getItem('NspOnlineUser')),
-        nspOnlineUserRequest = dspRequest('GET', '/db/NspOnlineUser', null);
+        nspOnlineUserRequest = dspRequest('GET', '/team/_table/NspOnlineUser', null);
     AccessLogService.log('info', 'NspoLink', nspOnlineUser);
     $timeout(function() {
         if (nspOnlineUser) {
@@ -1301,9 +1305,9 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $timeout, 
         }
         $http(nspOnlineUserRequest).
             success(function (data, status, headers, config) {
-                if (data.record.length > 0) {
+                if (data.resource.length > 0) {
                     AccessLogService.log('info', 'NspOnlineUser', nspOnlineUser);
-                    nspOnlineUser = data.record[0];
+                    nspOnlineUser = data.resource[0];
                     $scope.nspId = nspOnlineUser.nspId;
                     localStorage.setItem('NspOnlineUser', angular.toJson(nspOnlineUser));
                 } else {
@@ -1343,14 +1347,14 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $timeout, 
         $http(sessionRequest).
             success(function (data, status, headers, config) {
                 id = data.id;
-                deleteUserRequest = dspRequest('DELETE', '/db/NspOnlineUser?ids=' + id, null);
+                deleteUserRequest = dspRequest('DELETE', '/team/_table/NspOnlineUser?ids=' + id, null);
                 $http(deleteUserRequest).
                     success(function (data, status, headers, config) {
-                        userBody = {
+                        userBody = { resource: [{
                             userId: id,
                             nspId: nspId
-                        };
-                        postUserRequest = dspRequest('POST', '/db/NspOnlineUser', userBody);
+                        }]};
+                        postUserRequest = dspRequest('POST', '/team/_table/NspOnlineUser', userBody);
                         $http(postUserRequest).
                             success(function (data, status, headers, config) {
                                 loginRequest = {
@@ -1386,11 +1390,11 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $timeout, 
                             });
                     }).
                     error(function (data, status, headers, config) {
-                        userBody = {
+                        userBody = { resource: [{
                             userId: id,
                             nspId: nspId
-                        };
-                        postUserRequest = dspRequest('POST', '/db/NspOnlineUser', userBody);
+                        }]};
+                        postUserRequest = dspRequest('POST', '/team/_table/NspOnlineUser', userBody);
                         $http(postUserRequest).
                             success(function (data, status, headers, config) {
                                 loginRequest = {

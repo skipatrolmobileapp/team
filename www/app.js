@@ -16,10 +16,10 @@ All rights reserved.
 Some globals. Not too many though.
 */
 var IN_CORDOVA = false, // Indicator if in Cordova. Assume not.
-    DSP_HOST = 'api-skipatrol.rhcloud.com', // Host name of the DreamFactory Service Platform (DSP) instance.
+    DSP_HOST = 'api.medic52team.com', // Host name of the DreamFactory Service Platform (DSP) instance.
     DSP_PORT = '443', // Port of the DreamFactory Service Platform (DSP) instance.
     DSP_BASE_URL = 'https://' + DSP_HOST + ':' + DSP_PORT, // Base URL of the DreamFactory Service Platform (DSP) instance.
-    DSP_APP_NAME = 'skipatrolmobileapp', // Suffix for appending after the the DSP API request indicating the application name.
+    DSP_API_KEY = '510cb035f3ac4548fb4e75c94f40d616a67c8288faea9cd383ee219b413afdb0', // DSP 2.x app identifier.
     havingPatience = false, // Indicates whether or not the user is waiting and watching the spinner.
     requestMap = {}; // A map of requests for knowing when the data was last requested so that periodic cache refreshes can be done.
 
@@ -173,9 +173,9 @@ function dspRequest(httpMethod, urlPathAndParms, dataContent, refreshSeconds) {
             'method': httpMethod,
             'cache': true,
             'timeout': 8000,
-            'url': DSP_BASE_URL + '/rest' + urlPathAndParms,
+            'url': DSP_BASE_URL + '/api/v2' + urlPathAndParms,
             'headers': {
-                'X-DreamFactory-Application-Name': DSP_APP_NAME,
+                'X-DreamFactory-API-Key': DSP_API_KEY
             },
             'data': dataContent
         },
@@ -216,6 +216,9 @@ function serverLog(level, event, data, $http) {
             'event': event,
             'level': level,
             'json': angular.toJson(data)
+        },
+        postResource = {
+            "resource": []
         };
     if (-1 === document.URL.indexOf('http://') && -1 === document.URL.indexOf('https://')) {
         if (IN_CORDOVA) {
@@ -224,7 +227,8 @@ function serverLog(level, event, data, $http) {
             accessLogData.device = 'Native/unknown';
         }
     }
-    $http(dspRequest('POST', '/db/AccessLog', accessLogData)).
+    postResource.resource.push(accessLogData);
+    $http(dspRequest('POST', '/logging/_table/AccessLog', postResource)).
         success(function (data, status, headers, config) {
             return;
         }).

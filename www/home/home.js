@@ -3,7 +3,7 @@
 /*jslint node: true */
 /*jslint indent: 4 */
 /*jslint unparam:true */
-/*global navigator, localStorage, ons, angular, module, moment, jsSHA, Camera, DSP_BASE_URL, DSP_APP_NAME, dspRequest, homeNavigator, havePatience, waitNoMore, browse, openAd, niceMessage, writeOutBearing, settingAppName, settingPickPatrolScreen, settingSnowConditionsImage */
+/*global navigator, localStorage, ons, angular, module, moment, jsSHA, Camera, DSP_BASE_URL, DSP_API_KEY, dspRequest, homeNavigator, havePatience, waitNoMore, browse, openAd, niceMessage, writeOutBearing, settingAppName, settingPickPatrolScreen, settingSnowConditionsImage */
 "use strict";
 
 /*
@@ -31,7 +31,7 @@ Start the app. Direct the user to register, login, or just show the live home sc
 module.controller('HomeController', function ($rootScope, $scope, $http, AccessLogService) {
     var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
         role = localStorage.getItem('DspRole'),
-        adRequest = dspRequest('GET', '/db/Ad', null),
+        adRequest = dspRequest('GET', '/team/_table/Ad', null),
         email = localStorage.getItem('DspEmail'),
         password = localStorage.getItem('DspPassword'),
         introDone = localStorage.getItem('OnsIntroDone'),
@@ -41,10 +41,10 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
             duration: 31104000
         },
         sessionRequest = dspRequest('POST', '/user/session', body),
-        patrolRequest = dspRequest('GET', '/db/PatrolOrg?filter=tenantId="' + patrolPrefix + '"', null);
+        patrolRequest = dspRequest('GET', '/team/_table/PatrolOrg?filter=tenantId="' + patrolPrefix + '"', null);
     $http(adRequest).
         success(function (data, status, headers, config) {
-            localStorage.setItem('DspAd', angular.toJson(data.record));
+            localStorage.setItem('DspAd', angular.toJson(data.resource));
         }).
         error(function (data, status, headers, config) {
             AccessLogService.log('info', 'AdErr', data);
@@ -73,19 +73,19 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
                         success(function (data, status, headers, config) {
                             var alertRoles,
                                 i;
-                            localStorage.setItem('DspPatrol', angular.toJson(data.record[0]));
+                            localStorage.setItem('DspPatrol', angular.toJson(data.resource[0]));
                             $scope.loading = '';
                             haveInitializedApp = true;
                             $rootScope.hideTabs = false;
                             homeNavigator.resetToPage('home/live.html', {animation: 'none'});
                             waitNoMore();
-                            if (data.record[0].alert) {
-                                alertRoles = data.record[0].alertRolesCsv.split(',');
+                            if (data.resource[0].alert) {
+                                alertRoles = data.resource[0].alertRolesCsv.split(',');
                                 for (i = 0; i < alertRoles.length; i += 1) {
-                                    if ((alertRoles[i] === role) && (data.record[0].alert)) {
+                                    if ((alertRoles[i] === role) && (data.resource[0].alert)) {
                                         ons.notification.alert({
                                             "title": "Notice",
-                                            "message": data.record[0].alert
+                                            "message": data.resource[0].alert
                                         });
                                     }
                                 }
@@ -136,11 +136,11 @@ module.controller('IntroController', function ($rootScope, $scope, $http, Access
     $scope.settingAppName = settingAppName;
     localStorage.removeItem('DspPassword');
     $scope.start = function () {
-        var patrolRequest = dspRequest('GET', '/db/PatrolOrg?order=patrolName', null);
+        var patrolRequest = dspRequest('GET', '/team/_table/PatrolOrg?order=patrolName', null);
         havePatience($rootScope);
         $http(patrolRequest).
             success(function (data, status, headers, config) {
-                localStorage.setItem('DspAllPatrol', angular.toJson(data.record));
+                localStorage.setItem('DspAllPatrol', angular.toJson(data.resource));
                 waitNoMore();
                 homeNavigator.pushPage('home/name.html');
             }).
@@ -576,11 +576,11 @@ module.controller('LiveController', function ($scope, $http, AccessLogService) {
         role = localStorage.getItem('DspRole'),
         patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         settings = angular.fromJson(localStorage.getItem('DspSetting')),
-        settingRequest = dspRequest('GET', '/db/Setting?order=name', null),
+        settingRequest = dspRequest('GET', '/team/_table/Setting?order=name', null),
         territories = angular.fromJson(localStorage.getItem('DspTerritory')),
-        territoryRequest = dspRequest('GET', '/db/Territory?order=code', null),
+        territoryRequest = dspRequest('GET', '/team/_table/Territory?order=code', null),
         ads = angular.fromJson(localStorage.getItem('DspAd')),
-        postRequest = dspRequest('GET', '/db/Post?limit=1&order=postedOn%20desc', null),
+        postRequest = dspRequest('GET', '/team/_table/Post?limit=1&order=postedOn%20desc', null),
         posts = angular.fromJson(localStorage.getItem('DspFirstPost')),
         myWeather2 = angular.fromJson(localStorage.getItem('DspMyWeather2')),
         openWeatherMap = angular.fromJson(localStorage.getItem('DspOpenWeatherMap')),
@@ -596,14 +596,14 @@ module.controller('LiveController', function ($scope, $http, AccessLogService) {
         facilitiesData = angular.fromJson(localStorage.getItem('DspFacilities')),
         facilitiesRequest = dspRequest('GET', '/resort/' + patrolPrefix + '/facilities.json', null),
         liveCam = angular.fromJson(localStorage.getItem('DspLiveCam')),
-        liveCamRequest = dspRequest('GET', '/db/LiveCam', null),
+        liveCamRequest = dspRequest('GET', '/team/_table/LiveCam', null),
         isMountainCam,
         mountainCamCount = 0,
         travelCamCount = 0;
     AccessLogService.log('info', 'Live');
     $http(territoryRequest).
         success(function (data, status, headers, config) {
-            territories = data.record;
+            territories = data.resource;
             localStorage.setItem('DspTerritory', angular.toJson(territories));
         }).
         error(function (data, status, headers, config) {
@@ -613,7 +613,7 @@ module.controller('LiveController', function ($scope, $http, AccessLogService) {
     if ('Basic' === role || 'Power' === role || 'Leader' === role) {
         $http(settingRequest).
             success(function (data, status, headers, config) {
-                settings = data.record;
+                settings = data.resource;
                 localStorage.setItem('DspSetting', angular.toJson(settings));
             }).
             error(function (data, status, headers, config) {
@@ -635,7 +635,7 @@ module.controller('LiveController', function ($scope, $http, AccessLogService) {
         postRequest.cache = false;
         $http(postRequest).
             success(function (data, status, headers, config) {
-                posts = data.record;
+                posts = data.resource;
                 localStorage.setItem('OnsPost', angular.toJson(posts));
                 if (posts && posts.length > 0) {
                     for (i = 0; i < posts.length; i += 1) {
@@ -922,7 +922,7 @@ module.controller('LiveController', function ($scope, $http, AccessLogService) {
     }
     $http(liveCamRequest).
         success(function (data, status, headers, config) {
-            liveCam = data.record;
+            liveCam = data.resource;
             if (liveCam && territories) {
                 mountainCamCount = 0;
                 travelCamCount = 0;
@@ -955,7 +955,7 @@ module.controller('LiveController', function ($scope, $http, AccessLogService) {
                 $scope.liveCams = null;
                 $scope.travelCams = null;
             }
-            localStorage.setItem('DspLiveCam', angular.toJson(data.record));
+            localStorage.setItem('DspLiveCam', angular.toJson(data.resource));
         }).
         error(function (data, status, headers, config) {
             AccessLogService.log('error', 'GetLiveCamErr', niceMessage(data, status));
@@ -978,7 +978,7 @@ Posts.
 */
 module.controller('PostsController', function ($rootScope, $scope, $http, AccessLogService) {
     var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-        postRequest = dspRequest('GET', '/db/Post?limit=25&order=postedOn%20desc', null),
+        postRequest = dspRequest('GET', '/team/_table/Post?limit=25&order=postedOn%20desc', null),
         posts = angular.fromJson(localStorage.getItem('DspPost')),
         i = 0,
         element = document.getElementById('photo');
@@ -998,7 +998,7 @@ module.controller('PostsController', function ($rootScope, $scope, $http, Access
     postRequest.cache = false;
     $http(postRequest).
         success(function (data, status, headers, config) {
-            posts = data.record;
+            posts = data.resource;
             for (i = 0; i < posts.length; i += 1) {
                 posts[i].displayDate = moment(posts[i].postedOn).format('ddd, MMM D h:mmA');
             }
@@ -1066,15 +1066,15 @@ module.controller('PostsController', function ($rootScope, $scope, $http, Access
                 timestamp: ts,
                 signature: hash
             },
-            body = {
+            body = { resource: [{
                 id: null,
                 tenantId: patrolPrefix,
                 postedOn: aMoment.format('YYYY-MM-DD HH:mm:ss') + ' UTC',
                 body: $scope.body,
                 userId: localStorage.getItem('DspUserId'),
                 postedBy: localStorage.getItem('DspName')
-            },
-            postPostRequest = dspRequest('POST', '/db/Post', body);
+            }]},
+            postPostRequest = dspRequest('POST', '/team/_table/Post', body);
         if (imageData) {
             body.imageReference = 'http://res.cloudinary.com/skipatrol/image/upload/' + uniqueFilename + '.jpg';
         }
@@ -1084,7 +1084,7 @@ module.controller('PostsController', function ($rootScope, $scope, $http, Access
                 postRequest.cache = false;
                 $http(postRequest).
                     success(function (data, status, headers, config) {
-                        posts = data.record;
+                        posts = data.resource;
                         for (i = 0; i < posts.length; i += 1) {
                             posts[i].displayDate = moment(posts[i].postedOn).format('ddd, MMM D h:mmA');
                         }
@@ -1171,7 +1171,7 @@ module.controller('PostController', function ($rootScope, $scope, $http, AccessL
                 userId: post.userId,
                 postedBy: post.postedBy
             },
-            putPostRequest = dspRequest('PUT', '/db/Post', body);
+            putPostRequest = dspRequest('PUT', '/team/_table/Post', body);
         havePatience($rootScope);
         $http(putPostRequest).
             success(function (data, status, headers, config) {
@@ -1185,7 +1185,7 @@ module.controller('PostController', function ($rootScope, $scope, $http, AccessL
             });
     };
     $scope.remove = function () {
-        var deletePostRequest = dspRequest('DELETE', '/db/Post/' + post.id, null);
+        var deletePostRequest = dspRequest('DELETE', '/team/_table/Post/' + post.id, null);
         havePatience($rootScope);
         $http(deletePostRequest).
             success(function (data, status, headers, config) {
@@ -1514,7 +1514,6 @@ module.controller('LiftStatusController', function ($scope, AccessLogService) {
         return sortVal;
     });
     $scope.lifts = lifts;
-    // $scope.logoAddress = DSP_BASE_URL + '/rest' + angular.fromJson(localStorage.getItem('DspPatrol')).logoPath + '?app_name=' + DSP_APP_NAME;
     $scope.logoAddress = angular.fromJson(localStorage.getItem('DspPatrol')).logoWebAddress;
     $scope.patrolName = angular.fromJson(localStorage.getItem('DspPatrol')).patrolName;
     $scope.close = function () {
@@ -1634,7 +1633,6 @@ module.controller('TrailStatusController', function ($scope, AccessLogService) {
         }
     }
     $scope.trails = trails;
-    // $scope.logoAddress = DSP_BASE_URL + '/rest' + angular.fromJson(localStorage.getItem('DspPatrol')).logoPath + '?app_name=' + DSP_APP_NAME;
     $scope.logoAddress = angular.fromJson(localStorage.getItem('DspPatrol')).logoWebAddress;
     $scope.patrolName = angular.fromJson(localStorage.getItem('DspPatrol')).patrolName;
     $scope.close = function () {
@@ -1685,7 +1683,6 @@ module.controller('LiveCamsController', function ($scope, AccessLogService) {
         return sortVal;
     });
     $scope.liveCams = liveCams;
-    // $scope.logoAddress = DSP_BASE_URL + '/rest' + angular.fromJson(localStorage.getItem('DspPatrol')).logoPath + '?app_name=' + DSP_APP_NAME;
     $scope.logoAddress = angular.fromJson(localStorage.getItem('DspPatrol')).logoWebAddress;
     $scope.patrolName = angular.fromJson(localStorage.getItem('DspPatrol')).patrolName;
     $scope.view = function (index) {
@@ -1739,7 +1736,7 @@ module.controller('TravelCamsController', function ($scope, AccessLogService) {
         return sortVal;
     });
     $scope.liveCams = liveCams;
-    $scope.logoAddress = DSP_BASE_URL + '/rest' + angular.fromJson(localStorage.getItem('DspPatrol')).travelCamsLogoPath + '?app_name=' + DSP_APP_NAME;
+    $scope.logoAddress = DSP_BASE_URL + '/api/v2' + angular.fromJson(localStorage.getItem('DspPatrol')).travelCamsLogoPath + '?api_key=' + DSP_API_KEY;
     $scope.patrolName = angular.fromJson(localStorage.getItem('DspPatrol')).patrolName;
     $scope.view = function (index) {
         browse(liveCams[index].address);        

@@ -42,10 +42,10 @@ module.controller('LogisticsController', function ($rootScope, $scope, $http, Ac
         role = localStorage.getItem('DspRole'),
         ads = angular.fromJson(localStorage.getItem('DspAd')),
         maps = angular.fromJson(localStorage.getItem('DspMap')),
-        mapRequest = dspRequest('GET', '/db/Map?order=name', null),
+        mapRequest = dspRequest('GET', '/team/_table/Map?order=name', null),
         territories = angular.fromJson(localStorage.getItem('DspTerritory')),
         nicknames = angular.fromJson(localStorage.getItem('DspNickname')),
-        nicknameRequest = dspRequest('GET', '/db/Nickname?order=territory,name', null),
+        nicknameRequest = dspRequest('GET', '/team/_table/Nickname?order=territory,name', null),
         i;
     AccessLogService.log('info', 'Logistics');
     $scope.enableAd = false;
@@ -90,20 +90,20 @@ module.controller('LogisticsController', function ($rootScope, $scope, $http, Ac
     $scope.territories = territories;
     $http(mapRequest).
         success(function (data, status, headers, config) {
-            $scope.maps = data.record;
-            if ((data.record) && data.record.length > 0) {
+            $scope.maps = data.resource;
+            if ((data.resource) && data.resource.length > 0) {
                 $scope.showMaps = true;
             } else {
                 $scope.showMaps = false;
             }
-            localStorage.setItem('DspMap', angular.toJson(data.record));
+            localStorage.setItem('DspMap', angular.toJson(data.resource));
         }).
         error(function (data, status, headers, config) {
             AccessLogService.log('error', 'GetMapErr', niceMessage(data, status));
         });
     $http(nicknameRequest).
         success(function (data, status, headers, config) {
-            localStorage.setItem('DspNickname', angular.toJson(data.record));
+            localStorage.setItem('DspNickname', angular.toJson(data.resource));
             $scope.hideNicknames = hideMenuFor('DspNickname');
         }).
         error(function (data, status, headers, config) {
@@ -217,7 +217,7 @@ module.controller('MarkController', function ($rootScope, $scope, $http, AccessL
         AccessLogService.log('info', 'Geolocation', 'Not available');
     }
     $scope.mark = function() {
-        var body = {
+        var body = { resource: [{
                 "tenantId": patrolPrefix,
                 "userId": localStorage.getItem('DspUserId'),
                 "userName": localStorage.getItem('DspName'),
@@ -230,8 +230,8 @@ module.controller('MarkController', function ($rootScope, $scope, $http, AccessL
                 "altitudeAccuracy": $scope.altitudeAccuracy,
                 "heading": $scope.heading,
                 "speed": $scope.speed
-            },
-            geoMarkRequest = dspRequest('POST', '/db/GeoMark', body);
+            }]},
+            geoMarkRequest = dspRequest('POST', '/team/_table/GeoMark', body);
         havePatience($rootScope);
         $http(geoMarkRequest).
             success(function (data, status, headers, config) {
@@ -259,13 +259,13 @@ Marked geolocations.
 */
 module.controller('MarkedController', function ($rootScope, $scope, $http, AccessLogService) {
     var aDayAgo = moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
-        geoMarkRequest = dspRequest('GET', '/db/GeoMark?filter=scannedOn%3E%22' + aDayAgo + '%22&order=scannedOn%20desc', null);
+        geoMarkRequest = dspRequest('GET', '/team/_table/GeoMark?filter=scannedOn%3E%22' + aDayAgo + '%22&order=scannedOn%20desc', null);
     AccessLogService.log('info', 'Marked');
     havePatience($rootScope);
     $http(geoMarkRequest).
         success(function (data, status, headers, config) {
-            $scope.geoMarks = data.record;
-            if ((data.record) && (0 === data.record.length)) {
+            $scope.geoMarks = data.resource;
+            if ((data.resource) && (0 === data.resource.length)) {
                 $scope.message = 'This feature can be used to mark the latitude and longitude of a spot on the mountain, such as for marking a location in the trees or out-of-bounds for follow-on patrollers to more quickly find.';
             }
             waitNoMore();
@@ -433,7 +433,7 @@ TODO: Make this queue based for QR codes out of data connection range.
 function postQrCodeScan($http, $scope, AccessLogService, nickname, longitude, latitude) {
     var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
         userId = localStorage.getItem('DspUserId'),
-        body = {
+        body = { resource: [{
             id: null,
             tenantId: patrolPrefix,
             location: nickname,
@@ -442,8 +442,8 @@ function postQrCodeScan($http, $scope, AccessLogService, nickname, longitude, la
             scannedOn: moment().format('YYYY-MM-DD HH:mm:ss') + ' UTC',
             longitude: longitude,
             latitude: latitude
-        },
-        qrCodeScanPostRequest = dspRequest('POST', '/db/QrCodeScan', body);
+        }]},
+        qrCodeScanPostRequest = dspRequest('POST', '/team/_table/QrCodeScan', body);
     $http(qrCodeScanPostRequest).
         success(function (data, status, headers, config) {
             $scope.scanned = nickname;
@@ -462,7 +462,7 @@ function fillInQrCodeScans($http, $scope, AccessLogService) {
     var i = 0,
         userId = localStorage.getItem('DspUserId'),
         qrCodeScans = angular.fromJson(localStorage.getItem('DspQrCodeScan')),
-        qrCodeScanRequest = dspRequest('GET', '/db/QrCodeScan?filter=userId%3D' + userId + '&order=scannedOn%20desc', null);
+        qrCodeScanRequest = dspRequest('GET', '/team/_table/QrCodeScan?filter=userId%3D' + userId + '&order=scannedOn%20desc', null);
     if (qrCodeScans) {
         for (i = 0; i < qrCodeScans.length; i += 1) {
             qrCodeScans[i].scanned = moment(qrCodeScans[i].scannedOn).format('MMM D HH:mm');
@@ -477,7 +477,7 @@ function fillInQrCodeScans($http, $scope, AccessLogService) {
     qrCodeScanRequest.cache = false;
     $http(qrCodeScanRequest).
         success(function (data, status, headers, config) {
-            qrCodeScans = data.record;
+            qrCodeScans = data.resource;
             if (qrCodeScans) {
                 for (i = 0; i < qrCodeScans.length; i += 1) {
                     qrCodeScans[i].scanned = moment(qrCodeScans[i].scannedOn).format('MMM D HH:mm');
@@ -563,16 +563,16 @@ module.controller('QrCodeController', function ($scope, $http, AccessLogService)
 QR code leaderboard.
 */
 module.controller('LeaderBoardController', function ($scope, $http, AccessLogService) {
-    var qrCodeSummaryRequest = dspRequest('GET', '/db/QrCodeSummary?order=scanCount%20desc,name', null);
+    var qrCodeSummaryRequest = dspRequest('GET', '/team/_table/QrCodeSummary?order=scanCount%20desc,name', null);
     AccessLogService.log('info', 'LeaderBoard');
     $scope.leaders = angular.fromJson(localStorage.getItem('DspQrCodeSummary'));
     $scope.qrcodesummary = angular.fromJson(localStorage.getItem('DspQrCodeSummary'));
     qrCodeSummaryRequest.cache = false;
     $http(qrCodeSummaryRequest).
         success(function (data, status, headers, config) {
-            localStorage.setItem('DspQrCodeSummary', angular.toJson(data.record));
-            $scope.leaders = data.record;
-            if (0 === data.record.length) {
+            localStorage.setItem('DspQrCodeSummary', angular.toJson(data.resource));
+            $scope.leaders = data.resource;
+            if (0 === data.resource.length) {
                 $scope.message = 'Find the QR codes on the mountain and your scans will be listed here.';
             }
         }).
@@ -621,11 +621,11 @@ module.controller('TerritoryController', function ($scope, $http, AccessLogServi
     var territory = angular.fromJson(localStorage.getItem('OnsTerritory')),
         patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         role = localStorage.getItem('DspRole'),
-        trailCheckRequest = dspRequest('GET', '/db/TrailCheck?order=territory,name', null),
-        aedRequest = dspRequest('GET', '/db/Aed?order=territory,location', null),
-        phoneRequest = dspRequest('GET', '/db/Phone?order=territory,name', null),
-        tobogganRequest = dspRequest('GET', '/db/Toboggan?order=territory,name', null),
-        sweepRequest = dspRequest('GET', '/db/Sweep?order=territory,name', null);
+        trailCheckRequest = dspRequest('GET', '/team/_table/TrailCheck?order=territory,name', null),
+        aedRequest = dspRequest('GET', '/team/_table/Aed?order=territory,location', null),
+        phoneRequest = dspRequest('GET', '/team/_table/Phone?order=territory,name', null),
+        tobogganRequest = dspRequest('GET', '/team/_table/Toboggan?order=territory,name', null),
+        sweepRequest = dspRequest('GET', '/team/_table/Sweep?order=territory,name', null);
     AccessLogService.log('info', 'Territory', territory.name);
     $scope.territory = territory.name;
     $scope.hideAeds = hideMenuFor('DspAed');
@@ -653,7 +653,7 @@ module.controller('TerritoryController', function ($scope, $http, AccessLogServi
     if ('Basic' === role || 'Power' === role || 'Leader' === role) {
         $http(trailCheckRequest).
             success(function (data, status, headers, config) {
-                localStorage.setItem('DspTrailCheck', angular.toJson(data.record));
+                localStorage.setItem('DspTrailCheck', angular.toJson(data.resource));
                 $scope.hideTrailChecks = hideMenuFor('DspTrailCheck');
             }).
             error(function (data, status, headers, config) {
@@ -661,7 +661,7 @@ module.controller('TerritoryController', function ($scope, $http, AccessLogServi
             });
         $http(tobogganRequest).
             success(function (data, status, headers, config) {
-                localStorage.setItem('DspToboggan', angular.toJson(data.record));
+                localStorage.setItem('DspToboggan', angular.toJson(data.resource));
                 $scope.hideToboggans = hideMenuFor('DspToboggan');
             }).
             error(function (data, status, headers, config) {
@@ -669,7 +669,7 @@ module.controller('TerritoryController', function ($scope, $http, AccessLogServi
             });
         $http(sweepRequest).
             success(function (data, status, headers, config) {
-                localStorage.setItem('DspSweep', angular.toJson(data.record));
+                localStorage.setItem('DspSweep', angular.toJson(data.resource));
                 $scope.hideSweeps = hideMenuFor('DspSweep');
             }).
             error(function (data, status, headers, config) {
@@ -678,7 +678,7 @@ module.controller('TerritoryController', function ($scope, $http, AccessLogServi
     }
     $http(aedRequest).
         success(function (data, status, headers, config) {
-            localStorage.setItem('DspAed', angular.toJson(data.record));
+            localStorage.setItem('DspAed', angular.toJson(data.resource));
             $scope.hideAeds = hideMenuFor('DspAed');
         }).
         error(function (data, status, headers, config) {
@@ -686,7 +686,7 @@ module.controller('TerritoryController', function ($scope, $http, AccessLogServi
         });
     $http(phoneRequest).
         success(function (data, status, headers, config) {
-            localStorage.setItem('DspPhone', angular.toJson(data.record));
+            localStorage.setItem('DspPhone', angular.toJson(data.resource));
             $scope.hidePhones = hideMenuFor('DspPhone');
         }).
         error(function (data, status, headers, config) {
