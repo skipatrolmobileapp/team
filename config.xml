@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.medic52.amazon.team" versionCode="10" version="2.6.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.medic52.android.team" versionCode="10" version="3.0.0">
   <name>Ski Patrol</name>
   <description>Mobile App for Ski Patrollers</description>
   <author href="http://www.skipatrolmobileapp.com" email="skipatrolmobileapp@gmail.com">Gary Meyer</author>
@@ -37,14 +37,9 @@
   <allow-intent href="*"/>
   <preference name="monaca:targetFamilyiPhone" value="1"/>
   <preference name="monaca:targetFamilyiPad" value="1"/>
-  <preference name="AutoHideSplashScreen" value="true"/>
-  <preference name="FadeSplashScreen" value="true"/>
-  <preference name="ShowSplashScreenSpinner" value="false"/>
-  <preference name="EnableViewportScale" value="false"/>
   <preference name="monaca:WebViewEngine" value="default"/>
   <preference name="BackgroundColor" value="0xffffffff"/>
   <preference name="FadeSplashScreenDuration" value="250"/>
-  <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
   <platform name="ios">
     <icon src="/res/ios/icon/icon.png" width="57" height="57"/>
     <icon src="/res/ios/icon/icon@2x.png" width="114" height="114"/>
@@ -73,6 +68,9 @@
     <splash src="/res/ios/screen/Default-Landscape~ipad.png" width="1024" height="768"/>
     <splash src="/res/ios/screen/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
     <splash src="/res/ios/screen/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
+    <access origin="*"/>
+    <allow-intent href="*"/>
+    <allow-navigation href="*"/>
   </platform>
   <platform name="android">
     <icon src="/res/android/icon/ldpi.png" density="ldpi"/>
@@ -87,6 +85,9 @@
     <splash src="/res/android/screen/splash-port-xhdpi.png" density="port-xhdpi"/>
     <splash src="/res/android/screen/splash-port-xxhdpi.png" density="port-xxhdpi"/>
     <splash src="/res/android/screen/splash-port-xxxhdpi.png" density="port-xxxhdpi"/>
+    <access origin="*"/>
+    <allow-intent href="*"/>
+    <allow-navigation href="*"/>
   </platform>
   <platform name="windows">
     <icon src="/res/winrt/icon/package_logo_winrt.png" target="StoreLogo"/>
@@ -94,21 +95,33 @@
     <icon src="/res/winrt/icon/app_small_logo_winrt.png" target="Square30x30Logo"/>
     <icon src="/res/winrt/icon/app_tile_wide_logo_winrt.png" target="Wide315x150Logo"/>
     <splash src="/res/winrt/screen/app_splash_screen_winrt.png" width="620" height="300"/>
+    <access origin="*"/>
+    <allow-intent href="*"/>
+    <allow-navigation href="*"/>
   </platform>
   <platform name="chrome">
     <icon src="/platforms/chrome/icon.png" width="128" height="128"/>
+    <access origin="*"/>
+    <allow-intent href="*"/>
+    <allow-navigation href="*"/>
   </platform>
-  <access origin="*"/>
-  <preference name="KeepRunning" value="true"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="Orientation" value="portrait"/>
-  <preference name="SplashScreenDelay" value="2000"/>
-  <preference name="Fullscreen" value="true"/>
   <preference name="monaca:MonacaBackendUrl" value="https://cloud.monaca.mobi/json-rpc/"/>
   <preference name="monaca:MonacaBackendId" value="56407020fd17342909b01a4d"/>
   <preference name="monaca:MonacaBackendApiKey" value="4aa2daa49c23074f826197010bb79b1e752379330a826f738c7b2fc8a2439465"/>
-  <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
-  <preference name="WindowsStorePublisherName" value="Ski Patrol Mobile App"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="Orientation" value="portrait"/>
+  <preference name="SplashScreenDelay" value="2000"/>
+  <preference name="Fullscreen" value="true"/>
+  <preference name="StatusBarOverlaysWebView" value="false"/>
+  <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
+  <preference name="AutoHideSplashScreen" value="true"/>
+  <preference name="FadeSplashScreen" value="true"/>
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <access origin="*"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="EnableViewportScale" value="false"/>
   <preference name="WindowsStoreIdentityName" value="Ski Patrol Mobile App"/>
+  <preference name="WindowsStorePublisherName" value="Ski Patrol Mobile App"/>
+  <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
 </widget>

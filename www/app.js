@@ -29,6 +29,7 @@ TODO: Perhaps there's a way to get the ons-toolbar to display smartly on the iPh
 */
 ons.disableAutoStatusBarFill();
 
+
 /*
 Initialize Cordova.
 */
@@ -39,7 +40,7 @@ Mind the gap, that is the PhoneGap. Or Cordova if you'd prefer.
 */
 function onDeviceReady() {
     IN_CORDOVA = true;
-    StatusBar.backgroundColorByHexString('#000000');
+    StatusBar.hide();
 }
 
 /*
@@ -400,7 +401,16 @@ function niceMessage(data, status) {
     if ((data) && (data.error) && (data.error[0]) && (data.error[0].message)) {
         message = data.error[0].message;
     } else if (status) {
-        message = 'Status: ' + status;
+        switch (status) {
+        case 401:
+            message = 'Login failed.';
+            break;
+        case 404:
+            message = 'Server not available.';
+            break;
+        default:
+            message = 'Status: ' + status;
+        }
     }
     return message;
 }
