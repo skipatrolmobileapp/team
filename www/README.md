@@ -7,9 +7,14 @@ Note: This is the final commit before the DreamFactory 2.8.1 upgrade.
 
 ## DreamFactory Upgrade Checklist
 
+### Done
+
 * Copyright statement.
-* Search "skipatrolmobileapp"
 * Logging app id
+
+### To Do
+
+* Search "skipatrolmobileapp"
 * Search "rhcloud"
 * https://api-skipatrol.rhcloud.com:443/rest -> https://api.medic52team.com/api/v2/
 * db/ -> team/_table or logging/_table for AccessLog
