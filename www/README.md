@@ -3,6 +3,8 @@
 Copyright © 2014-2017, Gary Meyer.
 All rights reserved.
 
+Note: This is the final commit before the DreamFactory 2.8.1 upgrade.
+
 ## DreamFactory Upgrade Checklist
 
 * Copyright statement.
@@ -16,3 +18,4 @@ All rights reserved.
     xhr.setRequestHeader("X-DreamFactory-API-Key", "510cb035f3ac4548fb4e75c94f40d616a67c8288faea9cd383ee219b413afdb0");
 * .record -> .resource
 * Wrapper POSTs with {"resource": [ HERE ]};
+

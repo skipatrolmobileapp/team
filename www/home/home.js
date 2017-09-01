@@ -284,7 +284,7 @@ module.controller('RegistrationController', function ($rootScope, $scope, $http,
     AccessLogService.log('info', 'Registration');
     localStorage.removeItem('DspPassword');
     $scope.email = localStorage.getItem('DspEmail');
-    $scope.message = 'Enter your email address (use the one from your roster if you are on a patrol). Then tap "Register."';
+    $scope.message = 'Enter your email address (use the one from your roster if you are on a patrol). Then tap "Register." Note: Entering a fake email address will not enable you to complete registration.';
     $scope.register = function () {
         var name = localStorage.getItem('OnsFirstName') + ' ' + localStorage.getItem('OnsLastName'),
             patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
@@ -320,7 +320,7 @@ module.controller('RegistrationController', function ($rootScope, $scope, $http,
                 }).
                 error(function (data, status, headers, config) {
                     AccessLogService.log('warn', 'RegistrationErr', niceMessage(data, status));
-                    $scope.message = 'This name or email address has already been registered. Rather than creating a new account, try logging in.';
+                    $scope.message = 'This email address or name in this patrol has already been registered. Rather than creating a new account, try logging in by clicking "Login" below.';
                     $scope.showLogin = true;
                     waitNoMore();
                 });
