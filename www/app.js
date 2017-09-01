@@ -402,11 +402,14 @@ function niceMessage(data, status) {
         message = data.error[0].message;
     } else if (status) {
         switch (status) {
+        case 400:
+            message = 'Bad request.';
+            break;
         case 401:
             message = 'Login failed.';
             break;
         case 404:
-            message = 'Server not available.';
+            message = 'Service not found.';
             break;
         default:
             message = 'Status: ' + status;

@@ -3,7 +3,7 @@
 /*jslint node: true */
 /*jslint indent: 4 */
 /*jslint unparam:true */
-/*global document, window, localStorage, ons, angular, module, moment, dspRequest, dial, sendEmail, niceMessage, patrolNavigator, havePatience, waitNoMore, openAd, sms, browse */
+/*global document, window, localStorage, ons, angular, module, moment, dspRequest, dial, sendEmail, niceMessage, patrolNavigator, havePatience, waitNoMore, openAd, sms, browse, encodeURIComponent */
 "use strict";
 
 /*
@@ -302,7 +302,9 @@ module.controller('PatrolController', function ($scope, $http, AccessLogService)
 Help the user call somebody really important.
 */
 module.controller('CallController', function ($scope, $http, AccessLogService) {
-    var callRequest = dspRequest('GET', '/team/_table/Phone?filter=displayInPatrolApp%3D%22Yes%22&order=territory%2Cname', null);
+    var callRequest = dspRequest('GET', '/team/_table/Phone?filter=' +
+            encodeURIComponent('displayInPatrolApp = Yes') +
+            '&order=territory,name', null);
     AccessLogService.log('info', 'Call');
     $scope.items = angular.fromJson(localStorage.getItem('DspCall'));
     $http(callRequest).
@@ -385,7 +387,14 @@ module.controller('PatrollerController', function ($scope, $http, AccessLogServi
     var patrol = angular.fromJson(localStorage.getItem('DspPatrol')),
         patroller = angular.fromJson(localStorage.getItem('OnsPatroller')),
         patrollers = angular.fromJson(localStorage.getItem('DspPatroller')),
-        scheduleRequest = dspRequest('GET', '/team/_table/Schedule?filter=patrollerId%3D' + patroller.id + '%20AND%20activityDate%3C%3D%22' + moment().format('YYYY-MM-DD') + '%22&order=activityDate%20desc%2Cactivity', null),
+        scheduleRequest = dspRequest('GET', '/team/_table/Schedule?filter=' +
+                /*
+                encodeURIComponent('activityDate <= '
+                        + moment().format('YYYY-MM-DD') + ' and ') +
+                */
+                encodeURIComponent('patrollerId=' + patroller.id) + '&order=' +
+                encodeURIComponent('activityDate desc,activity'),
+                null),
         schedules,
         i;
     AccessLogService.log('info', 'Patroller', patroller.name);
@@ -396,6 +405,10 @@ module.controller('PatrollerController', function ($scope, $http, AccessLogServi
     $scope.email = patroller.email;
     $scope.additionalEmail = patroller.additionalEmail;
     scheduleRequest.cache = false;
+
+    console.debug(JSON.stringify(scheduleRequest.headers));
+    console.debug(scheduleRequest.url);
+
     $http(scheduleRequest).
         success(function (data, status, headers, config) {
             schedules = data.resource;
@@ -1011,8 +1024,8 @@ module.controller('SheetController', function ($rootScope, $scope, $http, Access
     var event = angular.fromJson(localStorage.getItem('OnsEvent')),
         schedules = null,
         scheduleRequest = dspRequest('GET', '/team/_table/Schedule?filter=' +
-                'activityDate%3D%22' + encodeURIComponent(event.start) +
-                '%22&activity%3D%22' + encodeURIComponent(event.activity) + '%22&order=name', null);
+                encodeURIComponent('activityDate = ' + event.start + '" AND activity = '
+                        + event.activity) + '&order=name', null);
     havePatience($rootScope);
     AccessLogService.log('info', 'Sheet', event.start);
     $scope.quickTeaser = moment(event.start).format('ddd, MMM D') + ' - ' + event.activity;
@@ -1182,7 +1195,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
         dutyList,
         scheduleId = angular.fromJson(localStorage.getItem('OnsSchedule')).id,
         scheduleRequest = dspRequest('GET', '/team/_table/Schedule?filter=' +
-                'id%3D' + scheduleId, null),
+                encodeURIComponent('id = ' + scheduleId), null),
         schedule;
     AccessLogService.log('info', 'EditSignIn', scheduleId);
     havePatience($rootScope);
