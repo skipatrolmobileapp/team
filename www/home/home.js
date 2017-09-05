@@ -1606,11 +1606,11 @@ module.controller('TrailStatusController', function ($scope, AccessLogService) {
                     default:
                         trails[n].difficultyIcon = 'img/terrain.png';
                     }
-                        if('yes' === data.facilities.areas.area[i].trails.trail[j].groomed) {
-                            trails[n].grooming = true;
-                        } else {
-                            trails[n].grooming = false;
-                        }
+                    if ('yes' === data.facilities.areas.area[i].trails.trail.groomed) {
+                        trails[n].grooming = true;
+                    } else {
+                        trails[n].grooming = false;
+                    }
                     if ('open' === data.facilities.areas.area[i].trails.trail.status) {
                         trails[n].statusIcon = 'fa-check';
                         trails[n].statusIconColor = 'green';
