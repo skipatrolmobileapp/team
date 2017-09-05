@@ -1583,29 +1583,30 @@ module.controller('TrailStatusController', function ($scope, AccessLogService) {
                     trails[n].difficulty = data.facilities.areas.area[i].trails.trail.difficulty;
                     switch (trails[n].difficulty) {
                     case 'beginner':
-                        trails[n].difficultyIcon = 'img/green.png';
+                        difficultyIconPath = 'img/green.png';
                         break;
                     case 'intermediate':
-                        trails[n].difficultyIcon = 'img/blue.png';
+                        difficultyIconPath = 'img/blue.png';
                         break;
                     case 'advancedIntermediate':
                         difficultyIconPath = 'img/blueblack.png';
                         break;
                     case 'advancedintermediate':
-                        trails[n].difficultyIcon = 'img/blueblack.png';
+                        difficultyIconPath = 'img/blueblack.png';
                         break;
                     case 'intermediateadvanced':
-                        trails[n].difficultyIcon = 'img/blueblack.png';
+                        difficultyIconPath = 'img/blueblack.png';
                         break;
                     case 'advanced':
-                        trails[n].difficultyIcon = 'img/black.png';
+                        difficultyIconPath = 'img/black.png';
                         break;
                     case 'expert':
-                        trails[n].difficultyIcon = 'img/doubleblack.png';
+                        difficultyIconPath = 'img/doubleblack.png';
                         break;
                     default:
-                        trails[n].difficultyIcon = 'img/terrain.png';
+                        difficultyIconPath = 'img/terrain.png';
                     }
+                    trails[n].difficultyIconPath = difficultyIconPath;
                     if ('yes' === data.facilities.areas.area[i].trails.trail.groomed) {
                         trails[n].grooming = true;
                     } else {
