@@ -473,7 +473,7 @@ function writeOutBearing(bearing) {
     } else {
         retValue = 'north';
     }
-    return toTitleCase(retValue);
+    return retValue;
 }
 
 /*

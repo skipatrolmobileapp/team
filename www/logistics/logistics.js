@@ -976,7 +976,7 @@ function showDirections($scope, $http, AccessLogService, latitude, longitude) {
                         directions = numberWithCommas(Math.round(meters)) + ' m';
                     }
                 }
-                directions = directions + ' ' + writeOutBearing(bearing);
+                directions = 'Location is ' + directions + ' ' + writeOutBearing(bearing);
                 directionsElement.innerHTML = directions;
                 showVertical($scope, $http, AccessLogService, myLatitude, myLongitude, nickname.elevation);
             },
