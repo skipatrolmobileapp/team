@@ -13,17 +13,10 @@ All rights reserved.
 */
 
 /*
-Global initialization indicator.
+Global initialization indicator and URL to reset test suite.
 */
-var haveInitializedApp = false;
-
-/*
-Go back to the home screen.
-*/
-function h() {
-    console.debug('Go home!');
-    homeNavigator.popPage();
-}
+var haveInitializedApp = false,
+    RESET_TESTING_URL = "https://api.medic52team.com/api/v2/testing/_proc/SetupTestSuite";
 
 /*
 Start the app. Direct the user to register, login, or just show the live home screen.
@@ -147,7 +140,7 @@ module.controller('IntroController', function ($rootScope, $scope, $http, Access
             error(function (data, status, headers, config) {
                 AccessLogService.log('error', 'GetPatrolErr', niceMessage(data, status));
                 waitNoMore();
-            });
+            });        
     };
     $scope.login = function () {
         homeNavigator.resetToPage('home/login.html');
@@ -163,7 +156,16 @@ module.controller('IntroController', function ($rootScope, $scope, $http, Access
 /*
 Ask the user their name.
 */
-module.controller('NameController', function ($scope, AccessLogService) {
+module.controller('NameController', function ($scope, $http, AccessLogService) {
+    var testingRequest = {
+            'method': 'GET',
+            'cache': false,
+            'timeout': 8000,
+            'url': RESET_TESTING_URL,
+            'headers': {
+                'X-DreamFactory-API-Key': DSP_API_KEY
+            }
+        };
     AccessLogService.log('info', 'Name');
     $scope.firstName = localStorage.getItem('OnsFirstName');
     $scope.lastName = localStorage.getItem('OnsLastName');
@@ -172,6 +174,15 @@ module.controller('NameController', function ($scope, AccessLogService) {
         if ((!$scope.firstName) || (!$scope.lastName)) {
             $scope.message = 'Name is required for registration.';
         } else {
+            if ('Test' == $scope.lastName) {
+                $http(testingRequest).
+                    success(function (data, status, headers, config) {
+                        AccessLogService.log('info', 'SetupTestSuite', 'Ready');
+                    }).
+                    error(function (data, status, headers, config) {
+                        AccessLogService.log('error', 'SetupTestSuiteErr', niceMessage(data, status));
+                    });
+            }
             $scope.message = null;
             localStorage.setItem('OnsFirstName', $scope.firstName);
             localStorage.setItem('OnsLastName', $scope.lastName);
@@ -1729,7 +1740,6 @@ module.controller('TravelCamsController', function ($scope, AccessLogService) {
     });
     $scope.liveCams = liveCams;
     $scope.logoAddress = DSP_BASE_URL + '/api/v2' + angular.fromJson(localStorage.getItem('DspPatrol')).travelCamsLogoPath + '?api_key=' + DSP_API_KEY;
-    console.log($scope.logoAddress);
     $scope.patrolName = angular.fromJson(localStorage.getItem('DspPatrol')).patrolName;
     $scope.view = function (index) {
         browse(liveCams[index].address);        
