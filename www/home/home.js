@@ -294,7 +294,7 @@ module.controller('RegistrationController', function ($rootScope, $scope, $http,
                 last_name: patrolPrefix,
                 display_name: name + ' (' + localStorage.getItem('DspPatrolName') + ')'
             },
-            registrationRequest = dspRequest('POST', '/user/register?login=true', body);
+            registrationRequest = dspRequest('POST', '/user/register', body);
         if (!$scope.email) {
             $scope.message = 'Email address is required for registration.';
         } else {
