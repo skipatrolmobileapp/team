@@ -398,21 +398,28 @@ Make a nice and pretty message.
 */
 function niceMessage(data, status) {
     var message = 'Server error';
-    if ((data) && (data.error) && (data.error[0]) && (data.error[0].message)) {
-        message = data.error[0].message;
-    } else if (status) {
-        switch (status) {
-        case 400:
-            message = 'Bad request.';
-            break;
-        case 401:
-            message = 'Login failed.';
-            break;
-        case 404:
-            message = 'Service not found.';
-            break;
-        default:
-            message = 'Status: ' + status;
+    if (data) {
+        if ((data.error) && (data.error) && (data.error.message)) {
+            message = data.error.message;
+        } else if (status) {
+            switch (status) {
+            case 400:
+                message = 'Bad request.';
+                break;
+            case 401:
+                message = 'Login failed.';
+                break;
+            case 404:
+                message = 'Service not found.';
+                break;
+            case 500:
+                message = 'Server is not available Try again later.';
+                break;
+            default:
+                message = 'Status: ' + status;
+            }
+        } else {
+            message = JSON.stringify(data);        
         }
     }
     return message;

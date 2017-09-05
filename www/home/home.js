@@ -294,8 +294,7 @@ module.controller('RegistrationController', function ($rootScope, $scope, $http,
                 last_name: patrolPrefix,
                 display_name: name + ' (' + localStorage.getItem('DspPatrolName') + ')'
             },
-            registrationRequest = dspRequest('POST', '/user/register?login=true', body),
-            sessionRequest = dspRequest('GET', '/user/session', null);
+            registrationRequest = dspRequest('POST', '/user/register?login=true', body);
         if (!$scope.email) {
             $scope.message = 'Email address is required for registration.';
         } else {
@@ -303,20 +302,12 @@ module.controller('RegistrationController', function ($rootScope, $scope, $http,
             $scope.message = 'Registering...';
             $http(registrationRequest).
                 success(function (data, status, headers, config) {
-                    $http(sessionRequest).
-                        success(function (data, status, headers, config) {
-                            AccessLogService.log('info', 'Registration');
-                            localStorage.removeItem('DspAllPatrol');
-                            localStorage.removeItem('OnsFirstName');
-                            localStorage.removeItem('OnsLastName');
-                            homeNavigator.pushPage('home/confirmation.html');
-                            waitNoMore();
-                        }).
-                        error(function (data, status, headers, config) {
-                            AccessLogService.log('error', 'SessionErr', niceMessage(data, status));
-                            $scope.message = niceMessage(data, status);
-                            waitNoMore();
-                        });
+                    AccessLogService.log('info', 'Registration');
+                    localStorage.removeItem('DspAllPatrol');
+                    localStorage.removeItem('OnsFirstName');
+                    localStorage.removeItem('OnsLastName');
+                    homeNavigator.pushPage('home/confirmation.html');
+                    waitNoMore();
                 }).
                 error(function (data, status, headers, config) {
                     AccessLogService.log('warn', 'RegistrationErr', niceMessage(data, status));
