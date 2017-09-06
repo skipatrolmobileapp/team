@@ -1081,10 +1081,11 @@ module.controller('PostsController', function ($rootScope, $scope, $http, Access
                 userId: localStorage.getItem('DspUserId'),
                 postedBy: localStorage.getItem('DspName')
             }]},
-            postPostRequest = dspRequest('POST', '/team/_table/Post', body);
+            postPostRequest;
         if (imageData) {
-            body.imageReference = 'http://res.cloudinary.com/skipatrol/image/upload/' + uniqueFilename + '.jpg';
+            body.resource[0].imageReference = 'http://res.cloudinary.com/skipatrol/image/upload/' + uniqueFilename + '.jpg';
         }
+        postPostRequest = dspRequest('POST', '/team/_table/Post', body);
         havePatience($rootScope);
         $http(postPostRequest).
             success(function (data, status, headers, config) {
@@ -1193,7 +1194,6 @@ module.controller('PostController', function ($rootScope, $scope, $http, AccessL
     $scope.remove = function () {
         var deletePostRequest = dspRequest('DELETE', '/team/_table/Post/' + post.id, null);
         havePatience($rootScope);
-        console.log(JSON.stringify(deletePostRequest));
         $http(deletePostRequest).
             success(function (data, status, headers, config) {
                 waitNoMore();
