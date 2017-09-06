@@ -983,7 +983,8 @@ module.controller('PostsController', function ($rootScope, $scope, $http, Access
         postRequest = dspRequest('GET', '/team/_table/Post?limit=25&order=postedOn%20desc', null),
         posts = angular.fromJson(localStorage.getItem('DspPost')),
         i = 0,
-        element = document.getElementById('photo');
+        element = document.getElementById('photo'),
+        alreadyHasPosts = false;
     AccessLogService.log('info', 'Posts');
     localStorage.removeItem('OnsPhoto');
     element.src = null;
@@ -995,16 +996,21 @@ module.controller('PostsController', function ($rootScope, $scope, $http, Access
         for (i = 0; i < posts.length; i += 1) {
             posts[i].displayDate = moment(posts[i].postedOn).format('ddd, MMM D h:mmA');
             $scope.posts = posts;
+            alreadyHasPosts = true;
         }
     }
+    $scope.poster = !alreadyHasPosts;
+    alreadyHasPosts = false;
     postRequest.cache = false;
     $http(postRequest).
         success(function (data, status, headers, config) {
             posts = data.resource;
             for (i = 0; i < posts.length; i += 1) {
                 posts[i].displayDate = moment(posts[i].postedOn).format('ddd, MMM D h:mmA');
+                alreadyHasPosts = true;
             }
             $scope.posts = posts;
+            $scope.poster = !alreadyHasPosts;
             localStorage.setItem('DspPost', angular.toJson(posts));
         }).
         error(function (data, status, headers, config) {
