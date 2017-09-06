@@ -1069,7 +1069,6 @@ module.controller('PostsController', function ($rootScope, $scope, $http, Access
                 signature: hash
             },
             body = { resource: [{
-                id: null,
                 tenantId: patrolPrefix,
                 postedOn: aMoment.format('YYYY-MM-DD HH:mm:ss') + ' UTC',
                 body: $scope.body,
@@ -1133,7 +1132,6 @@ module.controller('PostsController', function ($rootScope, $scope, $http, Access
             error(function (data, status, headers, config) {
                 AccessLogService.log('error', 'PostPostErr', niceMessage(data, status));
                 $scope.message = niceMessage(data, status);
-                $scope.message = niceMessage(data, status);
                 waitNoMore();
             });
     };
@@ -1189,6 +1187,7 @@ module.controller('PostController', function ($rootScope, $scope, $http, AccessL
     $scope.remove = function () {
         var deletePostRequest = dspRequest('DELETE', '/team/_table/Post/' + post.id, null);
         havePatience($rootScope);
+        console.log(JSON.stringify(deletePostRequest));
         $http(deletePostRequest).
             success(function (data, status, headers, config) {
                 waitNoMore();
