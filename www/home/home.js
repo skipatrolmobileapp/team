@@ -1170,14 +1170,14 @@ module.controller('PostController', function ($rootScope, $scope, $http, AccessL
         $scope.poster = true;
     }
     $scope.update = function () {
-        var body = {
+        var body = { resource:[{
                 id: post.id,
                 tenantId: patrolPrefix,
                 postedOn: post.postedOn,
                 body: $scope.body,
                 userId: post.userId,
                 postedBy: post.postedBy
-            },
+            }]},
             putPostRequest = dspRequest('PUT', '/team/_table/Post', body);
         havePatience($rootScope);
         $http(putPostRequest).
