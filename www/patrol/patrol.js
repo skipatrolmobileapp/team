@@ -455,7 +455,7 @@ module.controller('PatrollerController', function ($scope, $http, AccessLogServi
         sendEmail($scope.additionalEmail, 'Ski%20Patrol');
     };
     $scope.sendSecretaryEmail = function () {
-        sendEmail($scope.secretaryEmail, 'Ski%20Patrol%20Days%20in%20App');
+        sendEmail($scope.secretaryEmail, 'Ski%20Patrol');
     };
     $scope.close = function () {
         patrolNavigator.popPage();
