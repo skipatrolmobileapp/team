@@ -802,6 +802,7 @@ module.controller('EventController', function ($rootScope, $scope, $http, Access
     $scope.update = function () {
         var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
             body = {
+                id: event.id,
                 tenantId: patrolPrefix,
                 start: $scope.startDate + ' 00:00:00 UTC',
                 end: null,
@@ -811,15 +812,20 @@ module.controller('EventController', function ($rootScope, $scope, $http, Access
                 location: $scope.location,
                 address: $scope.address
             },
+            eventResource = {
+                resource: []
+            },
             eventRequest;
         if (!$scope.allDay) {
             body.start = $scope.startDate + ' ' + $scope.startAt + ' UTC';
             body.end = $scope.endDate + ' ' + $scope.endAt + ' UTC';
             body.allDay = 'No';
         }
-        eventRequest = dspRequest('PUT', '/team/_table/Event?ids=' + event.id, body);
+        eventResource.resource.push(body);
+        eventRequest = dspRequest('PUT', '/team/_table/Event', eventResource);
         havePatience($rootScope);
         $scope.message = '';
+        console.log(JSON.stringify(eventResource));
         $http(eventRequest).
             success(function (data, status, headers, config) {
                 waitNoMore();
@@ -832,7 +838,7 @@ module.controller('EventController', function ($rootScope, $scope, $http, Access
             });
     };
     $scope.delete = function () {
-        var eventRequest = dspRequest('DELETE', '/team/_table/Event?ids=' + event.id, null);
+        var eventRequest = dspRequest('DELETE', '/team/_table/Event/' + event.id, null);
         havePatience($rootScope);
         $scope.message = '';
         $http(eventRequest).
@@ -842,7 +848,7 @@ module.controller('EventController', function ($rootScope, $scope, $http, Access
             }).
             error(function (data, status, headers, config) {
                 $scope.message = niceMessage(data, status);
-                AccessLogService.log('error', 'PutEventErr', niceMessage(data, status));
+                AccessLogService.log('error', 'DelEventErr', niceMessage(data, status));
                 waitNoMore();
             });
     };
@@ -923,7 +929,12 @@ module.controller('LeaderController', function ($rootScope, $scope, $http, Acces
         $scope.patrollers = [];
     };
     $scope.update = function () {
-        var eventRequest = dspRequest('PUT', '/team/_table/Event', event);
+        var eventResource = {
+                resource: [
+                    event
+                ]
+            },
+            eventRequest = dspRequest('PUT', '/team/_table/Event', eventResource);
         havePatience($rootScope);
         $scope.message = '';
         $http(eventRequest).
@@ -1360,7 +1371,7 @@ module.controller('NspoLinkController', function ($rootScope, $scope, $timeout, 
         $http(sessionRequest).
             success(function (data, status, headers, config) {
                 id = data.id;
-                deleteUserRequest = dspRequest('DELETE', '/team/_table/NspOnlineUser?ids=' + id, null);
+                deleteUserRequest = dspRequest('DELETE', '/team/_table/NspOnlineUser/' + id, null);
                 $http(deleteUserRequest).
                     success(function (data, status, headers, config) {
                         userBody = { resource: [{
