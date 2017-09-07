@@ -1237,7 +1237,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
     };
     $scope.update = function () {
         var patrolPrefix = localStorage.getItem('DspPatrolPrefix'),
-            body = {
+            body = { resource: [{
                 id: schedule.id,
                 tenantId: patrolPrefix,
                 patrollerId: schedule.patrollerId,
@@ -1248,7 +1248,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
                 equipment: $scope.equipment,
                 comments: $scope.comments,
                 credits: $scope.credits
-            },
+            }]},
             scheduleRequest = dspRequest('PUT', '/team/_table/Schedule', body);
         havePatience($rootScope);
         $scope.message = '';
