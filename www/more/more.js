@@ -146,13 +146,14 @@ module.controller('ProfileController', function ($rootScope, $scope, $http, Acce
             waitNoMore();
         });
     $scope.update = function () {
-        var body = {
+        var body = { resource: [{
                 'email': $scope.email,
                 'first_name': $scope.name,
                 'phone': $scope.phone
-            },
+            }]},
             postProfileRequest = dspRequest('POST', '/user/profile', body),
             patroller = null,
+            patrollerResource = null,
             patrollerRequest = null;
         if ('Basic' === role || 'Power' === role || 'Leader' === role) {
             patroller = angular.fromJson(localStorage.getItem('OnsPatroller'));
@@ -168,7 +169,12 @@ module.controller('ProfileController', function ($rootScope, $scope, $http, Acce
                         patroller.name = $scope.name;
                         patroller.cellPhone = $scope.phone;
                         patroller.tenantId = patrolPrefix;
-                        patrollerRequest = dspRequest('PUT', '/team/_table/Patroller', patroller);
+                        patrollerResource = {
+                            resource: [
+                                patroller
+                            ]
+                        };
+                        patrollerRequest = dspRequest('PUT', '/team/_table/Patroller', patrollerResource);
                         $http(patrollerRequest).
                             success(function (data, status, headers, config) {
                                 localStorage.setItem('DspName', $scope.name);
@@ -181,7 +187,7 @@ module.controller('ProfileController', function ($rootScope, $scope, $http, Acce
                                 waitNoMore();
                             });
                     } else {
-                        patroller = {
+                        patrollerResource = { resource: [{
                             'tenantId': patrolPrefix,
                             'email': $scope.email,
                             'name': $scope.name,
@@ -191,9 +197,9 @@ module.controller('ProfileController', function ($rootScope, $scope, $http, Acce
                             'alternatePhone': '',
                             'scheduleIndicator': '',
                             'additionalEmail': ''
-                        };
+                        }]};
                         if ('Guest' !== role) {
-                            patrollerRequest = dspRequest('POST', '/team/_table/Patroller', patroller);
+                            patrollerRequest = dspRequest('POST', '/team/_table/Patroller', patrollerResource);
                             $http(patrollerRequest).
                                 success(function (data, status, headers, config) {
                                     $scope.message = 'Profile created.';
