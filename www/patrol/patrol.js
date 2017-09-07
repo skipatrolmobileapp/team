@@ -1264,7 +1264,7 @@ module.controller('EditSignInController', function ($rootScope, $scope, $http, A
             });
     };
     $scope.remove = function () {
-        var scheduleRequest = dspRequest('DELETE', '/team/_table/Schedule?ids%3D', schedule.id);
+        var scheduleRequest = dspRequest('DELETE', '/team/_table/Schedule/', schedule.id);
         havePatience($rootScope);
         $scope.message = '';
         $http(scheduleRequest).
