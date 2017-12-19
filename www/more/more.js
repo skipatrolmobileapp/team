@@ -268,6 +268,7 @@ module.controller('PasswordController', function ($rootScope, $scope, $http, Acc
                 success(function (data, status, headers, config) {
                     AccessLogService.log('info', 'ChangePassword');
                     $scope.message = 'Password changed.';
+                    localStorage.setItem('DspPassword', $scope.newPassword);
                     waitNoMore();
                     moreNavigator.popPage();
                 }).
