@@ -48,7 +48,9 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
         if (haveInitializedApp) {
             $rootScope.hideTabs = false;
             if ('Basic' === role || 'Power' === role || 'Leader' === role) {
-                $rootScope.showPersonalTab = true;
+                // Don't show until fully implenented.
+                // $rootScope.showPersonalTab = true;
+                $rootScope.showPersonalTab = false;
             }
             homeNavigator.resetToPage('home/live.html', {animation: 'none'});
         } else {
@@ -74,7 +76,9 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
                             haveInitializedApp = true;
                             $rootScope.hideTabs = false;
                             if ('Basic' === role || 'Power' === role || 'Leader' === role) {
-                                $rootScope.showPersonalTab = true;
+                                // Don't show until fully implemented.
+                                // $rootScope.showPersonalTab = true;
+                                $rootScope.showPersonalTab = false;
                             }
                             homeNavigator.resetToPage('home/live.html', {animation: 'none'});
                             waitNoMore();
@@ -94,7 +98,9 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
                             AccessLogService.log('info', 'PatrolErr', data);
                             $rootScope.hideTabs = false;
                             if ('Basic' === role || 'Power' === role || 'Leader' === role) {
-                                $rootScope.showPersonalTab = true;
+                                // Don't show until fully implemented.
+                                // $rootScope.showPersonalTab = true;
+                                $rootScope.showPersonalTab = false;
                             }
                             homeNavigator.resetToPage('home/live.html', {animation: 'none'});
                             waitNoMore();
@@ -107,7 +113,9 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
                     } else {
                         $rootScope.hideTabs = false;
                         if ('Basic' === role || 'Power' === role || 'Leader' === role) {
-                            $rootScope.showPersonalTab = true;
+                            // Don't show until fully implemented.
+                            // $rootScope.showPersonalTab = true;
+                            $rootScope.showPersonalTab = false;
                         }
                         homeNavigator.resetToPage('home/live.html', {animation: 'none'});
                     }
