@@ -1,0 +1,73 @@
+<ons-page ng-controller="DemographicsController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered prominent">
+                    <ons-icon icon="fa-user" fixed-width="true">
+                    </ons-icon>
+                    {{name}}
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-item ng-show="address">
+                <table><tr><td><ons-icon icon="fa-envelope-o" fixed-width="true">
+                </ons-icon></td><td>
+                {{address}}</td></tr></table>
+            </ons-list-item>
+            <ons-list-item ng-show="cellPhone">
+                <ons-icon icon="fa-phone" fixed-width="true">
+                </ons-icon>
+                {{cellPhone}} (Cell)
+            </ons-list-item>
+            <ons-list-item ng-show="homePhone">
+                <ons-icon icon="fa-phone" fixed-width="true">
+                </ons-icon>
+                {{homePhone}} (Home)
+            </ons-list-item>
+            <ons-list-item ng-show="alternatePhone">
+                <ons-icon icon="fa-phone" fixed-width="true">
+                </ons-icon>
+                {{alternatePhone}} (Alt)
+            </ons-list-item>
+            <ons-list-item ng-show="email">
+                <ons-icon icon="fa-envelope" fixed-width="true">
+                </ons-icon>
+                {{email}}
+            </ons-list-item>
+            <ons-list-item ng-show="additionalEmail">
+                <ons-icon icon="fa-envelope" fixed-width="true">
+                </ons-icon>
+                {{additionalEmail}} (Alt)
+            </ons-list-item>
+            <ons-list-item ng-show="nspId">
+                <ons-icon icon="fa-plus-square" fixed-width="true">
+                </ons-icon>
+                {{nspId}} (NSP ID)
+            </ons-list-item>
+            <ons-list-item ng-show="notes">
+                <table><tr><td><ons-icon icon="fa-thumb-tack" fixed-width="true">
+                </ons-icon></td><td>
+                {{notes}}</td></tr></table>
+            </ons-list-item>
+        </ons-list>
+        <div>&nbsp;</div>
+        <div ng-show="showSecretary">
+            <div class="inset centered copy">
+                Need info corrected? Contact:
+            </div>
+            <div ng-click="sendSecretaryEmail()">
+                <ons-list>
+                    <ons-list-item class="centered navigable" modifier="tappable">
+                        <ons-icon icon="fa-envelope" fixed-width="true">
+                        </ons-icon>
+                        {{secretaryName}}
+                    </ons-list-item>
+                </ons-list>
+            </div>
+        </div>
+    </div>
+</ons-page>

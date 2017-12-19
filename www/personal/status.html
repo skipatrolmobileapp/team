@@ -1,0 +1,48 @@
+<ons-page ng-controller="StatusController" modifier="full_bg">
+    <div class="inset">
+        &nbsp;
+    </div>
+    <div class="inset" ng-swipe-right="close()">
+        <div>
+            <ons-list>
+                <ons-list-item class="centered prominent">
+                    <ons-icon icon="ion-android-star-outline" fixed-width="true">
+                    </ons-icon>
+                    My Status and Benefits
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <ons-list>
+            <ons-list-item ng-show="status">
+                <ons-icon icon="ion-android-star-outline" fixed-width="true">
+                </ons-icon>
+                {{status}}
+            </ons-list-item>
+            <ons-list-item ng-show="passOption">
+                <ons-icon icon="fa-tag" fixed-width="true">
+                </ons-icon>
+                {{passOption}}
+            </ons-list-item>
+            <ons-list-item ng-show="dependents">
+                <table><tr><td><ons-icon icon="fa-users" fixed-width="true">
+                </ons-icon></td><td>
+                {{dependents}}</td></tr></table>
+            </ons-list-item>
+        </ons-list>
+        <div>&nbsp;</div>
+        <div ng-show="showSecretary">
+            <div class="inset centered copy">
+                Need info corrected? Contact:
+            </div>
+            <div ng-click="sendSecretaryEmail()">
+                <ons-list>
+                    <ons-list-item class="centered navigable" modifier="tappable">
+                        <ons-icon icon="fa-envelope" fixed-width="true">
+                        </ons-icon>
+                        {{secretaryName}}
+                    </ons-list-item>
+                </ons-list>
+            </div>
+        </div>
+    </div>
+</ons-page>

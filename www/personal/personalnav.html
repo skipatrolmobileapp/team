@@ -1,0 +1,72 @@
+<ons-navigator var="personalNavigator">
+    <ons-page ng-controller="PersonalController" modifier="full_bg">
+        <div class="inset">
+            <div class="inset">
+                &nbsp;
+            </div>
+            <img width="100%" ng-src="{{adImageAddress}}" ng-show="{{'enableAd'}}" ng-click="adClick()"></a>
+            <ons-list>
+                <ons-list-header ng-show="{{'showDemographics'}}">
+                    My Info
+                </ons-list-header>
+                <ons-list-item  ng-show="{{'showProfile'}}" class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="fa-user" fixed-width="true"></ons-icon> {{name}}
+                </ons-list-item>
+                <ons-list-item ng-show="{{'showPatroller'}}" class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/status.html')">
+                    <ons-icon icon="ion-android-star-outline" fixed-width="true"></ons-icon> {{status}}
+                </ons-list-item>
+                <ons-list-header>
+                    My Training
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="ion-ribbon-b" fixed-width="true"></ons-icon> BLS due 11/15/17
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="ion-ribbon-b" fixed-width="true"></ons-icon> Chair Evac due 11/05/17
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="ion-ribbon-b" fixed-width="true"></ons-icon> OEC due 11/05/17
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="ion-ribbon-b" fixed-width="true"></ons-icon> Toboggan due 12/31/17
+                </ons-list-item>
+                <ons-list-header>
+                    My Documentation
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="fa-file-text-o" fixed-width="true"></ons-icon> WPR Waiver due 11/15/17
+                </ons-list-item>
+                <ons-list-header>
+                    My Dues
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="ion-cash" fixed-width="true"></ons-icon> WPVSP/RMD due 11/15/17
+                </ons-list-item>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="ion-cash" fixed-width="true"></ons-icon> NSP due 11/15/17
+                </ons-list-item>
+                <ons-list-header>
+                    My Resources
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="ion-cube" fixed-width="true"></ons-icon> Locker #57
+                </ons-list-item>
+                <ons-list-header>
+                    My Work History
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="fa-calendar" fixed-width="true"></ons-icon> 2 credit days worked
+                </ons-list-item>
+                <ons-list-header>
+                    My Upcoming Schedule
+                </ons-list-header>
+                <ons-list-item class="navigable" modifier="chevron tappable" onclick="personalNavigator.pushPage('personal/demographics.html')">
+                    <ons-icon icon="fa-calendar-o" fixed-width="true"></ons-icon> 12/01/17 Lunch Rock
+                </ons-list-item>
+            </ons-list>
+        </div>
+        <div class="inset">
+            &nbsp
+        </div>
+    </ons-page>
+</ons-navigator>

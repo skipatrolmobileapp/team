@@ -119,8 +119,10 @@ module.controller('ProfileController', function ($rootScope, $scope, $http, Acce
             $scope.email = data.email;
             $scope.name = data.first_name;
             $scope.phone = data.phone;
+            // TODO: DspName seems unused.
             localStorage.setItem('DspName', data.first_name);
             if ('Basic' === role || 'Power' === role || 'Leader' === role) {
+                // TODO: Confirm use of quotes not in DSP 2.x documentation
                 getPatrollerRequest = dspRequest('GET', '/team/_table/Patroller?filter=email%3D"' + data.email + '"', null);
                 getPatrollerRequest.cache = false;
                 $http(getPatrollerRequest).

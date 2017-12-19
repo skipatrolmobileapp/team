@@ -47,6 +47,9 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
     if (password) {
         if (haveInitializedApp) {
             $rootScope.hideTabs = false;
+            if ('Basic' === role || 'Power' === role || 'Leader' === role) {
+                $rootScope.showPersonalTab = true;
+            }
             homeNavigator.resetToPage('home/live.html', {animation: 'none'});
         } else {
             AccessLogService.log('info', 'Home', 'Load');
@@ -70,6 +73,9 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
                             $scope.loading = '';
                             haveInitializedApp = true;
                             $rootScope.hideTabs = false;
+                            if ('Basic' === role || 'Power' === role || 'Leader' === role) {
+                                $rootScope.showPersonalTab = true;
+                            }
                             homeNavigator.resetToPage('home/live.html', {animation: 'none'});
                             waitNoMore();
                             if (data.resource[0].alert) {
@@ -87,6 +93,9 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
                         error(function (data, status, headers, config) {
                             AccessLogService.log('info', 'PatrolErr', data);
                             $rootScope.hideTabs = false;
+                            if ('Basic' === role || 'Power' === role || 'Leader' === role) {
+                                $rootScope.showPersonalTab = true;
+                            }
                             homeNavigator.resetToPage('home/live.html', {animation: 'none'});
                             waitNoMore();
                         });
@@ -97,6 +106,9 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
                         homeNavigator.resetToPage('home/login.html', {animation: 'none'});
                     } else {
                         $rootScope.hideTabs = false;
+                        if ('Basic' === role || 'Power' === role || 'Leader' === role) {
+                            $rootScope.showPersonalTab = true;
+                        }
                         homeNavigator.resetToPage('home/live.html', {animation: 'none'});
                     }
                     waitNoMore();
@@ -138,6 +150,9 @@ module.controller('IntroController', function ($rootScope, $scope, $http, Access
                 homeNavigator.pushPage('home/name.html');
             }).
             error(function (data, status, headers, config) {
+                console.debug(JSON.stringify(data));
+                console.debug(JSON.stringify(status));
+                console.debug(JSON.stringify(headers));
                 AccessLogService.log('error', 'GetPatrolErr', niceMessage(data, status));
                 waitNoMore();
             });        

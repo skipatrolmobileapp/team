@@ -2084,3 +2084,5 @@ makeSwipeDirective('ngSwipeRight', 1, 'swiperight');
 /*** <End:angular-touch LoadJs:"components/angular-touch/angular-touch.js"> ***/
 /*** <End:angular-touch> ***/
 
+
+
