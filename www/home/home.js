@@ -158,9 +158,6 @@ module.controller('IntroController', function ($rootScope, $scope, $http, Access
                 homeNavigator.pushPage('home/name.html');
             }).
             error(function (data, status, headers, config) {
-                console.debug(JSON.stringify(data));
-                console.debug(JSON.stringify(status));
-                console.debug(JSON.stringify(headers));
                 AccessLogService.log('error', 'GetPatrolErr', niceMessage(data, status));
                 waitNoMore();
             });        
