@@ -37,7 +37,6 @@
   <allow-intent href="*"/>
   <preference name="monaca:targetFamilyiPhone" value="1"/>
   <preference name="monaca:targetFamilyiPad" value="1"/>
-  <preference name="monaca:WebViewEngine" value="default"/>
   <preference name="BackgroundColor" value="0xffffffff"/>
   <preference name="FadeSplashScreenDuration" value="250"/>
   <platform name="ios">
@@ -122,6 +121,18 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="EnableViewportScale" value="false"/>
   <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
+  <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need camera access to take pictures</string>
+  </edit-config>
+  <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need to photo library access to get pictures from there</string>
+  </edit-config>
+  <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need location access to find things nearby</string>
+  </edit-config>
+  <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need to photo library access to save pictures there</string>
+  </edit-config>
   <preference name="WindowsStorePublisherName" value="Ski Patrol Mobile App"/>
   <preference name="WindowsStoreIdentityName" value="Ski Patrol Mobile App"/>
 </widget>
