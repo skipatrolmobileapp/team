@@ -33,6 +33,15 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
             password: password,
             duration: 31104000
         },
+        regBody = {
+            email: email,
+            password: 'Password=' + password,
+            first_name: localStorage.getItem('DspName'),
+            last_name: localStorage.getItem('DspPatrolPrefix'),
+            name: localStorage.getItem('DspName') + ' (' + localStorage.getItem('DspPatrolPrefix') + ')',
+            display_name: localStorage.getItem('DspName') + ' (' + localStorage.getItem('DspPatrolPrefix') + ')'
+        },
+        registrationRequest = dspRequest('POST', '/user/register?login=true', regBody),
         sessionRequest = dspRequest('POST', '/user/session', body),
         patrolRequest = dspRequest('GET', '/team/_table/PatrolOrg?filter=tenantId="' + patrolPrefix + '"', null);
     $http(adRequest).
@@ -54,48 +63,76 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
             }
             homeNavigator.resetToPage('home/live.html', {animation: 'none'});
         } else {
-            AccessLogService.log('info', 'Home', 'Load');
-            havePatience($rootScope);
-            $scope.loading = '';
-            $http(sessionRequest).
-                success(function (data, status, headers, config) {
-                    $scope.loading = '';
-                    localStorage.setItem('DspUserId', data.id);
-                    localStorage.setItem('DspEmail', body.email);
-                    localStorage.setItem('DspPassword', body.password);
-                    localStorage.setItem('DspRole', data.role);
-                    localStorage.setItem('DspName', data.first_name);
-                    localStorage.setItem('DspPatrolPrefix', data.last_name);
-                    AccessLogService.log('info', 'Session', data.first_name);
-                    $http(patrolRequest).
-                        success(function (data, status, headers, config) {
-                            var alertRoles,
-                                i;
-                            localStorage.setItem('DspPatrol', angular.toJson(data.resource[0]));
-                            $scope.loading = '';
-                            haveInitializedApp = true;
-                            $rootScope.hideTabs = false;
-                            if ('Basic' === role || 'Power' === role || 'Leader' === role) {
-                                // Don't show until fully implemented.
-                                // $rootScope.showPersonalTab = true;
-                                $rootScope.showPersonalTab = false;
-                            }
-                            homeNavigator.resetToPage('home/live.html', {animation: 'none'});
-                            waitNoMore();
-                            if (data.resource[0].alert) {
-                                alertRoles = data.resource[0].alertRolesCsv.split(',');
-                                for (i = 0; i < alertRoles.length; i += 1) {
-                                    if ((alertRoles[i] === role) && (data.resource[0].alert)) {
-                                        ons.notification.alert({
-                                            "title": "Notice",
-                                            "message": data.resource[0].alert
-                                        });
+            if (introDone && moment(introDone).format('YYYY') < 2018) {
+                AccessLogService.log('info', 'Home', 'Upgrade');
+                registrationRequest.headers.Authorization = null;
+                console.debug('JSON: ' + JSON.stringify(registrationRequest));
+                console.debug('JSON: ' + JSON.stringify(regBody));
+                $http(registrationRequest).
+                    success(function (data, status, headers, config) {
+                        console.debug('SUCCESS!');
+                    }).
+                    error(function (data, status, headers, config) {
+                        console.debug("FAIL: " + JSON.stringify(data));
+                    });
+            } else {
+                AccessLogService.log('info', 'Home', 'Load');
+                havePatience($rootScope);
+                $scope.loading = '';
+                $http(sessionRequest).
+                    success(function (data, status, headers, config) {
+                        $scope.loading = '';
+                        localStorage.setItem('DspUserId', data.id);
+                        localStorage.setItem('DspEmail', body.email);
+                        localStorage.setItem('DspPassword', body.password);
+                        localStorage.setItem('DspRole', data.role);
+                        localStorage.setItem('DspName', data.first_name);
+                        localStorage.setItem('DspPatrolPrefix', data.last_name);
+                        AccessLogService.log('info', 'Session', data.first_name);
+                        $http(patrolRequest).
+                            success(function (data, status, headers, config) {
+                                var alertRoles,
+                                    i;
+                                localStorage.setItem('DspPatrol', angular.toJson(data.resource[0]));
+                                $scope.loading = '';
+                                haveInitializedApp = true;
+                                $rootScope.hideTabs = false;
+                                if ('Basic' === role || 'Power' === role || 'Leader' === role) {
+                                    // Don't show until fully implemented.
+                                    // $rootScope.showPersonalTab = true;
+                                    $rootScope.showPersonalTab = false;
+                                }
+                                homeNavigator.resetToPage('home/live.html', {animation: 'none'});
+                                waitNoMore();
+                                if (data.resource[0].alert) {
+                                    alertRoles = data.resource[0].alertRolesCsv.split(',');
+                                    for (i = 0; i < alertRoles.length; i += 1) {
+                                        if ((alertRoles[i] === role) && (data.resource[0].alert)) {
+                                            ons.notification.alert({
+                                                "title": "Notice",
+                                                "message": data.resource[0].alert
+                                            });
+                                        }
                                     }
                                 }
-                            }
-                        }).
-                        error(function (data, status, headers, config) {
-                            AccessLogService.log('info', 'PatrolErr', data);
+                            }).
+                            error(function (data, status, headers, config) {
+                                AccessLogService.log('info', 'PatrolErr', data);
+                                $rootScope.hideTabs = false;
+                                if ('Basic' === role || 'Power' === role || 'Leader' === role) {
+                                    // Don't show until fully implemented.
+                                    // $rootScope.showPersonalTab = true;
+                                    $rootScope.showPersonalTab = false;
+                                }
+                                homeNavigator.resetToPage('home/live.html', {animation: 'none'});
+                                waitNoMore();
+                            });
+                    }).
+                    error(function (data, status, headers, config) {
+                        AccessLogService.log('info', 'SessionErr', data);
+                        if ((data) && (data.error) && (data.error[0]) && ('Invalid user name and password combination.' === data.error[0].message)) {
+                            homeNavigator.resetToPage('home/login.html', {animation: 'none'});
+                        } else {
                             $rootScope.hideTabs = false;
                             if ('Basic' === role || 'Power' === role || 'Leader' === role) {
                                 // Don't show until fully implemented.
@@ -103,24 +140,10 @@ module.controller('HomeController', function ($rootScope, $scope, $http, AccessL
                                 $rootScope.showPersonalTab = false;
                             }
                             homeNavigator.resetToPage('home/live.html', {animation: 'none'});
-                            waitNoMore();
-                        });
-                }).
-                error(function (data, status, headers, config) {
-                    AccessLogService.log('info', 'SessionErr', data);
-                    if ((data) && (data.error) && (data.error[0]) && ('Invalid user name and password combination.' === data.error[0].message)) {
-                        homeNavigator.resetToPage('home/login.html', {animation: 'none'});
-                    } else {
-                        $rootScope.hideTabs = false;
-                        if ('Basic' === role || 'Power' === role || 'Leader' === role) {
-                            // Don't show until fully implemented.
-                            // $rootScope.showPersonalTab = true;
-                            $rootScope.showPersonalTab = false;
                         }
-                        homeNavigator.resetToPage('home/live.html', {animation: 'none'});
-                    }
-                    waitNoMore();
-                });
+                        waitNoMore();
+                    });
+            }
         }
     } else {
         if (introDone) {
