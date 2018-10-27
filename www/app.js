@@ -40,7 +40,7 @@ Mind the gap, that is the PhoneGap. Or Cordova if you'd prefer.
 */
 function onDeviceReady() {
     IN_CORDOVA = true;
-    StatusBar.hide();
+    // StatusBar.hide();
 }
 
 /*
