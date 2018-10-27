@@ -1,5 +1,5 @@
 {
-    "name": "Medic52 Team",
+    "name": "monaca-project",
     "cordova": {
         "plugins": {
             "monaca-plugin-monaca-core": {},
@@ -29,5 +29,13 @@
         "cordova-plugin-geolocation": "4.0.1",
         "cordova-plugin-device": "2.0.1",
         "cordova-plugin-statusbar": "2.4.1"
+    },
+    "scripts": {
+        "monaca:preview": "npm run dev",
+        "dev": "browser-sync start -s www/ --watch --port 8080 --ui-port 8081"
+    },
+    "devDependencies": {
+        "browser-sync": "^2.24.5",
+        "cordova": "^7.1.0"
     }
 }

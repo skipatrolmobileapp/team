@@ -16,7 +16,7 @@ All rights reserved.
 Some globals. Not too many though.
 */
 var IN_CORDOVA = false, // Indicator if in Cordova. Assume not.
-    DSP_HOST = 'api.medic52team.com', // Host name of the DreamFactory Service Platform (DSP) instance.
+    DSP_HOST = 'skipatrol.app', // Host name of the DreamFactory Service Platform (DSP) instance.
     DSP_PORT = '443', // Port of the DreamFactory Service Platform (DSP) instance.
     DSP_BASE_URL = 'https://' + DSP_HOST + ':' + DSP_PORT, // Base URL of the DreamFactory Service Platform (DSP) instance.
     DSP_API_KEY = '510cb035f3ac4548fb4e75c94f40d616a67c8288faea9cd383ee219b413afdb0', // DSP 2.x app identifier.
