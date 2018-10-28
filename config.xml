@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.medic52.android.team" versionCode="10" version="3.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.skipatrolmobileapp.m" versionCode="10" version="3.0.0">
   <name>Ski Patrol</name>
   <description>Mobile App for Ski Patrollers</description>
   <author href="http://www.skipatrolmobileapp.com" email="skipatrolmobileapp@gmail.com">Gary Meyer</author>
@@ -40,6 +40,9 @@
   <preference name="BackgroundColor" value="0xffffffff"/>
   <preference name="FadeSplashScreenDuration" value="250"/>
   <platform name="ios">
+    <access origin="*"/>
+    <allow-intent href="*"/>
+    <allow-navigation href="*"/>
     <icon src="/res/ios/icon/icon.png" width="57" height="57"/>
     <icon src="/res/ios/icon/icon@2x.png" width="114" height="114"/>
     <icon src="/res/ios/icon/icon-72.png" width="72" height="72"/>
@@ -53,10 +56,11 @@
     <icon src="/res/ios/icon/icon-40@2x.png" width="80" height="80"/>
     <icon src="/res/ios/icon/icon-50.png" width="50" height="50"/>
     <icon src="/res/ios/icon/icon-50@2x.png" width="100" height="100"/>
-    <icon src="/res/ios/icon/icon-small.png" width="29" height="29"/>
-    <icon src="/res/ios/icon/icon-small@2x.png" width="58" height="58"/>
     <icon src="/res/ios/icon/icon-small@3x.png" width="87" height="87"/>
+    <icon src="/res/ios/icon/icon-small@2x.png" width="58" height="58"/>
+    <icon src="/res/ios/icon/icon-small.png" width="29" height="29"/>
     <icon src="/res/ios/icon/icon-83.5@2x~ipad.png" width="167" height="167"/>
+    <icon src="/res/ios/icon/icon-1024.png" width="1024" height="1024"/>
     <splash src="/res/ios/screen/Default~iphone.png" width="320" height="480"/>
     <splash src="/res/ios/screen/Default@2x~iphone.png" width="640" height="960"/>
     <splash src="/res/ios/screen/Default-568h@2x~iphone.png" width="640" height="1136"/>
@@ -64,14 +68,14 @@
     <splash src="/res/ios/screen/Default-736h.png" width="1242" height="2208"/>
     <splash src="/res/ios/screen/Default-Landscape-736h.png" width="2208" height="1242"/>
     <splash src="/res/ios/screen/Default-Portrait~ipad.png" width="768" height="1024"/>
-    <splash src="/res/ios/screen/Default-Landscape~ipad.png" width="1024" height="768"/>
     <splash src="/res/ios/screen/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
+    <splash src="/res/ios/screen/Default-Landscape~ipad.png" width="1024" height="768"/>
     <splash src="/res/ios/screen/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
+  </platform>
+  <platform name="android">
     <access origin="*"/>
     <allow-intent href="*"/>
     <allow-navigation href="*"/>
-  </platform>
-  <platform name="android">
     <icon src="/res/android/icon/ldpi.png" density="ldpi"/>
     <icon src="/res/android/icon/mdpi.png" density="mdpi"/>
     <icon src="/res/android/icon/hdpi.png" density="hdpi"/>
@@ -84,9 +88,6 @@
     <splash src="/res/android/screen/splash-port-xhdpi.png" density="port-xhdpi"/>
     <splash src="/res/android/screen/splash-port-xxhdpi.png" density="port-xxhdpi"/>
     <splash src="/res/android/screen/splash-port-xxxhdpi.png" density="port-xxxhdpi"/>
-    <access origin="*"/>
-    <allow-intent href="*"/>
-    <allow-navigation href="*"/>
   </platform>
   <platform name="windows">
     <icon src="/res/winrt/icon/package_logo_winrt.png" target="StoreLogo"/>
@@ -107,19 +108,7 @@
   <preference name="monaca:MonacaBackendUrl" value="https://cloud.monaca.mobi/json-rpc/"/>
   <preference name="monaca:MonacaBackendId" value="56407020fd17342909b01a4d"/>
   <preference name="monaca:MonacaBackendApiKey" value="4aa2daa49c23074f826197010bb79b1e752379330a826f738c7b2fc8a2439465"/>
-  <preference name="KeepRunning" value="true"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
-  <preference name="Orientation" value="portrait"/>
-  <preference name="SplashScreenDelay" value="2000"/>
-  <preference name="Fullscreen" value="true"/>
   <preference name="StatusBarOverlaysWebView" value="false"/>
-  <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
-  <preference name="AutoHideSplashScreen" value="true"/>
-  <preference name="FadeSplashScreen" value="true"/>
-  <preference name="ShowSplashScreenSpinner" value="false"/>
-  <access origin="*"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="EnableViewportScale" value="false"/>
   <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
     <string>need camera access to take pictures</string>
   </edit-config>
@@ -132,6 +121,18 @@
   <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
     <string>need to photo library access to save pictures there</string>
   </edit-config>
+  <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
+  <preference name="AutoHideSplashScreen" value="true"/>
+  <preference name="FadeSplashScreen" value="true"/>
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <preference name="EnableViewportScale" value="false"/>
+  <access origin="*"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="Orientation" value="default"/>
+  <preference name="SplashScreenDelay" value="2000"/>
+  <preference name="Fullscreen" value="true"/>
   <preference name="WindowsStoreIdentityName" value="b7490f99-d289-ef0a-cc56-3cdaea0251ba"/>
   <preference name="WindowsStorePublisherName" value="Ski Patrol Mobile App"/>
   <preference name="WindowsStoreIdentityName" value="Ski Patrol Mobile App"/>
